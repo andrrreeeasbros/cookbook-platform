@@ -2,28 +2,13 @@ from django.db import models
 from datetime import timedelta
 
 # идеи для реализации полей и моделей
-#  модели для оставления пользователем комментария  
+# модели для оставления пользователем комментария  
 # поле рейтинга 
 # поле кбжу ккал
 # поле вегетерианское ли блюдо или мясное и тд
 
 class Post_recipe(models.Model):
     
-    UNIT_OF_MEASUREMENT = (
-    ('Grams', 'г'),           # Граммы
-    ('Milliliters', 'мл'),    # Миллилитры
-    ('Pieces', 'шт'),         # Штуки
-    ('Teaspoons', 'ч.л.'),    # Чайные ложки
-    ('Tablespoons', 'ст.л.'),  # Столовые ложки
-    ('Cups', 'чашки'),        # Чашки
-    ('Ounces', 'унц.'),       # Унции
-    ('Pounds', 'фунты'),      # Фунты
-    ('Slices', 'ломтики'),    # Ломтики
-    ('Sprigs', 'веточки'),    # Веточки
-    ('Bunches', 'пучки'),     # Пучки
-    ('Pinches', 'щепотки'),   # Щепотки
-    ('Stalks', 'стебли'),      # Стебли
-    )
 
     DISH_LVL = (
         ('very_simple', 'Очень просто'),
@@ -47,11 +32,6 @@ class Post_recipe(models.Model):
         blank=False,
         help_text='Пожалуйста вводите каждый новый ингридиент с новой строки. Индексы проставяться сами')
     
-    unit = models.CharField(
-        verbose_name='Единицы измерения',
-        max_length=15, 
-        choices=UNIT_OF_MEASUREMENT,
-        blank=False)
     
     level = models.CharField(
         verbose_name='Уровень сложности',
