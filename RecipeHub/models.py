@@ -2,14 +2,18 @@ from django.db import models
 from datetime import timedelta
 
 # идеи для реализации полей и моделей
-# модели для оставления пользователем комментария  
+#  модели для оставления пользователем комментария  
 # поле рейтинга 
 # поле кбжу ккал
 # поле вегетерианское ли блюдо или мясное и тд
 
-class Post_recipe(models.Model):
-    
 
+class RecipeManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()\
+            .filter(is_vegetarian=True)
+
+class Post_recipe(models.Model):
     DISH_LVL = (
         ('very_simple', 'Очень просто'),
         ('simple', 'Просто'),
@@ -26,29 +30,38 @@ class Post_recipe(models.Model):
         unique=True,
         blank=False)
     
-    ingredients_list = models.TextField(
-        verbose_name='Ингридиенты данного рецепта',
-        max_length=300,
-        blank=False,
-        help_text='Пожалуйста вводите каждый новый ингридиент с новой строки. Индексы проставяться сами')
+
+    is_vegetarian = models.BooleanField(
+        verbose_name='Вегетарианское ли блюдо?',
+        default=False)
     
-    
+
     level = models.CharField(
         verbose_name='Уровень сложности',
         choices=DISH_LVL,
         max_length=20, 
         blank=False)
     
+
+    ingredients_list = models.TextField(
+        verbose_name='Ингридиенты данного рецепта',
+        max_length=300,
+        blank=False,
+        help_text='Пожалуйста вводите каждый новый ингридиент с новой строки. Индексы проставяться сами')
+
+    
     steps = models.TextField(
         verbose_name='Шаги приготовления', 
         blank=False,
         help_text='Пожалуйста вводите каждый новый шаг с новой строки. Индексы проставяться сами')
     
+
     cooking_time = models.DurationField(
         verbose_name='Время приготовления блюда', 
         default=timedelta(minutes=30),
         help_text='Напишите примерное время приготовления данного блюда. По дефолту:30 min')
     
+
     dish_photo = models.ImageField(
         verbose_name='Фото блюда', 
         upload_to='dish_photos/', 
@@ -56,6 +69,7 @@ class Post_recipe(models.Model):
         null=True,
         help_text='Загрузите фото данного блюда.') # нужно к нему добавить валидаторы для конвертации картинки  
     
+
     created_at = models.DateTimeField(
         auto_now_add=True, 
         verbose_name='Дата создания')
@@ -88,7 +102,10 @@ class Post_recipe(models.Model):
 
     def formatted_steps(self):
         return self.steps
-
+    
+    objects = models.Manager() # менеджер, применяемый по умолчанию
+    recipe_manager = RecipeManager() # конкретно-прикладной менеджер
+    
     def __str__(self):
         return str(self.name)
 
