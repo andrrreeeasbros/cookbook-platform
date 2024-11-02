@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="Описание вашего сайта">
+  <meta name="keywords" content="ключевые, слова, вашего, сайта">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <style>
+    body.index-page {
+      background-image: url("{% static 'img/1.jpg' %}");
+      background-color: rgba(0, 0, 0, 0.5);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      font-family: var(--default-font);
+    }
+
+    .btn-outline-secondary {
+      color: #fff; 
+      background-color: var(--accent-color); 
+      border-color: var(--accent-color); 
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: rgba(0, 0, 139, 0.75); 
+      border-color: rgba(0, 0, 139, 0.75); 
+    }
+
+    .sitename {
+      color: #1E90FF; /* Темно-синий цвет для названия сайта */
+    }
+
+    .categories-title {
+      color: #1E90FF; /* Темно-синий цвет для заголовка категорий */
+    }
+  </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container d-flex flex-column align-items-center">
+      <a href="index.html" class="logo">
+        <h1 class="sitename">Платформа обмена рецептами</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul class="d-flex flex-wrap justify-content-center">
+          <li class="mx-3"><a href="#home" class="active">Главная</a></li>
+          <li class="mx-3"><a href="#recipes">Рецепты</a></li>
+          <li class="mx-3"><a href="#categories">Категории</a></li>
+          <li class="mx-3"><a href="#popular">Популярные рецепты</a></li>
+          <li class="mx-3"><a href="#about">О нас</a></li>
+          <li class="mx-3"><a href="#blog">Блог</a></li>
+          <li class="mx-3"><a href="#community">Сообщество</a></li>
+          <li class="mx-3"><a href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-primary" href="#add-recipe">Добавить рецепт</a>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="categories" class="categories">
+      <div class="container">
+        <h2 class="categories-title">Категории рецептов</h2>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 category-item">
+            <div class="category-card">
+              <h3>Вегетарианские</h3>
+              <p>Сборник лучших вегетарианских рецептов.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 category-item">
+            <div class="category-card">
+              <h3>Десерты</h3>
+              <p>Сладкие угощения для всех любителей десертов.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 category-item">
+            <div class="category-card">
+              <h3>Быстрая еда</h3>
+              <p>Рецепты для тех людей, кто очень спешит.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
