@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="recipe-detail container mt-5">
+    <h1>{{ recipe.name }}</h1>
+    {% if recipe.dish_photo %}
+        <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}" class="img-fluid">
+    {% endif %}
+    <h3>Ингредиенты</h3>
+    <pre>{{ recipe.formatted_ingredients }}</pre>
+    <h3>Шаги приготовления</h3>
+    <pre>{{ recipe.formatted_steps }}</pre>
+    <p><strong>Время приготовления:</strong> {{ recipe.cooking_time }}</p>
+    <p><strong>Рейтинг:</strong> {{ recipe.rating }}</p>
+</div>
+{% endblock %}

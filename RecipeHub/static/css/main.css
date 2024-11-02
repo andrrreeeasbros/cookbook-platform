@@ -7,6 +7,27 @@
   --background-color: rgba(0, 0, 0, 0.8);
 }
 
+
+.btn-outline-secondary {
+  color: #fff; 
+  background-color: var(--accent-color); 
+  border-color: var(--accent-color); 
+}
+
+.btn-outline-secondary:hover {
+  background-color: rgba(0, 0, 139, 0.75); 
+  border-color: rgba(0, 0, 139, 0.75); 
+}
+
+.sitename {
+  color: #1E90FF; 
+}
+
+.categories-title {
+  color: #1E90FF; 
+}
+
+
 body.index-page {
   background-image: url("{% static 'img/1.jpg' %}");
   background-color: rgba(0, 0, 0, 0.5);
@@ -117,3 +138,4 @@ a:hover {
 .categories h2 {
   color: #0056b3;
 }
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="Описание вашего сайта">
+  <meta name="keywords" content="ключевые, слова, вашего, сайта">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <style>
+    body.index-page {
+      background-image: url("{% static 'img/1.jpg' %}");
+      background-color: rgba(0, 0, 0, 0.5);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      font-family: var(--default-font);
+    }
+
+    .categories-title {
+      color: #ffffff !important; 
+      margin-bottom: 20px;
+      font-size: 2.5rem; 
+      font-weight: bold; 
+    }
+
+    .btn-outline-secondary {
+      color: #fff; 
+      background-color: var(--accent-color); 
+      border-color: var(--accent-color); 
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: rgba(0, 0, 139, 0.75); 
+      border-color: rgba(0, 0, 139, 0.75); 
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+
+<body class="index-page">
+  <button class="btn btn-outline-secondary back-button" onclick="window.history.back();">Вернуться назад</button>
+  
+  <main class="main">
+    <section id="categories" class="categories">
+      <div class="container">
+        <h2 class="categories-title text-center">Категории рецептов</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 category-item text-center">
+            <div class="category-card">
+              <h3>Вегетарианские</h3>
+              <p>Сборник лучших вегетарианских рецептов.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 category-item text-center">
+            <div class="category-card">
+              <h3>Десерты</h3>
+              <p>Сладкие угощения для всех любителей десертов.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 category-item text-center">
+            <div class="category-card">
+              <h3>Быстрая еда</h3>
+              <p>Рецепты для тех людей, кто очень спешит.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

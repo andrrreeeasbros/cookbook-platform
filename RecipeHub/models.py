@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import timedelta
+from django.urls import reverse
 
 # идеи для реализации полей и моделей
 #  модели для оставления пользователем комментария  
@@ -12,6 +13,8 @@ class RecipeManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()\
             .filter(is_vegetarian=True)
+    
+
 
 class Post_recipe(models.Model):
     DISH_LVL = (
@@ -108,6 +111,9 @@ class Post_recipe(models.Model):
     
     def __str__(self):
         return str(self.name)
+    
+    def get_absolute_url(self):
+        return reverse('RecipeHub:recipe_detail', args=[self.name])
 
     class Meta:
         ordering = ["-created_at"]

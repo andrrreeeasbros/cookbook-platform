@@ -13,3 +13,6 @@ def recipe_list(request):
 def recipe_details(request, name):
     recipe = get_object_or_404(Post_recipe.recipe_manager, name=name)
     return render(request, 'recipes/recipe_detail.html', {'recipe':recipe})
+
+def categories(request):
+    return render(request, 'menu/categories.html')
