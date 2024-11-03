@@ -7,16 +7,16 @@
   --background-color: rgba(0, 0, 0, 0.8);
 }
 
-
 .btn-outline-secondary {
   color: #fff; 
-  background-color: var(--accent-color); 
-  border-color: var(--accent-color); 
+  background-color: black; /* Черный фон */
+  border: 2px solid black; /* Черная граница */
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .btn-outline-secondary:hover {
-  background-color: rgba(0, 0, 139, 0.75); 
-  border-color: rgba(0, 0, 139, 0.75); 
+  background-color: var(--accent-color);
+  border-color: var(--accent-color); 
 }
 
 .sitename {
@@ -26,7 +26,6 @@
 .categories-title {
   color: #1E90FF; 
 }
-
 
 body.index-page {
   background-image: url("{% static 'img/1.jpg' %}");
@@ -50,24 +49,8 @@ a:hover {
   text-decoration: underline;
 }
 
-.sitename {
-  color: #007bff;
-}
-
 .header {
   padding: 20px 0;
-}
-
-.btn-outline-secondary {
-  color: #fff; 
-  background-color: #000; 
-  border: 2px solid #000; 
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.btn-outline-secondary:hover {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color); 
 }
 
 .category-card {
@@ -138,4 +121,3 @@ a:hover {
 .categories h2 {
   color: #0056b3;
 }
-

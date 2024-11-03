@@ -22,9 +22,30 @@
 
     .sitename {
       color: #ffffff !important; 
-    
+    }
+
     .categories-title {
       color: #ffffff !important;
+    }
+
+    .navmenu a {
+      color: white;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+      background-color: black;
+    }
+
+    .navmenu li {
+      margin: 5px;
+      border-radius: 5px;
+    }
+
+    .navmenu a:hover {
+      background-color: #ff69b4;
+      color: white;
+      text-decoration: none;
     }
   </style>
 </head>
@@ -32,18 +53,18 @@
 <body class="index-page">
 <header id="header" class="header d-flex align-items-center sticky-top">
   <div class="container d-flex flex-column align-items-center">
-    <a href="index.html" class="logo">
+    <a href="" class="logo">
       <h1 class="sitename">Платформа обмена рецептами</h1>
     </a>
     <nav id="navmenu" class="navmenu">
       <ul class="d-flex flex-wrap justify-content-center">
-        <li class="mx-3"><a href="#home" class="active">Главная</a></li>
-        <li class="mx-3"><a href="#recipes">Рецепты</a></li>
-        <li class="mx-3"><a href="#popular">Популярные рецепты</a></li>
+        <li class="mx-3"><a href="{% url 'RecipeHub:recipe_list' %}" class="active">Главная</a></li>
+        <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
+        <li class="mx-3"><a href="{% url 'RecipeHub:popular_recipes' %}">Популярные рецепты</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
-        <li class="mx-3"><a href="#about">О нас</a></li>
-        <li class="mx-3"><a href="#community">Отзывы</a></li>
-        <li class="mx-3"><a href="#contact">Контакты</a></li>
+        <li class="mx-3"><a href="{% url 'RecipeHub:about_us' %}">О нас</a></li>
+        <li class="mx-3"><a href="{% url 'RecipeHub:reviews' %}">Отзывы</a></li>
+        <li class="mx-3"><a href="{% url 'RecipeHub:contacts' %}">Контакты</a></li>
       </ul>
     </nav>
     <a class="btn btn-primary" href="#add-recipe">Добавить рецепт</a>
