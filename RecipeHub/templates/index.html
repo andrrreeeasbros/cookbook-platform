@@ -47,6 +47,17 @@
       color: white;
       text-decoration: none;
     }
+
+    .image-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .image-container img {
+      max-width: 100%; /* Ограничиваем ширину изображения */
+      height: auto; /* Сохраняем пропорции */
+      max-height: 400px; /* Уменьшаем максимальную высоту до 400px */
+    }
   </style>
 </head>
 
@@ -58,16 +69,17 @@
     </a>
     <nav id="navmenu" class="navmenu">
       <ul class="d-flex flex-wrap justify-content-center">
-        <li class="mx-3"><a href="{% url 'RecipeHub:recipe_list' %}" class="active">Главная</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:popular_recipes' %}">Популярные рецепты</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
+        <li class="mx-3"><a href="{% url 'RecipeHub:popular_recipes' %}">Популярные рецепты</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:about_us' %}">О нас</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:reviews' %}">Отзывы</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:contacts' %}">Контакты</a></li>
       </ul>
     </nav>
-    <a class="btn btn-primary" href="#add-recipe">Добавить рецепт</a>
+    <div class="image-container">
+      <img src="{% static 'img/SHEF.jpg' %}" alt="SHEF.озп"> <!-- Изображение SHEF.jpg -->
+    </div>
   </div>
 </header>
 
@@ -75,8 +87,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-{% block content %}
-{% endblock %}
 </body>
 
 </html>

@@ -1,5 +1,10 @@
 from django.contrib import admin
+from RecipeHub.models import Post_recipe, Reviews
 
-from RecipeHub.models import Post_recipe
+@admin.register(Post_recipe)
+class PostRecipeAdmin(admin.ModelAdmin):
+    pass
 
-admin.site.register(Post_recipe)
+@admin.register(Reviews)
+class ReviewsAdmin(admin.ModelAdmin):
+    pass

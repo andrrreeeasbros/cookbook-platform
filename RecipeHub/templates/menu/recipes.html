@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="Описание вашего сайта">
+  <meta name="keywords" content="ключевые, слова, вашего, сайта">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <style>
+    body.index-page {
+      background-image: url("{% static 'img/1.jpg' %}");
+      background-color: rgba(0, 0, 0, 0.5);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      font-family: var(--default-font);
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; 
+      height: 100%;
+      color: white;
+      padding-top: 20px; 
+    }
+
+    .title {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: white; 
+    }
+
+    .btn-add-recipe {
+      background-color: #00BFFF; 
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none; 
+      margin-bottom: 20px; 
+    }
+
+    .btn-add-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: red; 
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: darkred; 
+    }
+
+    .title{
+      color: white !important
+    }
+  </style>
+</head>
+
+<body class="index-page">
+  <button class="back-button" onclick="window.history.back();">Вернуться назад</button>
+  
+  <main class="main">
+    <a href="" class="logo">
+      <h1 class="title">Рецепты</h1>
+    </a>
+    <a class="btn btn-add-recipe" href="">Добавить рецепт</a>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
