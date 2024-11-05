@@ -3,62 +3,68 @@
 <html lang="ru">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
   <style>
+    /* Фоновое изображение на странице */
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
-      background-color: rgba(0, 0, 0, 0.5);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
+      background-size: cover;               /* Фон заполняет весь экран, сохраняя пропорции */
+      background-position: center;          /* Центрируем изображение */
+      background-repeat: no-repeat;         /* Не повторять изображение */
+      background-attachment: fixed;         /* Фон фиксирован при прокрутке */
+      height: 100vh;                        /* Занимает всю высоту экрана */
       font-family: var(--default-font);
     }
 
+    /* Основной контейнер */
     .main {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start; 
+      justify-content: flex-start;
       height: 100%;
       color: white;
-      padding-top: 20px; 
+      padding-top: 20px;
     }
 
+    /* Заголовок на главной */
     .title {
       font-size: 3rem;
       margin-bottom: 20px;
       text-align: center;
-      color: white; 
+      color: white;
     }
 
+    /* Кнопка добавления рецепта */
     .btn-add-recipe {
-      background-color: #00BFFF; 
+      background-color: #00BFFF;
       color: white;
       font-size: 1.5rem;
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      text-decoration: none; 
-      margin-bottom: 20px; 
+      text-decoration: none;
+      margin-bottom: 20px;
     }
 
     .btn-add-recipe:hover {
       background-color: rgba(0, 191, 255, 0.8);
     }
 
+    /* Стиль кнопки возврата */
     .back-button {
       position: absolute;
       top: 20px;
       left: 20px;
       z-index: 1000;
-      background-color: red; 
+      background-color: red;
       color: white;
       border: none;
       padding: 10px 15px;
@@ -67,11 +73,59 @@
     }
 
     .back-button:hover {
-      background-color: darkred; 
+      background-color: darkred;
     }
 
-    .title{
-      color: white !important
+    /* Оформление каждого рецепта */
+    .recipe {
+      background-color: #fff;  /* Белый фон для каждого рецепта */
+      border: 2px solid #ddd;  /* Светло-серая рамка */
+      padding: 20px;
+      margin-bottom: 20px;  /* Отступ между рецептами */
+      width: 100%; /* Сделать ширину рецепта на всю доступную ширину */
+      max-width: 800px; /* Ограничить максимальную ширину */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для эффекта */
+    }
+
+    /* Заголовки рецепта */
+    .recipe h1 {
+      font-size: 1.8em;
+      color: #333;
+    }
+
+    /* Стили для списка ингредиентов и шагов приготовления */
+    .recipe ul, .recipe ol {
+      padding-left: 20px;
+    }
+
+    .recipe ul li, .recipe ol li {
+      font-size: 1em;
+      color: #333;
+    }
+
+    /* Адаптивное изображение блюда */
+    .recipe-photo img {
+      width: 100%; /* Адаптивное изображение по ширине */
+      height: auto; /* Высота автоматически подстраивается */
+      border-radius: 5px;  /* Скругленные углы */
+      object-fit: cover; /* Заполняет контейнер, сохраняя пропорции */
+    }
+
+    /* Стиль для текста "Фото не доступно" */
+    .recipe p {
+      color: #888;
+    }
+
+    .recipe ol {
+      list-style-type: none; /* Убирает маркеры или номера у списка */
+      padding-left: 0; /* Убирает отступ слева */
+      margin-left: 0;  /* Убирает внешний отступ */
+    }
+
+    .recipe ul {
+      list-style-type: none; /* Убирает маркеры (точки) */
+      padding-left: 0;       /* Убирает отступы слева */
+      margin-left: 0;        /* Убирает внешний отступ */
     }
   </style>
 </head>
@@ -84,8 +138,36 @@
       <h1 class="title">Рецепты</h1>
     </a>
     <a class="btn btn-add-recipe" href="">Добавить рецепт</a>
-    {% block content %}
-    {% endblock %}
+
+    <div>
+      {% for recipe in recipes %}
+        <article class="recipe">
+          <h1 class="text-center">{{ recipe.name }}</h1>
+          <h2>{{ recipe.is_vegetarian|yesno:"Вегетарианское,Не вегетарианское" }} блюдо</h2>
+          <h3>Уровень сложности: {{ recipe.level }}</h3>
+          <h4>Ингредиенты:</h4>
+          <ul>
+            {% for ingredient in recipe.ingredients_list.splitlines %}
+              <li>{{ forloop.counter }}. {{ ingredient }}</li> <!-- Нумерация ингредиентов -->
+            {% endfor %}
+          </ul>
+          <h5>Шаги приготовления:</h5>
+          <ol>
+            {% for step in recipe.steps.splitlines %}
+              <li>{{ forloop.counter }}. {{ step }}</li> <!-- Нумерация шагов -->
+            {% endfor %}
+          </ol>
+          <time>Время приготовления: {{ recipe.formatted_cooking_time }} мин.</time>
+          {% if recipe.dish_photo %}
+            <div class="recipe-photo">
+              <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}">
+            </div>
+          {% else %}
+            <p>Фото не доступно</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
   </main>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

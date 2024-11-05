@@ -1,16 +1,15 @@
 from django.db import models
 from datetime import timedelta
-from django.urls import reverse
-# идеи для реализации полей и моделей 
-# поле кбжу ккал
-
+from django.urls import reverse 
+# TODO: добавить еще для filter в categories.html десерты + быстрая еда 
 class RecipeManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_vegetarian=True)
+        return super().get_queryset().filter(is_vegetarian=True)\
 
-
+# TODO: поле кбжу ккал
 # 1. Модель - основная модель (рецептов и т.д.)
 class Post_recipe(models.Model):
+    #TODO: в бд
     DISH_LVL = (
         ('very_simple', 'Очень просто'),
         ('simple', 'Просто'),
@@ -43,13 +42,11 @@ class Post_recipe(models.Model):
         verbose_name='Ингредиенты данного рецепта',
         max_length=20000,
         blank=False,
-        help_text='Пожалуйста, вводите каждый новый ингредиент с новой строки. Индексы проставятся сами.'
     )
 
     steps = models.TextField(
         verbose_name='Шаги приготовления',
         blank=False,
-        help_text='Пожалуйста, вводите каждый новый шаг с новой строки. Индексы проставятся сами.'
     )
 
     cooking_time = models.DurationField(
@@ -63,40 +60,13 @@ class Post_recipe(models.Model):
         upload_to='dish_photos/',
         blank=True,
         null=True,
-        help_text='Загрузите фото данного блюда.'  # Нужно добавить валидаторы для конвертации картинки.
+        help_text='Загрузите фото данного блюда.'  #TODO: Нужно добавить валидаторы для конвертации картинки.
     )
 
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата создания'
     )
-
-    def save(self, *args, **kwargs):
-        if '\n' not in self.ingredients_list or '\n' not in self.steps:
-            raise ValueError("Пожалуйста, вводите каждый ингредиент и шаг на новой строке.")
-        
-        self.ingredients_list = self.index_lines(self.ingredients_list)
-        self.steps = self.index_lines(self.steps)
-        super().save(*args, **kwargs)
-
-    def index_lines(self, text):
-        lines = text.strip().splitlines()
-        indexed_lines = []
-        current_index = 1
-        
-        for line in lines:
-            if line and line[0].isdigit() and line[1] == '.':
-                indexed_lines.append(line)
-            elif line:
-                indexed_lines.append(f"{current_index}. {line}")
-                current_index += 1
-        return "\n".join(indexed_lines)
-
-    def formatted_ingredients(self):
-        return self.ingredients_list
-
-    def formatted_steps(self):
-        return self.steps
 
     objects = models.Manager()  # Менеджер, применяемый по умолчанию
     recipe_manager = RecipeManager()  # Конкретно-прикладной менеджер
@@ -115,6 +85,7 @@ class Post_recipe(models.Model):
 
 # 2. Модель - модель отзывов (модель для отзывов)
 class Reviews(models.Model):
+    # TODO: в бд
     tuple_of_ratings = (
         ('1 звезда', '1☆'),
         ('2 звезды', '2☆'),

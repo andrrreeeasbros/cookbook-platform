@@ -1,5 +1,6 @@
 from django.contrib import admin
 from RecipeHub.models import Post_recipe, Reviews
+# TODO: Настроить админ панель
 
 @admin.register(Post_recipe)
 class PostRecipeAdmin(admin.ModelAdmin):

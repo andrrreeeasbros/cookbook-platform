@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ru">
-
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
@@ -54,9 +53,15 @@
     }
 
     .image-container img {
-      max-width: 100%; /* Ограничиваем ширину изображения */
-      height: auto; /* Сохраняем пропорции */
-      max-height: 400px; /* Уменьшаем максимальную высоту до 400px */
+      max-width: 100%; 
+      height: auto;
+      max-height: 400px; 
+    }
+
+    .navmenu ul {
+      list-style: none; 
+      padding: 0; /
+      margin: 0; 
     }
   </style>
 </head>
@@ -71,14 +76,14 @@
       <ul class="d-flex flex-wrap justify-content-center">
         <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:popular_recipes' %}">Популярные рецепты</a></li>
+        <li class="mx-3"><a href="{% url 'RecipeHub:best_recipes' %}">Лучшие рецепты</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:about_us' %}">О нас</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:reviews' %}">Отзывы</a></li>
         <li class="mx-3"><a href="{% url 'RecipeHub:contacts' %}">Контакты</a></li>
       </ul>
     </nav>
     <div class="image-container">
-      <img src="{% static 'img/SHEF.jpg' %}" alt="SHEF.озп"> <!-- Изображение SHEF.jpg -->
+      <img src="{% static 'img/SHEF.jpg' %}" alt="SHEF.jpg"> 
     </div>
   </div>
 </header>
@@ -88,5 +93,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
-
 </html>
