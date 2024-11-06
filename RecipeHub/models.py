@@ -1,21 +1,34 @@
 from django.db import models
 from datetime import timedelta
-from django.urls import reverse 
-# TODO: добавить еще для filter в categories.html десерты + быстрая еда 
+from django.urls import reverse
+# Менеджер для рецептов 
 class RecipeManager(models.Manager):
-    def get_queryset(self):
+    def get_queryset(self) -> models.QuerySet:
         return super().get_queryset().filter(is_vegetarian=True)\
+        .filter(is_fast_food=True)\
+        .filter(is_dessert=True)
+    
+# Менеджер для отзывов
+class ReviewManager(models.Manager):
+    def get_queryset(self) -> models.QuerySet:
+        return super().get_queryset().filter(grade__in=['5 звезд', '4 звезды'])
 
+# TODO: Добавить если рецептов 10+ перемещать их на новую созданную страницу, также с отзывами, лучшими рецептами
 # TODO: поле кбжу ккал
-# 1. Модель - основная модель (рецептов и т.д.)
+# TODO: горячее или холодное блюдо
+# TODO: гарнир
+# TODO: возможно напитки 
+# TODO: ОСТАВИТЬ КОММЕНТАРИИ НА ОТЗЫВ
+# TODO: разделять побуквенно на рецепты , то есть юзер по букве может найти блюдо
+# 1. Модель - основная модель данных моих рецептов
 class Post_recipe(models.Model):
     #TODO: в бд
     DISH_LVL = (
-        ('very_simple', 'Очень просто'),
-        ('simple', 'Просто'),
-        ('medium', 'Средней сложности'),
-        ('hard', 'Сложно'),
-        ('very_hard', 'Очень сложно'),
+        ('Очень просто', 'Очень просто'),
+        ('Просто', 'Просто'),
+        ('Средней сложности', 'Средней сложности'),
+        ('Сложно', 'Сложно'),
+        ('Очень сложно', 'Очень сложно'),
     )
 
     name = models.CharField(
@@ -28,7 +41,20 @@ class Post_recipe(models.Model):
 
     is_vegetarian = models.BooleanField(
         verbose_name='Вегетарианское ли блюдо?',
-        default=False
+        default=False,
+        help_text="Проставьте галочку если это относится к этой категории"
+    )
+
+    is_fast_food = models.BooleanField(
+        verbose_name="Еда быстрого приготовления?",
+        default=False,
+        help_text="Проставьте галочку если это относится к этой категории"
+    )
+
+    is_dessert = models.BooleanField(
+        verbose_name="Данная еда являетя десертом?",
+        default=False,
+        help_text="Проставьте галочку если это относится к этой категории"
     )
 
     level = models.CharField(
@@ -83,7 +109,7 @@ class Post_recipe(models.Model):
         return reverse('RecipeHub:recipe_detail', args=[self.name])
 
 
-# 2. Модель - модель отзывов (модель для отзывов)
+# 2. Модель - модель моих отзывов
 class Reviews(models.Model):
     # TODO: в бд
     tuple_of_ratings = (
@@ -92,6 +118,14 @@ class Reviews(models.Model):
         ('3 звезды', '3☆'),
         ('4 звезды', '4☆'),
         ('5 звезд', '5☆'),
+    )
+     
+    author = models.CharField(
+        verbose_name='Автор',
+        max_length=30,
+        unique=True,
+        blank=True,
+        help_text="По вашему желанию можете указать автора данного рецепта"
     )
 
     recipe = models.ForeignKey(
@@ -118,6 +152,9 @@ class Reviews(models.Model):
         verbose_name="Комментарии",
         help_text="Оставьте ваши комментарии"
     )
+    
+    objects = models.Manager() #  # Менеджер, применяемый по умолчанию
+    review_manager = ReviewManager()  # Конкретно-прикладной менеджер для моих отзыв
 
     class Meta:
         ordering = ["-created_at"]

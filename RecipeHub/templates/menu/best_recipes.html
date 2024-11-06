@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="Описание вашего сайта">
+  <meta name="keywords" content="ключевые, слова, вашего, сайта">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <style>
+    body.index-page {
+      background-image: url("{% static 'img/1.jpg' %}");
+      background-color: rgba(0, 0, 0, 0.5);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      font-family: var(--default-font);
+    }
+
+    .sitename {
+      color: #ffffff !important; 
+    }
+
+    .categories-title {
+      color: #ffffff !important;
+    }
+
+    .navmenu a {
+      color: white;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+      background-color: black;
+    }
+
+    .navmenu li {
+      margin: 5px;
+      border-radius: 5px;
+    }
+
+    .navmenu a:hover {
+      background-color: #ff69b4;
+      color: white;
+      text-decoration: none;
+    }
+
+    .image-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .image-container img {
+      max-width: 100%; 
+      height: auto;
+      max-height: 400px; 
+    }
+
+    .navmenu ul {
+      list-style: none; 
+      padding: 0; /
+      margin: 0; 
+    }
+  </style>
+</head>
+
+<body class="index-page">
+<header id="header" class="header d-flex align-items-center sticky-top">
+  <div class="container d-flex flex-column align-items-center">
+    <a href="" class="logo">
+      <h1 class="sitename">Лучшие рецепты</h1>
+    </a>
+    <nav id="navmenu" class="navmenu">
+      <ul class="d-flex flex-wrap justify-content-center">
+      </ul>
+    </nav>
+    <div class="image-container">
+    </div>
+  </div>
+</header>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

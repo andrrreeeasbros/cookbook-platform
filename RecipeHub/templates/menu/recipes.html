@@ -143,8 +143,7 @@
       {% for recipe in recipes %}
         <article class="recipe">
           <h1 class="text-center">{{ recipe.name }}</h1>
-          <h2>{{ recipe.is_vegetarian|yesno:"Вегетарианское,Не вегетарианское" }} блюдо</h2>
-          <h3>Уровень сложности: {{ recipe.level }}</h3>
+          <h3>Уровень сложности: {{  recipe.level }}</h3>
           <h4>Ингредиенты:</h4>
           <ul>
             {% for ingredient in recipe.ingredients_list.splitlines %}

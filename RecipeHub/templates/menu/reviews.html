@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="Описание вашего сайта">
+  <meta name="keywords" content="ключевые, слова, вашего, сайта">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <style>
+    /* Фоновое изображение на странице */
+    body.index-page {
+      background-image: url("{% static 'img/1.jpg' %}");
+      background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
+      background-size: cover;               /* Фон заполняет весь экран, сохраняя пропорции */
+      background-position: center;          /* Центрируем изображение */
+      background-repeat: no-repeat;         /* Не повторять изображение */
+      background-attachment: fixed;         /* Фон фиксирован при прокрутке */
+      height: 100vh;                        /* Занимает всю высоту экрана */
+      font-family: var(--default-font);
+    }
+
+    /* Основной контейнер */
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+      color: white;
+      padding-top: 20px;
+    }
+
+    /* Заголовок на главной */
+    .title {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    /* Кнопка добавления рецепта */
+    .btn-add-recipe {
+      background-color: #00BFFF;
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+
+    .btn-add-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+
+    /* Стиль кнопки возврата */
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: darkred;
+    }
+
+    /* Оформление каждого рецепта */
+    .reviews {
+      background-color: #fff;  /* Белый фон для каждого рецепта */
+      border: 2px solid #ddd;  /* Светло-серая рамка */
+      padding: 20px;
+      margin-bottom: 20px;  /* Отступ между рецептами */
+      width: 100%; /* Сделать ширину рецепта на всю доступную ширину */
+      max-width: 800px; /* Ограничить максимальную ширину */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для эффекта */
+    }
+
+    /* Заголовки рецепта */
+    .reviews h1 {
+      font-size: 2.5rem;  /* Увеличим размер заголовка */
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* Стили для списка ингредиентов и шагов приготовления */
+    .reviews ul, .reviews ol {
+      padding-left: 20px;
+    }
+
+    .reviews ul li, .reviews ol li {
+      font-size: 1.2rem;  /* Сделаем текст побольше */
+      color: #333;
+    }
+
+    /* Адаптивное изображение блюда */
+    .reviews-photo img {
+      width: 100%; /* Адаптивное изображение по ширине */
+      height: auto; /* Высота автоматически подстраивается */
+      border-radius: 5px;  /* Скругленные углы */
+      object-fit: cover; /* Заполняет контейнер, сохраняя пропорции */
+    }
+
+    /* Стиль для текста "Фото не доступно" */
+    .reviews p {
+      color: #888;
+      font-size: 1.2rem;  /* Сделаем текст чуть больше */
+    }
+
+    .reviews ol {
+      list-style-type: none; /* Убирает маркеры или номера у списка */
+      padding-left: 0; /* Убирает отступ слева */
+      margin-left: 0;  /* Убирает внешний отступ */
+    }
+
+    .reviews ul {
+      list-style-type: none; /* Убирает маркеры (точки) */
+      padding-left: 0;       /* Убирает отступы слева */
+      margin-left: 0;        /* Убирает внешний отступ */
+    }
+
+    /* Увеличиваем размер шрифта в отзывах */
+    .reviews h3 {
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .reviews h4 {
+      font-size: 1.4rem;
+      color: #333;
+    }
+
+    .reviews h6 {
+      font-size: 1.2rem;  /* Увеличим размер текста автора */
+      color: #666;
+    }
+
+  </style>
+</head>
+
+<body class="index-page">
+  <button class="back-button" onclick="window.history.back();">Вернуться назад</button>
+  
+  <main class="main">
+    <a href="" class="logo">
+      <h1 class="title">Отзывы на блюда</h1>
+    </a>
+    <a class="btn btn-add-recipe" href="">Добавить отзыв</a>
+    <div>
+      {% for review in reviews %}
+        <article class="reviews">
+          <h1 class="text-center">{{ review.recipe.name }}</h1> 
+          <h6 class="text-right">{{ review.author }}</h6>
+          <h3>Оценка пользователя: {{ review.grade }}</h3>
+          <h4>Комментарии:</h4>
+          <ol>
+            {% for comment in review.comments.splitlines %}
+              <li>{{ comment }}</li>
+            {% endfor %}
+          </ol>
+        </article>
+      {% endfor %}
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

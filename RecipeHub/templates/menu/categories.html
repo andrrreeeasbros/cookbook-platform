@@ -22,18 +22,18 @@
 
     .categories-title {
       color: #ffffff !important;
-      text-align: center; 
+      text-align: center;
     }
 
     .btn-outline-secondary {
-      color: #fff; 
-      background-color: var(--accent-color); 
-      border-color: var(--accent-color); 
+      color: #fff;
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
     }
 
     .btn-outline-secondary:hover {
-      background-color: rgba(0, 0, 139, 0.75); 
-      border-color: rgba(0, 0, 139, 0.75); 
+      background-color: rgba(0, 0, 139, 0.75);
+      border-color: rgba(0, 0, 139, 0.75);
     }
 
     .back-button {
@@ -41,12 +41,22 @@
       top: 20px;
       left: 20px;
       z-index: 1000;
-      background-color: red; 
+      background-color: red;
       color: white;
       border: none;
       padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
+    }
+
+    /* Добавим отступ снизу для каждой категории */
+    .category-item {
+      margin-bottom: 30px; /* отступ снизу для каждого элемента категории */
+    }
+
+    /* Можно добавить отступ снизу только для блока "По кухне мира" */
+    .category-item.kitchen-world {
+      margin-bottom: 30px; /* только для "По кухне мира" */
     }
   </style>
 </head>
@@ -58,9 +68,10 @@
     <section id="categories" class="categories">
       <div class="container">
         <a href="" class="logo">
-          <h1 class="categories-title ">Категории рецептов</h1>
+          <h1 class="categories-title">Категории рецептов</h1>
         </a>
         <div class="row justify-content-center">
+          <!-- Вегетарианские рецепты -->
           <div class="col-lg-4 col-md-6 category-item text-center">
             <div class="category-card">
               <h3>Вегетарианские</h3>
@@ -68,6 +79,35 @@
               <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
             </div>
           </div>
+
+          <!-- Веганские рецепты -->
+          <div class="col-lg-4 col-md-6 category-item text-center">
+            <div class="category-card">
+              <h3>Веганские</h3>
+              <p>Рецепты для веганов, без использования продуктов животного происхождения.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+
+          <!-- По кухне мира -->
+          <div class="col-lg-4 col-md-6 category-item text-center kitchen-world">
+            <div class="category-card">
+              <h3>По кухне мира</h3>
+              <p>Рецепты какой мировой кухни они являются.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+
+          <!-- Быстрая еда -->
+          <div class="col-lg-4 col-md-6 category-item text-center">
+            <div class="category-card">
+              <h3>Быстрая еда</h3>
+              <p>Рецепты для тех людей, кто очень спешит.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+
+          <!-- Десерты -->
           <div class="col-lg-4 col-md-6 category-item text-center">
             <div class="category-card">
               <h3>Десерты</h3>
@@ -75,10 +115,12 @@
               <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
             </div>
           </div>
+
+          <!-- Напитки (новая категория) -->
           <div class="col-lg-4 col-md-6 category-item text-center">
             <div class="category-card">
-              <h3>Быстрая еда</h3>
-              <p>Рецепты для тех людей, кто очень спешит.</p>
+              <h3>Напитки</h3>
+              <p>Рецепты для приготовления освежающих и горячих напитков.</p>
               <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
             </div>
           </div>
@@ -90,6 +132,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

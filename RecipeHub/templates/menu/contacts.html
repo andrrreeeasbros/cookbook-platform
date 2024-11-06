@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="Описание вашего сайта">
+  <meta name="keywords" content="ключевые, слова, вашего, сайта">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <style>
+    body.index-page {
+      background-image: url("{% static 'img/1.jpg' %}");
+      background-color: rgba(0, 0, 0, 0.5);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      font-family: var(--default-font);
+    }
+
+    .sitename {
+      color: #ffffff !important;
+    }
+
+    .categories-title {
+      color: #ffffff !important;
+    }
+
+    .navmenu a {
+      color: white;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+      background-color: black;
+    }
+
+    .navmenu li {
+      margin: 5px;
+      border-radius: 5px;
+    }
+
+    .navmenu a:hover {
+      background-color: #ff69b4;
+      color: white;
+      text-decoration: none;
+    }
+
+    .image-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      max-height: 400px;
+    }
+
+    .navmenu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Овальный блок для записи контактов */
+    .contact-form-container {
+      background-color: white;
+      border-radius: 50px; /* Овальные края */
+      padding: 30px;
+      margin-top: 30px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form-container h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-form-container p {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-form-container .form-group {
+      margin-bottom: 15px;
+    }
+
+    .contact-form-container input,
+    .contact-form-container textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .contact-form-container button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .contact-form-container button:hover {
+      background-color: #ff3385;
+    }
+  </style>
+</head>
+
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container d-flex flex-column align-items-center">
+      <a href="" class="logo">
+        <h1 class="sitename">Связаться с разработчиком</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul class="d-flex flex-wrap justify-content-center">
+        </ul>
+      </nav>
+      <div class="image-container">
+      </div>
+    </div>
+  </header>
+
+  <!-- Контактная форма с овальным фоном -->
+  <section class="contact-form-section">
+    <div class="container d-flex justify-content-center">
+      <div class="contact-form-container">
+        <h2>Связаться с разработчиком</h2>
+        <p>Оставьте ваше сообщение или контактные данные, и я свяжусь с вами.</p>
+        <form action="#" method="POST">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ваше имя" required>
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control" placeholder="Ваш email" required>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" rows="4" placeholder="Ваше сообщение" required></textarea>
+          </div>
+          <button type="submit">Отправить сообщение</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
