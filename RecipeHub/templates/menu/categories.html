@@ -20,9 +20,11 @@
       font-family: var(--default-font);
     }
 
-    .categories-title {
+    .sitename {
       color: #ffffff !important;
       text-align: center;
+      font-size: 3rem;
+      margin-top: 20px; /* Отступ сверху в 20 пикселей */
     }
 
     .btn-outline-secondary {
@@ -58,6 +60,14 @@
     .category-item.kitchen-world {
       margin-bottom: 30px; /* только для "По кухне мира" */
     }
+
+    .category-card {
+      padding-bottom: 20px; /* Добавляем отступ снизу внутри карточки */
+    }
+
+    .category-card .btn {
+      margin-top: 10px; /* Добавляем отступ сверху для кнопки */
+    }
   </style>
 </head>
 
@@ -68,7 +78,7 @@
     <section id="categories" class="categories">
       <div class="container">
         <a href="" class="logo">
-          <h1 class="categories-title">Категории рецептов</h1>
+          <h1 class="sitename">Категории рецептов</h1>
         </a>
         <div class="row justify-content-center">
           <!-- Вегетарианские рецепты -->
@@ -124,6 +134,34 @@
               <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
             </div>
           </div>
+
+          <!-- Завтраки -->
+          <div class="col-lg-4 col-md-6 category-item text-center">
+            <div class="category-card">
+              <h3>Завтраки</h3>
+              <p>Рецепты для вкусного и продуктивного начала дня.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+
+          <!-- Обеды -->
+          <div class="col-lg-4 col-md-6 category-item text-center">
+            <div class="category-card">
+              <h3>Обеды</h3>
+              <p>Сытные блюда для перекуса в обеденное временя.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+
+          <!-- Ужины -->
+          <div class="col-lg-4 col-md-6 category-item text-center">
+            <div class="category-card">
+              <h3>Ужины</h3>
+              <p>Легкие блюда для перекуса в вечернее время суток.</p>
+              <a href="#" class="btn btn-outline-secondary">Посмотреть</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

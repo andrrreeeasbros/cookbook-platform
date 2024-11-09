@@ -93,6 +93,10 @@
       color: #333;
     }
 
+    .recipe h6{
+      color: #333;
+    }
+
     /* Стили для списка ингредиентов и шагов приготовления */
     .recipe ul, .recipe ol {
       padding-left: 20px;
@@ -142,6 +146,7 @@
     <div>
       {% for recipe in recipes %}
         <article class="recipe">
+          <h6 class="text-right">{{recipe.created_at|date:"d.F.Y, H:i"}}</h6>
           <h1 class="text-center">{{ recipe.name }}</h1>
           <h3>Уровень сложности: {{  recipe.level }}</h3>
           <h4>Ингредиенты:</h4>

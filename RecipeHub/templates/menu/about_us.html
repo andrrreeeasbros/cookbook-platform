@@ -17,10 +17,17 @@
       background-repeat: no-repeat;
       height: 100vh;
       font-family: var(--default-font);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Верхнее выравнивание */
+      align-items: center;
     }
 
     .sitename {
-      color: #ffffff !important; 
+      color: #ffffff !important;
+      text-align: center; /* Центрируем текст */
+      font-size: 2.5rem; /* Увеличим размер шрифта */
     }
 
     .categories-title {
@@ -68,16 +75,16 @@
     .about-site {
       background-color: rgba(255, 255, 255, 0.8); /* Белый с прозрачностью */
       padding: 30px;
-      margin-top: 30px;
       max-width: 900px;
       width: 100%;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px; /* Уменьшаем отступ от заголовка */
+      text-align: center;
     }
 
     .about-site h2 {
-      text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       color: #333;
     }
 
@@ -87,14 +94,51 @@
       font-size: 18px;
       text-align: justify;
     }
+
+    /* Стиль для правого выравнивания авторского текста */
+    .author-text {
+      text-align: right; /* Выравнивание текста по правому краю */
+      margin-right: 30px; /* Добавляем небольшой отступ от правого края */
+    }
+
+    .btn-add-recipe {
+      background-color: #00BFFF;
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+
+    .btn-add-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+
+    /* Стиль кнопки возврата */
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body class="index-page">
+  <button class="back-button" onclick="window.history.back();">Вернуться назад</button>
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container d-flex flex-column align-items-center">
       <a href="" class="logo">
-        <h1 class="sitename">Пару слов о сайте</h1>
+        <h1 class="sitename">Пару слов о нашем сайте</h1>
       </a>
       <nav id="navmenu" class="navmenu">
         <ul class="d-flex flex-wrap justify-content-center">
@@ -104,16 +148,17 @@
   </header>
 
   <!-- Блок с описанием сайта -->
-
   <section class="about-site">
     <div class="container">
       <h2>О нашем сайте</h2>
+      <p class="author-text">
+        Автор сайта: Новик Андрей Иванович
+      </p>
       <p>
         Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества
         любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными
-        кулинарными творениями, а также узнать много нового о различных кухнях мира. Мы предлагаем
-        различные категории рецептов, от вегетарианских до десертов, а также рекомендации для быстрого
-        приготовления пищи. Если вы хотите разнообразить свой рацион, этот сайт — именно для вас!
+        кулинарными творениями, а также узнать много нового о различных кухнях мира.
+        Если вы хотите разнообразить свой рацион, этот сайт — именно для вас!
       </p>
       <p>
         Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с
@@ -122,7 +167,6 @@
       </p>
     </div>
   </section>
-
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

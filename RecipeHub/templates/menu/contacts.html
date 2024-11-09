@@ -12,16 +12,20 @@
   <style>
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
-      background-color: rgba(0, 0, 0, 0.5);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
+      background-size: cover;               /* Фон заполняет весь экран, сохраняя пропорции */
+      background-position: center;          /* Центрируем изображение */
+      background-repeat: no-repeat;         /* Не повторять изображение */
+      background-attachment: fixed;         /* Фон фиксирован при прокрутке */
+      height: 100vh;                        /* Занимает всю высоту экрана */
       font-family: var(--default-font);
     }
 
     .sitename {
       color: #ffffff !important;
+      text-align: center;
+      font-size: 3rem;
+      margin-top: 20px; /* Отступ сверху в 20 пикселей */
     }
 
     .categories-title {
@@ -70,7 +74,7 @@
       background-color: white;
       border-radius: 50px; /* Овальные края */
       padding: 30px;
-      margin-top: 30px;
+      margin-top: 10px;
       max-width: 500px;
       width: 100%;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -115,17 +119,53 @@
     .contact-form-container button:hover {
       background-color: #ff3385;
     }
+
+   
+
+    .btn-add-recipe {
+      background-color: #00BFFF;
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+
+    .btn-add-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+
+    /* Стиль кнопки возврата */
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: darkred;
+    }
   </style>
 </head>
 
+
 <body class="index-page">
-  <header id="header" class="header d-flex align-items-center sticky-top">
+  <button class="btn btn-outline-secondary back-button" onclick="window.history.back();">Вернуться назад</button>
     <div class="container d-flex flex-column align-items-center">
       <a href="" class="logo">
         <h1 class="sitename">Связаться с разработчиком</h1>
       </a>
       <nav id="navmenu" class="navmenu">
-        <ul class="d-flex flex-wrap justify-content-center">
         </ul>
       </nav>
       <div class="image-container">
@@ -160,5 +200,4 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
-
 </html>

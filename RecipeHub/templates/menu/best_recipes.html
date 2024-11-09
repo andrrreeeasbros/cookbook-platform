@@ -17,14 +17,28 @@
       background-repeat: no-repeat;
       height: 100vh;
       font-family: var(--default-font);
+      
+      /* Flexbox для центровки всего контента */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Центрирование по вертикали, но с отступом сверху */
+      align-items: center; /* Центрирование по горизонтали */
+      padding-top: 0px; /* Уменьшил отступ сверху */
     }
 
     .sitename {
       color: #ffffff !important; 
+      text-align: center; /* Центрирование текста */
+      font-size: 3rem; /* Размер шрифта для заголовка */
+      margin-top: 0; /* Убираем верхний отступ */
     }
 
     .categories-title {
       color: #ffffff !important;
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 0; /* Убираем верхний отступ */
+      padding-top: 10px; /* Уменьшаем отступ сверху */
     }
 
     .navmenu a {
@@ -60,30 +74,110 @@
 
     .navmenu ul {
       list-style: none; 
-      padding: 0; /
+      padding: 0; 
       margin: 0; 
+    }
+
+    .btn-outline-secondary {
+      color: #fff;
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: rgba(0, 0, 139, 0.75);
+      border-color: rgba(0, 0, 139, 0.75);
+    }
+
+    .back-button {
+      position: fixed; /* Используем фиксированное позиционирование */
+      top: 20px; /* Отступ сверху */
+      left: 20px; /* Отступ от левого края */
+      z-index: 1000; /* Высокий z-index для правильного отображения на переднем плане */
+      background-color: red; /* Цвет фона кнопки */
+      color: white; /* Цвет текста */
+      border: none; /* Без границы */
+      padding: 10px 15px; /* Отступы внутри кнопки */
+      border-radius: 5px; /* Скругленные углы */
+      cursor: pointer; /* Курсор при наведении */
+    }
+    
+    .back-button:hover {
+      background-color: darkred; /* Цвет фона при наведении */
     }
   </style>
 </head>
 
 <body class="index-page">
-<header id="header" class="header d-flex align-items-center sticky-top">
-  <div class="container d-flex flex-column align-items-center">
-    <a href="" class="logo">
-      <h1 class="sitename">Лучшие рецепты</h1>
-    </a>
-    <nav id="navmenu" class="navmenu">
-      <ul class="d-flex flex-wrap justify-content-center">
-      </ul>
-    </nav>
-    <div class="image-container">
+  <button class="btn btn-outline-secondary back-button" onclick="window.history.back();">Вернуться назад</button>
+  
+  <header id="header" class="header">
+    <div class="align-items-center">
+      <div class="container">
+        <a href="" class="logo">
+          <h1 class="sitename">Лучшие рецепты</h1>
+        </a>
+        <nav id="navmenu" class="navmenu">
+          <ul class="d-flex flex-wrap justify-content-center">
+          </ul>
+        </nav>
+        <div class="image-container">
+        </div>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <body>
+    <div class="container mt-5">
+      {% if best_recipes %}
+          <div>
+              {% for best_recipe in best_recipes %}
+                  <article class="recipe">
+                      <h1 class="text-center">{{ best_recipe.name }}</h1>
+                      <h3>Уровень сложности: {{ best_recipe.level }}</h3>
+                      <h4>Ингредиенты:</h4>
+                      <ul>
+                          {% for ingredient in best_recipe.ingredients_list %}
+                              <li>{{ forloop.counter }}. {{ ingredient }}</li>
+                          {% endfor %}
+                      </ul>
+                      <h5>Шаги приготовления:</h5>
+                      <ol>
+                          {% for step in best_recipe.steps %}
+                              <li>{{ forloop.counter }}. {{ step }}</li>
+                          {% endfor %}
+                      </ol>
+                      <time>Время приготовления: {{ best_recipe.formatted_cooking_time }} мин.</time>
+                      {% if best_recipe.dish_photo %}
+                          <div class="recipe-photo">
+                              <img src="{{ best_recipe.dish_photo.url }}" alt="{{ best_recipe.name }}">
+                          </div>
+                      {% else %}
+                          <p>Фото не доступно</p>
+                      {% endif %}
+                  </article>
+              {% empty %}
+                  <p>Нет лучших рецептов для отображения.</p>
+              {% endfor %}
+          </div>
+      {% else %}
+          <p>Нет рецептов с оценками 4 или 5 звезд.</p>
+      {% endif %}
+  </div>
+
+  <script>
+    function goBack() {
+      if (document.referrer) {
+        window.history.back();  // Возвращаем на предыдущую страницу
+      } else {
+        window.location.href = '/';  // Если нет истории, переходим на главную страницу
+      }
+    }
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

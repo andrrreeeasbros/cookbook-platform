@@ -1,28 +1,21 @@
 from django.db import models
 from datetime import timedelta
 from django.urls import reverse
-# Менеджер для рецептов 
-class RecipeManager(models.Manager):
+
+
+class RecipeManager(models.Manager):  # Менеджер для рецептов
     def get_queryset(self) -> models.QuerySet:
         return super().get_queryset().filter(is_vegetarian=True)\
-        .filter(is_fast_food=True)\
-        .filter(is_dessert=True)
-    
-# Менеджер для отзывов
-class ReviewManager(models.Manager):
-    def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().filter(grade__in=['5 звезд', '4 звезды'])
+            .filter(is_fast_food=True)\
+            .filter(is_dessert=True)
 
-# TODO: Добавить если рецептов 10+ перемещать их на новую созданную страницу, также с отзывами, лучшими рецептами
-# TODO: поле кбжу ккал
-# TODO: горячее или холодное блюдо
-# TODO: гарнир
-# TODO: возможно напитки 
-# TODO: ОСТАВИТЬ КОММЕНТАРИИ НА ОТЗЫВ
-# TODO: разделять побуквенно на рецепты , то есть юзер по букве может найти блюдо
-# 1. Модель - основная модель данных моих рецептов
-class Post_recipe(models.Model):
-    #TODO: в бд
+
+class ReviewManager(models.Manager):  # Менеджер для отзывов
+    def get_queryset(self) -> models.QuerySet:
+        return super().get_queryset().filter(grade__in=['5 звезд', '4 звезды']).distinct()
+
+
+class Post_recipe(models.Model):  # 1. Модель - основная модель данных моих рецептов
     DISH_LVL = (
         ('Очень просто', 'Очень просто'),
         ('Просто', 'Просто'),
@@ -83,10 +76,10 @@ class Post_recipe(models.Model):
 
     dish_photo = models.ImageField(
         verbose_name='Фото блюда',
-        upload_to='dish_photos/',
+        upload_to='static/img/dish_photos/',
         blank=True,
         null=True,
-        help_text='Загрузите фото данного блюда.'  #TODO: Нужно добавить валидаторы для конвертации картинки.
+        help_text='Загрузите фото данного блюда.'
     )
 
     created_at = models.DateTimeField(
@@ -109,17 +102,15 @@ class Post_recipe(models.Model):
         return reverse('RecipeHub:recipe_detail', args=[self.name])
 
 
-# 2. Модель - модель моих отзывов
-class Reviews(models.Model):
-    # TODO: в бд
+class Reviews(models.Model):  # 2. Модель - модель моих отзывов
     tuple_of_ratings = (
-        ('1 звезда', '1☆'),
-        ('2 звезды', '2☆'),
-        ('3 звезды', '3☆'),
-        ('4 звезды', '4☆'),
-        ('5 звезд', '5☆'),
+        ('1★', '1★'),
+        ('2★', '2★'),
+        ('3★', '3★'),
+        ('4★', '4★'),
+        ('5★', '5★'),
     )
-     
+
     author = models.CharField(
         verbose_name='Автор',
         max_length=30,
@@ -152,8 +143,8 @@ class Reviews(models.Model):
         verbose_name="Комментарии",
         help_text="Оставьте ваши комментарии"
     )
-    
-    objects = models.Manager() #  # Менеджер, применяемый по умолчанию
+
+    objects = models.Manager()  # Менеджер, применяемый по умолчанию
     review_manager = ReviewManager()  # Конкретно-прикладной менеджер для моих отзыв
 
     class Meta:
@@ -166,3 +157,26 @@ class Reviews(models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
+
+# Модель для contacts.html
+class TeamConnection(models.Model):
+    pass
+
+# Модель для того чтоб оствлять комментарии на отзыв
+class Comments(models.Model):
+    pass
+
+# TODO: в бд кортежи данных
+# TODO: Добавить если рецептов 10+ перемещать их на новую созданную страницу, также с отзывами, лучшими рецептами
+# TODO: поле кбжу ккал
+# TODO: ОСТАВИТЬ КОММЕНТАРИИ НА ОТЗЫВ
+# TODO: разделять побуквенно на рецепты , то есть юзер по букве может найти блюдо
+# TODO: Заполнить forms.py и сделать кнопки рабочими
+# TODO: Модель связи с админами в contacts.html
+# TODO: Нужно добавить валидаторы для конвертации картинки.
+# TODO: Настроить отображение лучших рецептов
+# TODO: Настроить админ панель
+# TODO: Заполнить categories_list
+# TODO: Заполнить тесты
+# TODO: Добавить возможность пользователям ставить друг другу "лайки" на рецепты или на отзывы.
+# TODO: Пагинация: Разделить рецепты на страницы для ускорения загрузки.
