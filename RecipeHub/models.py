@@ -158,16 +158,21 @@ class Reviews(models.Model):  # 2. Модель - модель моих отзы
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
 
-# Модель для contacts.html
-class TeamConnection(models.Model):
+
+class TeamConnection(models.Model):  # Модель для contacts.html
     pass
 
-# Модель для того чтоб оствлять комментарии на отзыв
-class Comments(models.Model):
+
+class Comments(models.Model):  # Модель для того чтоб оставлять комментарии на отзыв
     pass
+
+
+class Likes(models.Model): # Модель для лайков
+    pass
+    
 
 # TODO: в бд кортежи данных
-# TODO: Добавить если рецептов 10+ перемещать их на новую созданную страницу, также с отзывами, лучшими рецептами
+# TODO: Добавить пагинацию если 3+ лучших рецептов
 # TODO: поле кбжу ккал
 # TODO: ОСТАВИТЬ КОММЕНТАРИИ НА ОТЗЫВ
 # TODO: разделять побуквенно на рецепты , то есть юзер по букве может найти блюдо

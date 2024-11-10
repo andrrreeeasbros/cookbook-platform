@@ -131,6 +131,86 @@
       padding-left: 0;       /* Убирает отступы слева */
       margin-left: 0;        /* Убирает внешний отступ */
     }
+
+     /* Стиль кнопки возврата */
+     .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .back-button:hover {
+      background-color: darkred;
+    }
+  
+    .sitename{
+      color: white;
+      font-size: 3rem;  /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
+      text-align: center;
+    }
+  
+    .btn-add-recipe {
+      background-color: #00BFFF;
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+  
+    .btn-add-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+  
+    /* Стиль для пагинации */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;  /* Отступ сверху для пагинации */
+      margin-bottom: 50px; /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
+      width: 100%;
+    }
+  
+    .pagination .step-links {
+      display: flex;
+      align-items: center;
+    }
+  
+    .pagination a {
+      padding: 10px 20px;
+      margin: 0 5px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+  
+    .pagination a:hover {
+      background-color: #0056b3;
+    }
+  
+    .pagination .current {
+      text-align: center;
+      font-size: 1.2rem;
+      color: black;
+    }
+  
+    .pagination .step-links a:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 
@@ -172,7 +252,25 @@
         </article>
       {% endfor %}
     </div>
+
+    <div class="pagination">
+      <span class="step-links">
+        {% if recipes.has_previous %}
+          <a href="?page=1">&laquo; Первая страница</a>
+          <a href="?page={{ recipes.previous_page_number }}">Предыдущая страница</a>
+        {% endif %}
+
+        <span class="current">
+        </span>
+
+        {% if recipes.has_next %}
+          <a href="?page={{ recipes.next_page_number }}">Следующая страница</a>
+          <a href="?page={{ recipes.paginator.num_pages }}">Последняя страница &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
   </main>
+
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

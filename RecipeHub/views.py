@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
 from django.http import Http404
+from django.core.paginator import Paginator
 
 
 def main_template(request):
@@ -24,18 +25,30 @@ def best_recipes(request):
     return render(request, 'menu/best_recipes.html', {'best_recipes': best_recipes})
 
 
-def reviews(request):
-    reviews = Reviews.objects.all()
-    return render(request, 'menu/reviews.html', {'reviews': reviews})
-
-
 def contacts(request):
     return render(request, 'menu/contacts.html')
 
 
 def recipes(request):
     recipes = Post_recipe.objects.all()  # представление для всех рецептов
-    return render(request, 'menu/recipes.html', {'recipes': recipes})
+    paginator = Paginator(recipes, 3)
+    page_number = request.GET.get('page', 1)
+    try:
+        recipes_page = paginator.get_page(page_number)
+    except ValueError:
+        recipes_page = paginator.get_page(1)
+    return render(request, 'menu/recipes.html', {'recipes': recipes_page})
+
+
+def reviews(request):
+    reviews = Reviews.objects.all() # представление для всех отзывов
+    paginator = Paginator(reviews, 3)
+    page_number = request.GET.get('review', 1)
+    try:
+        reviews_page = paginator.get_page(page_number)
+    except ValueError:
+        reviews_page = paginator.get_page(1)
+    return render(request, 'menu/reviews.html', {'reviews': reviews_page})
 
 
 def recipe_details(request, name):  # представление для одного рецепта
