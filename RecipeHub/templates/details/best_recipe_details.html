@@ -220,7 +220,7 @@
 
 <body class="index-page">
     <body>
-      <a href="{% url 'RecipeHub:recipes' %}" class="back-button">Вернуться назад</a>
+      <a href="{% url 'RecipeHub:best_recipes' %}" class="back-button">Вернуться назад</a>
       <main class="main">
           <article class="recipe">
               <h1 class="text-center">{{ best_recipe.name }}</h1>
@@ -237,7 +237,7 @@
                       <li>{{ step }}</li>
                   {% endfor %}
               </ol>
-              <time>Время приготовления: {{ best_recipe.formatted_cooking_time }} мин.</time>
+              <time>Время приготовления: {{ best_recipe.cooking_time }} мин.</time>
               
               {% if best_recipe.dish_photo %}
                   <div class="recipe-photo">

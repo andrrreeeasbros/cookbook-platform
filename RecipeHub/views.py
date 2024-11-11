@@ -73,7 +73,7 @@ def recipe_details(request, name):  # представление для одно
 
 def best_recipe_details(request, name):
     try:
-        best_recipe = Post_recipe.recipe_manager.get(name=name)
+        best_recipe = Post_recipe.objects.get(name=name)
     except Post_recipe.DoesNotExist:
         raise Http404("Рецепт не найден")
     return render(request,
