@@ -12,7 +12,7 @@ class RecipeManager(models.Manager):  # Менеджер для рецептов
 
 class ReviewManager(models.Manager):  # Менеджер для отзывов
     def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().filter(grade__in=['5 звезд', '4 звезды']).distinct()
+        return super().get_queryset().filter(grade__in=['5★', '4★']).distinct()
 
 
 class Post_recipe(models.Model):  # 1. Модель - основная модель данных моих рецептов
@@ -68,10 +68,12 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         blank=False,
     )
 
-    cooking_time = models.DurationField(
+    cooking_time = models.IntegerField(
         verbose_name='Время приготовления блюда',
         default=timedelta(minutes=30),
-        help_text='Напишите примерное время приготовления данного блюда. По умолчанию: 30 мин.'
+        help_text='Напишите примерное время приготовления данного блюда(в минутах)',
+        blank=False,
+        null=False
     )
 
     dish_photo = models.ImageField(
@@ -167,21 +169,21 @@ class Comments(models.Model):  # Модель для того чтоб оста�
     pass
 
 
-class Likes(models.Model): # Модель для лайков
+class Likes(models.Model):  # Модель для лайков
     pass
-    
 
+# TODO: разобраться с временем в рецепты
+# TODO: заполнить кнопку посмотреть отзывы
 # TODO: в бд кортежи данных
-# TODO: Добавить пагинацию если 3+ лучших рецептов
+# TODO: Добавить пагинацию если 2+ лучших рецептов
 # TODO: поле кбжу ккал
 # TODO: ОСТАВИТЬ КОММЕНТАРИИ НА ОТЗЫВ
 # TODO: разделять побуквенно на рецепты , то есть юзер по букве может найти блюдо
 # TODO: Заполнить forms.py и сделать кнопки рабочими
 # TODO: Модель связи с админами в contacts.html
 # TODO: Нужно добавить валидаторы для конвертации картинки.
-# TODO: Настроить отображение лучших рецептов
 # TODO: Настроить админ панель
 # TODO: Заполнить categories_list
-# TODO: Заполнить тесты
+# TODO: Заполнить tests.py
 # TODO: Добавить возможность пользователям ставить друг другу "лайки" на рецепты или на отзывы.
 # TODO: Пагинация: Разделить рецепты на страницы для ускорения загрузки.

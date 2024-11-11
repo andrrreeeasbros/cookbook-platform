@@ -5,52 +5,78 @@ from django.http import Http404
 from django.core.paginator import Paginator
 
 
-def main_template(request):
-    return render(request, 'index.html')
+def main_template(request):  # представдение для главного шаблона сайта
+    return render(request,
+                  'index.html')
 
 
-def categories(request):
-    return render(request, 'menu/categories.html')
+def categories(request):  # представдение категорий рецептов
+    return render(request,
+                  'menu/categories.html')
 
 
-def about_us(request):
-    return render(request, 'menu/about_us.html')
+def about_us(request):  # представление об авторе сайта
+    return render(request,
+                  'menu/about_us.html')
 
 
-def best_recipes(request):
+def best_recipes(request):  # представление для лучших рецептов
     best_reviews = Reviews.review_manager.all()
-    best_recipes = set()
+    best_recipes = []
     for review in best_reviews:
-        best_recipes.add(review.recipe)
-    return render(request, 'menu/best_recipes.html', {'best_recipes': best_recipes})
+        if review.recipe not in best_recipes:
+            best_recipes.append(review.recipe)
+    return render(request,
+                  'menu/best_recipes.html',
+                  {'best_recipes': best_recipes})
 
 
-def contacts(request):
-    return render(request, 'menu/contacts.html')
+def contacts(request):  # представление для связи с разработчиком
+    return render(request,
+                  'menu/contacts.html')
 
 
 def recipes(request):
     recipes = Post_recipe.objects.all()  # представление для всех рецептов
-    paginator = Paginator(recipes, 3)
-    page_number = request.GET.get('page', 1)
+    paginator = Paginator(recipes, 2)
+    page_number = request.GET.get('page')
     try:
         recipes_page = paginator.get_page(page_number)
     except ValueError:
         recipes_page = paginator.get_page(1)
-    return render(request, 'menu/recipes.html', {'recipes': recipes_page})
+    return render(request,
+                  'menu/recipes.html',
+                  {'recipes': recipes_page})
 
 
 def reviews(request):
-    reviews = Reviews.objects.all() # представление для всех отзывов
+    reviews = Reviews.objects.all()  # представление для всех отзывов
     paginator = Paginator(reviews, 3)
     page_number = request.GET.get('review', 1)
     try:
         reviews_page = paginator.get_page(page_number)
     except ValueError:
         reviews_page = paginator.get_page(1)
-    return render(request, 'menu/reviews.html', {'reviews': reviews_page})
+    return render(request,
+                  'menu/reviews.html',
+                  {'reviews': reviews_page})
 
 
 def recipe_details(request, name):  # представление для одного рецепта
-    recipe = get_object_or_404(Post_recipe.recipe_manager, name=name)
-    return render(request, 'recipes/recipe_detail.html', {'recipe': recipe})
+    try:
+        recipe = Post_recipe.objects.get(name=name)
+    except Post_recipe.DoesNotExist:
+        raise Http404("Рецепт не найден")
+    return render(request,
+                  'details/recipe_details.html',
+                  {'recipe': recipe})
+
+def best_recipe_details(request, name):
+    try:
+        best_recipe = Post_recipe.recipe_manager.get(name=name)
+    except Post_recipe.DoesNotExist:
+        raise Http404("Рецепт не найден")
+    return render(request,
+                  'details/best_recipe_details.html',
+                  {'best_recipe': best_recipe})
+

@@ -149,6 +149,7 @@
       margin-top: 30px;  /* Отступ сверху для пагинации */
       margin-bottom: 50px; /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
       width: 100%;
+      padding-top: 30px; /* Дополнительный отступ сверху для кнопок */
     }
   
     .pagination .step-links {
@@ -181,10 +182,11 @@
       background-color: #ccc;
       cursor: not-allowed;
     }
+
   </style>
   
   <body class="index-page">
-    <button class="back-button" onclick="goBack()">Вернуться назад</button>
+    <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
   
     <main class="main">
       <a href="" class="logo">

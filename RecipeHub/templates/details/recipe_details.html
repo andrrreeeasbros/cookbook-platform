@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -9,6 +10,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
   <style>
+    /* Фоновое изображение на странице */
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
       background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
@@ -56,14 +58,44 @@
       background-color: rgba(0, 191, 255, 0.8);
     }
 
-    /* Оформление каждого рецепта */
-    .recipe-container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;  /* Добавляем возможность оборачивания, если рецепты не помещаются */
-      gap: 20px;  /* Отступы между карточками */
+    /* Кнопка "Посмотреть рецепт" */
+    .btn-view-recipe {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: #00BFFF;
+      color: white;
+      font-size: 1.2rem;
+      padding: 10px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
     }
 
+    .btn-view-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+
+    /* Стиль кнопки возврата */
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: darkred;
+    }
+
+    /* Оформление каждого рецепта */
     .recipe {
       background-color: #fff;  /* Белый фон для каждого рецепта */
       border: 2px solid #ddd;  /* Светло-серая рамка */
@@ -152,12 +184,12 @@
       margin-bottom: 50px; /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
       width: 100%;
     }
-  
+
     .pagination .step-links {
       display: flex;
       align-items: center;
     }
-  
+
     .pagination a {
       padding: 10px 20px;
       margin: 0 5px;
@@ -168,138 +200,53 @@
       text-decoration: none;
       transition: background-color 0.3s;
     }
-  
+
     .pagination a:hover {
       background-color: #0056b3;
     }
-  
+
     .pagination .current {
       text-align: center;
       font-size: 1.2rem;
       color: black;
     }
-  
+
     .pagination .step-links a:disabled {
       background-color: #ccc;
       cursor: not-allowed;
-    }
-
-    .best-recipes-info {
-      background-color: #f8f9fa; /* Светлый фон */
-      border: 2px solid #007bff; /* Синяя рамка */
-      padding: 15px;
-      margin: 1px auto 20px auto; /* Уменьшил верхний отступ (10px) */
-      max-width: 800px; /* Ограничиваем максимальную ширину */
-      text-align: center; /* Центрируем текст */
-      font-size: 1.2rem;
-      color: #333;
-      border-radius: 5px; /* Скругленные углы */
-    }
-    
-    .best-recipes-info p {
-      margin: 0; /* Убираем отступы у параграфа */
-      font-weight: bold; /* Жирный шрифт */
-    }
-    
-    .recipe-btn-wrapper {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-
-    }
-    
-    /* Кнопка внутри контейнера */
-    .btn-view-recipe {
-      background-color: #00BFFF;
-      color: white;
-      font-size: 1.2rem;
-      padding: 10px 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    
-    .btn-view-recipe:hover {
-      background-color: rgba(0, 191, 255, 0.8);
     }
   </style>
 </head>
 
 <body class="index-page">
-  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
-  
-  <header id="header" class="header">
-    <div class="align-items-center">
-      <div class="container">
-        <a href="" class="logo">
-          <h1 class="sitename">Лучшие рецепты</h1>
-        </a>
-        <nav id="navmenu" class="navmenu">
-          <ul class="d-flex flex-wrap justify-content-center">
-          </ul>
-        </nav>
-        <div class="image-container">
-        </div>
-      </div>
-    </div>
-  </header>
-
-
-  <div class="recipe-container">
-    {% if best_recipes %}
-      <div>
-        {% for best_recipe in best_recipes %}
+    <body>
+      <a href="{% url 'RecipeHub:recipes' %}" class="back-button">Вернуться назад</a>
+      <main class="main">
           <article class="recipe">
-            <h1 class="text-center">{{ best_recipe.name }}</h1>
-            <h3>Уровень сложности: {{ best_recipe.level }}</h3>
-            <h4>Ингредиенты:</h4>
-            <ul>
-              {% for ingredient in best_recipe.ingredients_list.splitlines %}
-                <li>{{ forloop.counter }}. {{ ingredient }}</li>
-              {% endfor %}
-            </ul>
-            <h5>Шаги приготовления:</h5>
-            <ol>
-              {% for step in best_recipe.steps.splitlines %}
-                <li>{{ forloop.counter }}. {{ step }}</li>
-              {% endfor %}
-            </ol>
-            <time>Время приготовления: {{ best_recipe.cooking_time }} мин.</time>
-            {% if best_recipe.dish_photo %}
-              <div class="recipe-photo">
-                <img src="{{ best_recipe.dish_photo.url }}" alt="{{ best_recipe.name }}">
-              </div>
-            {% else %}
-              <p>Фото не доступно</p>
-            {% endif %}
-            
-            <!-- Кнопка в рамке -->
-            <div class="recipe-btn-wrapper">
-              <a class="btn-view-recipe" href="{% url 'RecipeHub:best_recipe_detail' name=best_recipe.name %}">Посмотреть рецепт</a>
-
-            </div>
+              <h1 class="text-center">{{ recipe.name }}</h1>
+              <h3>Уровень сложности: {{ recipe.level }}</h3>
+              <h4>Ингредиенты:</h4>
+              <ul>
+                  {% for ingredient in recipe.ingredients_list.splitlines %}
+                      <li>{{ ingredient }}</li>
+                  {% endfor %}
+              </ul>
+              <h5>Шаги приготовления:</h5>
+              <ol>
+                  {% for step in recipe.steps.splitlines %}
+                      <li>{{ step }}</li>
+                  {% endfor %}
+              </ol>
+              <time>Время приготовления: {{ recipe.formatted_cooking_time }} мин.</time>
+              
+              {% if recipe.dish_photo %}
+                  <div class="recipe-photo">
+                      <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}">
+                  </div>
+              {% else %}
+                  <p>Фото не доступно</p>
+              {% endif %}
           </article>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>Нет лучших рецептов для отображения.</p>
-    {% endif %}
-  </div>
-
-  <script>
-    function goBack() {
-      if (document.referrer) {
-        window.history.back();  // Возвращаем на предыдущую страницу
-      } else {
-        window.location.href = '/';  // Если нет истории, переходим на главную страницу
-      }
-    }
-  </script>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+      </main>
+  </body>
+  </html>

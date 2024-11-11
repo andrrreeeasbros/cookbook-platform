@@ -82,14 +82,14 @@
       margin-top: 20px; /* Уменьшаем отступ от заголовка */
       text-align: center;
     }
-
+    
     .about-site h2 {
       margin-bottom: 10px;
-      color: #333;
+      color: #000; /* Темный цвет для заголовка */
     }
-
+    
     .about-site p {
-      color: #333;
+      color: #111; /* Темно-серый цвет для текста */
       line-height: 1.6;
       font-size: 18px;
       text-align: justify;
@@ -99,6 +99,8 @@
     .author-text {
       text-align: right; /* Выравнивание текста по правому краю */
       margin-right: 30px; /* Добавляем небольшой отступ от правого края */
+      font-style: italic; /* Добавлен курсив */
+      color: #555; /* Темно-серый цвет для текста */
     }
 
     .btn-add-recipe {
@@ -130,11 +132,12 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
   </style>
 </head>
 
 <body class="index-page">
-  <button class="back-button" onclick="window.history.back();">Вернуться назад</button>
+  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container d-flex flex-column align-items-center">
       <a href="" class="logo">
@@ -147,30 +150,29 @@
     </div>
   </header>
 
-  <!-- Блок с описанием сайта -->
-  <section class="about-site">
-    <div class="container">
-      <h2>О нашем сайте</h2>
-      <p class="author-text">
-        Автор сайта: Новик Андрей Иванович
-      </p>
-      <p>
-        Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества
-        любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными
-        кулинарными творениями, а также узнать много нового о различных кухнях мира.
-        Если вы хотите разнообразить свой рацион, этот сайт — именно для вас!
-      </p>
-      <p>
-        Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с
-        другими. Мы также регулярно обновляем коллекцию рецептов, чтобы каждый нашел что-то для себя.
-        Благодарим вас за посещение и надеемся, что вы найдете здесь что-то вкусное и полезное!
-      </p>
-    </div>
-  </section>
+ <section class="about-site">
+  <div class="container">
+    <h2>О нашем сайте</h2>
+    <p class="author-text">
+      Автор сайта: Новик Андрей Иванович
+    </p>
+    <p>
+      Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества
+      любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными
+      кулинарными творениями, а также узнать много нового о различных кухнях мира.
+      Если вы хотите разнообразить свой рацион, этот сайт — именно для вас!
+    </p>
+    <p>
+      Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с
+      другими. Мы также регулярно обновляем коллекцию рецептов, чтобы каждый нашел что-то для себя.
+      Благодарим вас за посещение и надеемся, что вы найдете здесь что-то вкусное и полезное!
+    </p>
+  </div>
+</section>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

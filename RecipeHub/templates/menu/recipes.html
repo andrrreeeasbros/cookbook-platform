@@ -58,6 +58,25 @@
       background-color: rgba(0, 191, 255, 0.8);
     }
 
+    /* Кнопка "Посмотреть рецепт" */
+    .btn-view-recipe {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: #00BFFF;
+      color: white;
+      font-size: 1.2rem;
+      padding: 10px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-view-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+
     /* Стиль кнопки возврата */
     .back-button {
       position: absolute;
@@ -85,6 +104,7 @@
       width: 100%; /* Сделать ширину рецепта на всю доступную ширину */
       max-width: 800px; /* Ограничить максимальную ширину */
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для эффекта */
+      position: relative; /* Для абсолютного позиционирования кнопки */
     }
 
     /* Заголовки рецепта */
@@ -93,7 +113,7 @@
       color: #333;
     }
 
-    .recipe h6{
+    .recipe h6 {
       color: #333;
     }
 
@@ -132,8 +152,8 @@
       margin-left: 0;        /* Убирает внешний отступ */
     }
 
-     /* Стиль кнопки возврата */
-     .back-button {
+    /* Стиль кнопки возврата */
+    .back-button {
       position: absolute;
       top: 20px;
       left: 20px;
@@ -149,29 +169,13 @@
     .back-button:hover {
       background-color: darkred;
     }
-  
-    .sitename{
+
+    .sitename {
       color: white;
       font-size: 3rem;  /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
       text-align: center;
     }
-  
-    .btn-add-recipe {
-      background-color: #00BFFF;
-      color: white;
-      font-size: 1.5rem;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-bottom: 20px;
-    }
-  
-    .btn-add-recipe:hover {
-      background-color: rgba(0, 191, 255, 0.8);
-    }
-  
+
     /* Стиль для пагинации */
     .pagination {
       display: flex;
@@ -215,7 +219,7 @@
 </head>
 
 <body class="index-page">
-  <button class="back-button" onclick="window.history.back();">Вернуться назад</button>
+  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
   
   <main class="main">
     <a href="" class="logo">
@@ -241,7 +245,13 @@
               <li>{{ forloop.counter }}. {{ step }}</li> <!-- Нумерация шагов -->
             {% endfor %}
           </ol>
-          <time>Время приготовления: {{ recipe.formatted_cooking_time }} мин.</time>
+          <time>
+            {% if recipe.cooking_time %}
+              Время приготовления: {{ recipe.cooking_time }} мин.
+            {% else %}
+              Время приготовления не указано.
+            {% endif %}
+          </time>
           {% if recipe.dish_photo %}
             <div class="recipe-photo">
               <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}">
@@ -249,6 +259,9 @@
           {% else %}
             <p>Фото не доступно</p>
           {% endif %}
+          
+          
+        <a class="btn-view-recipe" href="{% url 'RecipeHub:recipe_detail' name=recipe.name %}">Посмотреть рецепт</a>
         </article>
       {% endfor %}
     </div>
@@ -256,7 +269,7 @@
     <div class="pagination">
       <span class="step-links">
         {% if recipes.has_previous %}
-          <a href="?page=1">&laquo; Первая страница</a>
+          <a href="?page={{ recipes.previous_page_number }}">&laquo; Первая страница</a>
           <a href="?page={{ recipes.previous_page_number }}">Предыдущая страница</a>
         {% endif %}
 
