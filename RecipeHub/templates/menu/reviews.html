@@ -9,6 +9,7 @@
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'css/menu/reviews.css' %}" rel="stylesheet">
   <style>
     /* Фоновое изображение на странице */
     body.index-page {
@@ -21,229 +22,68 @@
       height: 100vh;                        /* Занимает всю высоту экрана */
       font-family: var(--default-font);
     }
-  
-    /* Основной контейнер */
-    .main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100%; /* Вместо height: 100%, используем min-height */
-      color: white;
-      padding-top: 20px;
-      padding-bottom: 50px; /* Добавляем отступ снизу, чтобы пагинация не сливалась */
-      box-sizing: border-box; /* Учитываем отступы и рамки внутри контейнера */
-    }
-  
-    /* Заголовок на главной */
-    .title {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      text-align: center;
-      color: white;
-    }
-  
-    /* Оформление каждого отзыва */
-    .reviews {
-      background-color: #fff;  /* Белый фон для каждого отзыва */
-      border: 2px solid #ddd;  /* Светло-серая рамка */
-      padding: 20px;
-      margin-bottom: 20px;  /* Отступ между отзывами */
-      width: 100%; /* Сделать ширину отзыва на всю доступную ширину */
-      max-width: 800px; /* Ограничить максимальную ширину */
-      box-sizing: border-box;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для эффекта */
-    }
-  
-    /* Заголовок отзыва (уменьшаем размер шрифта) */
-    .reviews h1 {
-      font-size: 2.5rem;  /* Уменьшаем размер заголовка */
-      color: #333;
-      margin-bottom: 10px;
-    }
-  
-    /* Стиль для списка комментариев (убираем нумерацию) */
-    .reviews ul {
-      padding-left: 0;  /* Убираем отступы слева */
-      list-style-type: none; /* Убираем нумерацию */
-    }
-  
-    .reviews ul li {
-      font-size: 1.5rem;  /* Увеличиваем размер текста */
-      color: #333;
-      margin-bottom: 10px; /* Отступ между комментариями */
-      text-align: left; /* Выравниваем текст по левому краю */
-    }
-  
-    /* Стиль для текста "Фото не доступно" */
-    .reviews p {
-      color: #888;
-      font-size: 1.2rem;  /* Сделаем текст чуть больше */
-    }
-  
-    /* Увеличиваем размер шрифта в отзывах */
-    .reviews h3 {
-      font-size: 1.5rem;
-      color: #333;
-    }
-  
-    .reviews h4 {
-      font-size: 1.4rem;
-      color: #333;
-    }
-  
-    .reviews h5 {
-      font-size: 1.2rem;  /* Увеличим размер текста автора */
-      color: #666;
-    }
-  
-    .reviews h6 {
-      font-size: 1rem;  /* Увеличим размер текста автора */
-      color: #666;
-    }
-  
-    /* Стиль кнопки возврата */
-    .back-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  
-    .back-button:hover {
-      background-color: darkred;
-    }
-  
-    .sitename{
-      color: white;
-      font-size: 3rem;  /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
-      text-align: center;
-    }
-  
-    .btn-add-recipe {
-      background-color: #00BFFF;
-      color: white;
-      font-size: 1.5rem;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-bottom: 20px;
-    }
-  
-    .btn-add-recipe:hover {
-      background-color: rgba(0, 191, 255, 0.8);
-    }
-  
-    /* Стиль для пагинации */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;  /* Отступ сверху для пагинации */
-      margin-bottom: 50px; /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
-      width: 100%;
-      padding-top: 30px; /* Дополнительный отступ сверху для кнопок */
-    }
-  
-    .pagination .step-links {
-      display: flex;
-      align-items: center;
-    }
-  
-    .pagination a {
-      padding: 10px 20px;
-      margin: 0 5px;
-      background-color: #007bff;
-      color: white;
-      font-size: 1.2rem;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-  
-    .pagination a:hover {
-      background-color: #0056b3;
-    }
-  
-    .pagination .current {
-      text-align: center;
-      font-size: 1.2rem;
-      color: black;
-    }
-  
-    .pagination .step-links a:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
   </style>
-  
-  <body class="index-page">
-    <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
-  
-    <main class="main">
-      <a href="" class="logo">
-        <h1 class="sitename">Отзывы</h1>
-      </a>
-      <a class="btn btn-add-recipe" href="{% static 'add_review' %}">Добавить отзыв</a>
-      <div>
-        {% for review in reviews %}
-          <article class="reviews">
-            <h6 class="text-right">{{review.recipe.created_at|date:"d.F.Y, H:i"}}</h6>
-            <h1 class="text-center">{{ review.recipe.name }}</h1> 
-            <h5 class="text-right">{{ review.author }}</h5>
-            <h3>Оценка пользователя: {{ review.grade }}</h3>
-            <h4>Комментарии:</h4>
-            <ul>
-              {% for comment in review.comments.splitlines %}
-                <li>{{ comment }}</li>
-              {% endfor %}
-            </ul>
-          </article>
-        {% endfor %}
-      </div>
-  
+</head>
 
-      <div class="pagination">
-        <span class="step-links">
-          {% if reviews.has_previous %}
-            <a href="?review=1">&laquo; Первая страница</a>
-            <a href="?review={{ reviews.previous_page_number }}">Предыдущая страница</a>
-          {% endif %}
-  
-          <span class="current">
-          </span>
-  
-          {% if reviews.has_next %}
-            <a href="?review={{ reviews.next_page_number }}">Следующая страница</a>
-            <a href="?review={{ reviews.paginator.num_pages }}">Последняя страница &raquo;</a>
-          {% endif %}
+<body class="index-page">
+  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
+
+  <main class="main">
+    <a href="" class="logo">
+      <h1 class="sitename">Отзывы</h1>
+    </a>
+    <a class="btn btn-add-recipe" href="{% static 'add_review' %}">Добавить отзыв</a>
+
+    <!-- Контейнер для отзывов -->
+    <div class="reviews-container">
+      {% for review in reviews %}
+        <article class="reviews">
+
+          <h1 class="text-center">{{ review.recipe.name }}</h1> 
+          <h5 class="text-right">{{ review.author }}</h5>
+          <h3>Оценка пользователя: {{ review.grade }}</h3>
+          <h4>Комментарии:</h4>
+          <ul>
+            {% for comment in review.comments.splitlines %}
+              <li>{{ comment }}</li>
+            {% endfor %}
+          </ul>
+        </article>
+      {% endfor %}
+    </div>
+
+    <!-- Пагинация -->
+    <div class="pagination">
+      <span class="step-links">
+        {% if reviews.has_previous %}
+          <a href="?review=1">&laquo; Первая страница</a>
+          <a href="?review={{ reviews.previous_page_number }}">Предыдущая страница</a>
+        {% endif %}
+
+        <span class="current">
         </span>
-      </div>
-    </main>
-  
-    <script>
-      function goBack() {
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          window.location.href = '/';
-        }
-      }
-    </script>
-  
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+        {% if reviews.has_next %}
+          <a href="?review={{ reviews.next_page_number }}">Следующая страница</a>
+          <a href="?review={{ reviews.paginator.num_pages }}">Последняя страница &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+  </main>
+
+  <script>
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = '/';
+      }
+    }
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
-  
-  

@@ -26,9 +26,15 @@ def best_recipes(request):  # представление для лучших р�
     for review in best_reviews:
         if review.recipe not in best_recipes:
             best_recipes.append(review.recipe)
+    paginator = Paginator(best_recipes, 2)
+    page_number = request.GET.get('best_recipes', 1)
+    try:
+        recipes_pages = paginator.get_page(page_number)
+    except:
+        recipes_pages = paginator.get_page(1)
     return render(request,
                   'menu/best_recipes.html',
-                  {'best_recipes': best_recipes})
+                  {'best_recipes': recipes_pages})
 
 
 def contacts(request):  # представление для связи с разработчиком
@@ -51,7 +57,7 @@ def recipes(request):
 
 def reviews(request):
     reviews = Reviews.objects.all()  # представление для всех отзывов
-    paginator = Paginator(reviews, 3)
+    paginator = Paginator(reviews, 6)
     page_number = request.GET.get('review', 1)
     try:
         reviews_page = paginator.get_page(page_number)
@@ -71,6 +77,7 @@ def recipe_details(request, name):  # представление для одно
                   'details/recipe_details.html',
                   {'recipe': recipe})
 
+
 def best_recipe_details(request, name):
     try:
         best_recipe = Post_recipe.objects.get(name=name)
@@ -79,4 +86,3 @@ def best_recipe_details(request, name):
     return render(request,
                   'details/best_recipe_details.html',
                   {'best_recipe': best_recipe})
-

@@ -9,6 +9,7 @@
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'css/menu/categories.css' %}" rel="stylesheet">
   <style>
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
@@ -18,55 +19,6 @@
       background-repeat: no-repeat;
       height: 100vh;
       font-family: var(--default-font);
-    }
-
-    .sitename {
-      color: #ffffff !important;
-      text-align: center;
-      font-size: 3rem;
-      margin-top: 20px; /* Отступ сверху в 20 пикселей */
-    }
-
-    .btn-outline-secondary {
-      color: #fff;
-      background-color: var(--accent-color);
-      border-color: var(--accent-color);
-    }
-
-    .btn-outline-secondary:hover {
-      background-color: rgba(0, 0, 139, 0.75);
-      border-color: rgba(0, 0, 139, 0.75);
-    }
-
-    .back-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    /* Добавим отступ снизу для каждой категории */
-    .category-item {
-      margin-bottom: 30px; /* отступ снизу для каждого элемента категории */
-    }
-
-    /* Можно добавить отступ снизу только для блока "По кухне мира" */
-    .category-item.kitchen-world {
-      margin-bottom: 30px; /* только для "По кухне мира" */
-    }
-
-    .category-card {
-      padding-bottom: 20px; /* Добавляем отступ снизу внутри карточки */
-    }
-
-    .category-card .btn {
-      margin-top: 10px; /* Добавляем отступ сверху для кнопки */
     }
   </style>
 </head>

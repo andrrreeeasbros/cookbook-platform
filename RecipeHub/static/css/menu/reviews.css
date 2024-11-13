@@ -1,0 +1,222 @@
+ /* Фоновое изображение на странице */
+ body.index-page {
+     background-image: url("{% static 'img/1.jpg' %}");
+     background-color: rgba(0, 0, 0, 0.5);
+     /* Прозрачный черный фон */
+     background-size: cover;
+     /* Фон заполняет весь экран, сохраняя пропорции */
+     background-position: center;
+     /* Центрируем изображение */
+     background-repeat: no-repeat;
+     /* Не повторять изображение */
+     background-attachment: fixed;
+     /* Фон фиксирован при прокрутке */
+     height: 100vh;
+     /* Занимает всю высоту экрана */
+     font-family: var(--default-font);
+ }
+
+ /* Основной контейнер */
+ .main {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: flex-start;
+     min-height: 100%;
+     /* Вместо height: 100%, используем min-height */
+     color: white;
+     padding-top: 20px;
+     padding-bottom: 50px;
+     /* Добавляем отступ снизу, чтобы пагинация не сливалась */
+     box-sizing: border-box;
+     /* Учитываем отступы и рамки внутри контейнера */
+ }
+
+ /* Заголовок на главной */
+ .title {
+     font-size: 3rem;
+     margin-bottom: 20px;
+     text-align: center;
+     color: white;
+ }
+
+ /* Контейнер для отзывов, чтобы создать сетку 3x2 */
+ .reviews-container {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     /* 3 колонки */
+     grid-gap: 15px;
+     /* Уменьшаем пробел между элементами */
+     margin-top: 20px;
+     margin-bottom: 50px;
+     padding: 0 15px;
+ }
+
+ /* Оформление каждого отзыва */
+ .reviews {
+     background-color: #fff;
+     /* Белый фон для каждого отзыва */
+     border: 1px solid #ddd;
+     /* Уменьшаем толщину рамки */
+     padding: 10px 15px;
+     /* Уменьшаем внутренние отступы */
+     box-sizing: border-box;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     /* Легкая тень для эффекта */
+     height: 100%;
+     /* Обеспечиваем, что все элементы будут одинаково по высоте */
+     display: flex;
+     flex-direction: column;
+     justify-content: flex-start;
+     /* Не распределяем пространство */
+ }
+
+ /* Заголовок отзыва */
+ .reviews h1 {
+     font-size: 2.5rem;
+     /* Оставляем размер шрифта */
+     color: #333;
+     margin-bottom: 5px;
+     /* Уменьшаем отступ снизу */
+     margin-top: 0;
+     /* Убираем отступ сверху */
+ }
+
+ /* Стиль для списка комментариев (убираем нумерацию и уменьшаем отступы) */
+ .reviews ul {
+     padding-left: 0;
+     /* Убираем отступы слева */
+     list-style-type: none;
+     /* Убираем нумерацию */
+     margin: 0;
+     /* Убираем отступы сверху и снизу */
+ }
+
+ /* Стиль для каждого комментария */
+ .reviews ul li {
+     font-size: 1.2rem;
+     /* Оставляем размер текста */
+     color: #333;
+     margin-bottom: 4px;
+     /* Уменьшаем отступы между комментариями */
+     line-height: 1.4;
+     /* Меньше межстрочного интервала */
+     text-align: left;
+     /* Выравниваем текст по левому краю */
+ }
+
+ /* Стиль для текста "Фото не доступно" */
+ .reviews p {
+     color: #888;
+     font-size: 1.3rem;
+     /* Оставляем размер текста */
+     margin: 5px 0;
+     /* Убираем большие отступы сверху и снизу */
+ }
+
+ /* Увеличиваем размер шрифта в отзывах */
+ .reviews h3,
+ .reviews h4,
+ .reviews h5,
+ .reviews h6 {
+     font-size: 1.5rem;
+     /* Оставляем размер шрифта */
+     color: #333;
+     margin-top: 5px;
+     margin-bottom: 5px;
+     /* Уменьшаем отступы между заголовками */
+ }
+
+ /* Стиль кнопки возврата */
+ .back-button {
+     position: absolute;
+     top: 20px;
+     left: 20px;
+     z-index: 1000;
+     background-color: red;
+     color: white;
+     border: none;
+     padding: 10px 15px;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+
+ .back-button:hover {
+     background-color: darkred;
+ }
+
+ .sitename {
+     color: white;
+     font-size: 3rem;
+     /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
+     text-align: center;
+ }
+
+ .btn-add-recipe {
+     background-color: #00BFFF;
+     color: white;
+     font-size: 1.3rem;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     text-decoration: none;
+     margin-bottom: 20px;
+ }
+
+ .btn-add-recipe:hover {
+     background-color: rgba(0, 191, 255, 0.8);
+ }
+
+ /* Стиль для пагинации */
+ .pagination {
+     display: flex;
+     justify-content: center;
+     margin-top: 30px;
+     /* Отступ сверху для пагинации */
+     margin-bottom: 50px;
+     /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
+     width: 100%;
+     padding-top: 30px;
+     /* Дополнительный отступ сверху для кнопок */
+ }
+
+ .pagination .step-links {
+     display: flex;
+     align-items: center;
+ }
+
+ .pagination a {
+     padding: 10px 20px;
+     margin: 0 5px;
+     background-color: #007bff;
+     color: white;
+     font-size: 1.2rem;
+     border-radius: 5px;
+     text-decoration: none;
+     transition: background-color 0.3s;
+ }
+
+ .pagination a:hover {
+     background-color: #0056b3;
+ }
+
+ .pagination .current {
+     text-align: center;
+     font-size: 1.2rem;
+     color: black;
+ }
+
+ .pagination .step-links a:disabled {
+     background-color: #ccc;
+     cursor: not-allowed;
+ }
+
+ @media (max-width: 768px) {
+
+     /* Для мобильных устройств уменьшаем колонки до 1 */
+     .reviews-container {
+         grid-template-columns: 1fr;
+         /* 1 колонка на маленьких экранах */
+     }
+ }
