@@ -169,8 +169,10 @@ class Comments(models.Model):  # Модель для того чтоб оста�
     pass
 
 
-class Likes(models.Model):  # Модель для лайков
+class Likes(models.Model):  # Модель для лайков и избарнных 
     pass
+
+
 
 # TODO: Класс своего аккаунта 
 # TODO: Добавить папку избранное

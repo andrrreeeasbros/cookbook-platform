@@ -10,6 +10,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
+  <link href="{% static 'css/pieces/line_piece.css' %}" rel="stylesheet">
   <style>
     /* Фоновое изображение на странице */
     body.index-page {
@@ -37,28 +38,7 @@
     <div>
       {% for recipe in recipes %}
         <article class="recipe">
-          <h6 class="text-right">{{recipe.created_at|date:"d.F.Y, H:i"}}</h6>
           <h1 class="text-center">{{ recipe.name }}</h1>
-          <h3>Уровень сложности: {{  recipe.level }}</h3>
-          <h4>Ингредиенты:</h4>
-          <ul>
-            {% for ingredient in recipe.ingredients_list.splitlines %}
-              <li>{{ forloop.counter }}. {{ ingredient }}</li> <!-- Нумерация ингредиентов -->
-            {% endfor %}
-          </ul>
-          <h5>Шаги приготовления:</h5>
-          <ol>
-            {% for step in recipe.steps.splitlines %}
-              <li>{{ forloop.counter }}. {{ step }}</li> <!-- Нумерация шагов -->
-            {% endfor %}
-          </ol>
-          <time>
-            {% if recipe.cooking_time %}
-              Время приготовления: {{ recipe.cooking_time }} мин.
-            {% else %}
-              Время приготовления не указано.
-            {% endif %}
-          </time>
           {% if recipe.dish_photo %}
             <div class="recipe-photo">
               <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}">
@@ -88,6 +68,25 @@
           <a href="?page={{ recipes.paginator.num_pages }}">Последняя страница &raquo;</a>
         {% endif %}
       </span>
+    </div>
+
+    <div class="logo-bar">
+      <div class="left-section">
+        <img src="{% static 'img/logo.png' %}" alt="Логотип">
+        <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+        <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+      </div>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank">
+          <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
+        </a>
+        <a href="https://instagram.com" target="_blank">
+          <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
+        </a>
+        <a href="https://vk.com" target="_blank">
+          <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
+        </a>
+      </div>
     </div>
   </main>
 
