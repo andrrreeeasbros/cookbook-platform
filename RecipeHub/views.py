@@ -57,7 +57,7 @@ def recipes(request):
 
 def reviews(request):
     reviews = Reviews.objects.all()  # представление для всех отзывов
-    paginator = Paginator(reviews, 6)
+    paginator = Paginator(reviews, 3)
     page_number = request.GET.get('review', 1)
     try:
         reviews_page = paginator.get_page(page_number)

@@ -45,14 +45,6 @@
                   {% endfor %}
               </ol>
               <time>Время приготовления: {{ recipe.formatted_cooking_time }} мин.</time>
-              
-              {% if recipe.dish_photo %}
-                  <div class="recipe-photo">
-                      <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}">
-                  </div>
-              {% else %}
-                  <p>Фото не доступно</p>
-              {% endif %}
           </article>
       </main>
   </body>
