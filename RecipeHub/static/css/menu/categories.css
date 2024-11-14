@@ -7,25 +7,24 @@
 }
 
 /* Стили для кнопок с эффектом на наведении */
-    .btn-outline-secondary {
-      border-color: #6c757d !important;   /* Переопределяем границу */
-      color: #6c757d !important;           /* Цвет текста */
-      transition: all 0.3s ease !important; /* Плавный переход */
-  }
-  
-  /* Эффект на hover */
-  .btn-outline-secondary:hover {
-      background-color: #6c757d !important; /* Цвет фона */
-      color: white !important; /* Цвет текста при наведении */
-      border-color: #6c757d !important; /* Цвет границы */
-  }
-  
-  /* Эффект активной кнопки */
-  .btn-outline-secondary:active {
-      background-color: #5a6268 !important; /* Цвет фона при нажатии */
-      color: white !important; /* Цвет текста */
-      border-color: #545b62 !important; /* Цвет границы */
-  }
+  .btn-outline-secondary {
+  color: #6c757d;
+  border-color: #6c757d;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: white;
+  border-color: #6c757d;
+}
+
+.btn-outline-secondary:active {
+  background-color: #5a6268;
+  color: white;
+  border-color: #545b62;
+}
 
 .back-button {
     position: absolute;
