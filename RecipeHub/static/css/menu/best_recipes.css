@@ -17,22 +17,65 @@
     color: white;
 }
 
-/* Кнопка добавления рецепта */
-.btn-add-recipe {
-    background-color: #00BFFF;
+.btn {
+    background-color: #ffffff;
+    /* Белый фон */
+    color: #000000;
+    /* Черный текст */
+    border: 2px solid #000000;
+    /* Черная граница */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    /* Плавные переходы */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    /* Черный отсвет */
+}
+
+/* Эффект при наведении на кнопки */
+.btn:hover {
+    transform: translateY(-5px);
+    /* Двигаем кнопку вверх */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    /* Легкий отсвет при наведении */
+}
+
+/* Стиль для кнопки "Посмотреть" (красная) */
+.btn-red {
+    background-color: red;
+    /* Красный фон */
+    color: #ffffff;
+    /* Белый текст */
+    border-color: #dc3545;
+    /* Красная граница */
+}
+
+.btn-red:hover {
+    background-color: red;
+    /* Темно-красный при наведении */
+    border-color: red;
+    /* Темно-красная граница при наведении */
+    transform: translateY(-5px);
+    /* Двигаем кнопку вверх */
+}
+
+/* Стиль для кнопки возврата */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: red;
     color: white;
-    font-size: 1.5rem;
-    padding: 10px 20px;
     border: none;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-    margin-bottom: 20px;
+    /* Убираем подчеркивание */
+    transition: transform 0.3s ease, color 0.3s ease;
+    /* Плавный переход для цвета текста */
 }
 
-.btn-add-recipe:hover {
-    background-color: rgba(0, 191, 255, 0.8);
-}
+
 
 /* Оформление каждого рецепта */
 .recipe-container {
@@ -119,34 +162,7 @@
     /* Убирает внешний отступ */
 }
 
-.btn-outline-secondary {
-    color: #fff;
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-  }
 
-  .btn-outline-secondary:hover {
-    background-color: rgba(0, 0, 139, 0.75);
-    border-color: rgba(0, 0, 139, 0.75);
-  }
-
-  .back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-
-.back-button:hover {
-    background-color: darkred;
-}
 
 .sitename {
     color: white;

@@ -1,31 +1,55 @@
+/* Заголовок */
 .sitename {
     color: #ffffff !important;
     text-align: center;
     font-size: 3rem;
     margin-top: 20px;
-    /* Отступ сверху в 20 пикселей */
+    text-decoration: none;
+    /* Убираем подчеркивание */
 }
 
-/* Стили для кнопок с эффектом на наведении */
-  .btn-outline-secondary {
-  color: #6c757d;
-  border-color: #6c757d;
-  background-color: transparent;
-  transition: all 0.3s ease;
+/* Стиль для всех кнопок (общий стиль) */
+.btn {
+    background-color: #ffffff;
+    /* Белый фон */
+    color: #000000;
+    /* Черный текст */
+    border: 2px solid #000000;
+    /* Черная граница */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    /* Плавные переходы */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    /* Черный отсвет */
 }
 
-.btn-outline-secondary:hover {
-  background-color: #6c757d;
-  color: white;
-  border-color: #6c757d;
+/* Эффект при наведении на кнопки */
+.btn:hover {
+    transform: translateY(-5px);
+    /* Двигаем кнопку вверх */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    /* Легкий отсвет при наведении */
 }
 
-.btn-outline-secondary:active {
-  background-color: #5a6268;
-  color: white;
-  border-color: #545b62;
+/* Стиль для кнопки "Посмотреть" (красная) */
+.btn-red {
+    background-color: red;
+    /* Красный фон */
+    color: #ffffff;
+    /* Белый текст */
+    border-color: #dc3545;
+    /* Красная граница */
 }
 
+.btn-red:hover {
+    background-color: red;
+    /* Темно-красный при наведении */
+    border-color: red;
+    /* Темно-красная граница при наведении */
+    transform: translateY(-5px);
+    /* Двигаем кнопку вверх */
+}
+
+/* Стиль для кнопки возврата */
 .back-button {
     position: absolute;
     top: 20px;
@@ -37,35 +61,104 @@
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
+    /* Убираем подчеркивание */
+    transition: transform 0.3s ease, color 0.3s ease;
+    /* Плавный переход для цвета текста */
 }
 
-/* Добавим отступ снизу для каждой категории */
+.back-button {
+    text-decoration: none;
+    /* Убираем подчеркивание */
+}
+
+.back-button:hover {
+    text-decoration: none;
+    /* Убираем подчеркивание при наведении */
+}
+
+/* Эффект при наведении на кнопку возврата */
+.back-button:hover {
+    color: black;
+    /* Текст становится черным при наведении */
+    transform: translateY(-5px);
+    /* Подпрыгивание */
+}
+
+/* Отступ снизу для категории */
 .category-item {
     margin-bottom: 30px;
-    /* отступ снизу для каждого элемента категории */
-}
-
-/* Можно добавить отступ снизу только для блока "По кухне мира" */
-.category-item.kitchen-world {
-    margin-bottom: 30px;
-    /* только для "По кухне мира" */
 }
 
 .category-card {
     padding-bottom: 20px;
-    /* Добавляем отступ снизу внутри карточки */
 }
 
 .category-card .btn {
     margin-top: 10px;
-    /* Добавляем отступ сверху для кнопки */
 }
 
- .logo-bar {
+/* Новый стиль для контейнера, внутри которого будет текст и кнопка */
+.category-card-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Белый фон с прозрачностью */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Легкая тень */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Плавный переход */
+    margin-bottom: 30px;
+    /* Отступ снизу между контейнерами */
+    margin-right: 30px;
+}
+
+/* Эффект при наведении на контейнер */
+.category-card-container:hover {
+    transform: translateY(-5px);
+    /* Двигаем контейнер вверх */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Увеличиваем тень при наведении */
+}
+
+/* Стиль для отображения категорий в строку */
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.category-item {
+    flex: 0 0 30%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Жирный шрифт и эффект отсвечивания для заголовков внутри контейнеров */
+.category-card-container h3 {
+    font-weight: bold;
+    color: #333;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    /* Отсвет */
+}
+
+/* Добавляем отступы между кнопками */
+.category-card-container .btn {
+    margin-bottom: 15px;
+    /* Отступ между кнопками */
+}
+
+.logo-bar {
     background-color: #ffffff;
     padding: 20px 0;
-    position: absolute;  /* Заменили fixed на absolute */
-    bottom: 0;           /* Панель всегда внизу */
+    position: absolute;
+    /* Заменили fixed на absolute */
+    bottom: 0;
+    /* Панель всегда внизу */
     left: 0;
     width: 100%;
     display: flex;
@@ -139,9 +232,11 @@
     0% {
         transform: scale(1.1);
     }
+
     50% {
         transform: scale(1.3);
     }
+
     100% {
         transform: scale(1.1);
     }

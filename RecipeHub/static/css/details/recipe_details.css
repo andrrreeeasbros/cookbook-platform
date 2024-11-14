@@ -1,193 +1,235 @@
     /* Основной контейнер */
     .main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        height: 100%;
-        color: white;
-        padding-top: 20px;
-      }
-  
-      /* Заголовок на главной */
-      .title {
-        font-size: 3rem;
-        margin-bottom: 20px;
-        text-align: center;
-        color: white;
-      }
-  
-      /* Кнопка добавления рецепта */
-      .btn-add-recipe {
-        background-color: #00BFFF;
-        color: white;
-        font-size: 1.5rem;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-decoration: none;
-        margin-bottom: 20px;
-      }
-  
-      .btn-add-recipe:hover {
-        background-color: rgba(0, 191, 255, 0.8);
-      }
-  
-      /* Кнопка "Посмотреть рецепт" */
-      .btn-view-recipe {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        background-color: #00BFFF;
-        color: white;
-        font-size: 1.2rem;
-        padding: 10px 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-decoration: none;
-      }
-  
-      .btn-view-recipe:hover {
-        background-color: rgba(0, 191, 255, 0.8);
-      }
-  
-      /* Стиль кнопки возврата */
-      .back-button {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        z-index: 1000;
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-  
-      .back-button:hover {
-        background-color: darkred;
-      }
-  
-      /* Оформление каждого рецепта */
-      .recipe {
-        background-color: #fff;  /* Белый фон для каждого рецепта */
-        border: 2px solid #ddd;  /* Светло-серая рамка */
-        padding: 20px;
-        margin-bottom: 20px;  /* Отступ между рецептами */
-        width: 100%; /* Сделать ширину рецепта на всю доступную ширину */
-        max-width: 800px; /* Ограничить максимальную ширину */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для эффекта */
-        position: relative; /* Для абсолютного позиционирования кнопки */
-      }
-  
-      /* Заголовки рецепта */
-      .recipe h1 {
-        font-size: 1.8em;
-        color: #333;
-      }
-  
-      .recipe h6 {
-        color: #333;
-      }
-  
-      /* Стили для списка ингредиентов и шагов приготовления */
-      .recipe ul, .recipe ol {
-        padding-left: 20px;
-      }
-  
-      .recipe ul li, .recipe ol li {
-        font-size: 1em;
-        color: #333;
-      }
-  
-      /* Адаптивное изображение блюда */
-      .recipe-photo img {
-        width: 100%; /* Адаптивное изображение по ширине */
-        height: auto; /* Высота автоматически подстраивается */
-        border-radius: 5px;  /* Скругленные углы */
-        object-fit: cover; /* Заполняет контейнер, сохраняя пропорции */
-      }
-  
-      /* Стиль для текста "Фото не доступно" */
-      .recipe p {
-        color: #888;
-      }
-  
-      .recipe ol {
-        list-style-type: none; /* Убирает маркеры или номера у списка */
-        padding-left: 0; /* Убирает отступ слева */
-        margin-left: 0;  /* Убирает внешний отступ */
-      }
-  
-      .recipe ul {
-        list-style-type: none; /* Убирает маркеры (точки) */
-        padding-left: 0;       /* Убирает отступы слева */
-        margin-left: 0;        /* Убирает внешний отступ */
-      }
-  
-      /* Стиль кнопки возврата */
-      .back-button {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        z-index: 1000;
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    
-      .back-button:hover {
-        background-color: darkred;
-      }
-  
-      .sitename {
-        color: white;
-        font-size: 3rem;  /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
-        text-align: center;
-      }
-  
-      /* Стиль для пагинации */
-      .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 30px;  /* Отступ сверху для пагинации */
-        margin-bottom: 50px; /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
-        width: 100%;
-      }
-  
-      .pagination .step-links {
-        display: flex;
-        align-items: center;
-      }
-  
-      .pagination a {
-        padding: 10px 20px;
-        margin: 0 5px;
-        background-color: #007bff;
-        color: white;
-        font-size: 1.2rem;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: background-color 0.3s;
-      }
-  
-      .pagination a:hover {
-        background-color: #0056b3;
-      }
-  
-      .pagination .current {
-        text-align: center;
-        font-size: 1.2rem;
-        color: black;
-      }
-  
-      .pagination .step-links a:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+      color: white;
+      padding-top: 20px;
+    }
+
+    /* Заголовок на главной */
+    .title {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    /* Кнопка добавления рецепта */
+    .btn-add-recipe {
+      background-color: #00BFFF;
+      color: white;
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+
+    .btn-add-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+
+    /* Кнопка "Посмотреть рецепт" */
+    .btn-view-recipe {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: #00BFFF;
+      color: white;
+      font-size: 1.2rem;
+      padding: 10px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-view-recipe:hover {
+      background-color: rgba(0, 191, 255, 0.8);
+    }
+
+    /* Стиль кнопки возврата */
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: darkred;
+    }
+
+    /* Оформление каждого рецепта */
+    .recipe {
+      background-color: #fff;
+      /* Белый фон для каждого рецепта */
+      border: 2px solid #ddd;
+      /* Светло-серая рамка */
+      padding: 20px;
+      margin-bottom: 20px;
+      /* Отступ между рецептами */
+      width: 100%;
+      /* Сделать ширину рецепта на всю доступную ширину */
+      max-width: 800px;
+      /* Ограничить максимальную ширину */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      /* Легкая тень для эффекта */
+      position: relative;
+      /* Для абсолютного позиционирования кнопки */
+    }
+
+    /* Заголовки рецепта */
+    .recipe h1 {
+      font-size: 1.8em;
+      color: #333;
+    }
+
+    .recipe h6 {
+      color: #333;
+    }
+
+    /* Стили для списка ингредиентов и шагов приготовления */
+    .recipe ul,
+    .recipe ol {
+      padding-left: 20px;
+    }
+
+    .recipe ul li,
+    .recipe ol li {
+      font-size: 1em;
+      color: #333;
+    }
+
+    /* Адаптивное изображение блюда */
+    .recipe-photo img {
+      width: 100%;
+      /* Адаптивное изображение по ширине */
+      height: auto;
+      /* Высота автоматически подстраивается */
+      border-radius: 5px;
+      /* Скругленные углы */
+      object-fit: cover;
+      /* Заполняет контейнер, сохраняя пропорции */
+    }
+
+    /* Стиль для текста "Фото не доступно" */
+    .recipe p {
+      color: #888;
+    }
+
+    .recipe ol {
+      list-style-type: none;
+      /* Убирает маркеры или номера у списка */
+      padding-left: 0;
+      /* Убирает отступ слева */
+      margin-left: 0;
+      /* Убирает внешний отступ */
+    }
+
+    .recipe ul {
+      list-style-type: none;
+      /* Убирает маркеры (точки) */
+      padding-left: 0;
+      /* Убирает отступы слева */
+      margin-left: 0;
+      /* Убирает внешний отступ */
+    }
+
+    /* Стиль кнопки возврата */
+    /* Стиль для кнопки возврата */
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      /* Убираем подчеркивание */
+      transition: transform 0.3s ease, color 0.3s ease;
+      /* Плавный переход для цвета текста */
+    }
+
+    .back-button {
+      text-decoration: none;
+      /* Убираем подчеркивание */
+    }
+
+    .back-button:hover {
+      text-decoration: none;
+      /* Убираем подчеркивание при наведении */
+    }
+
+    /* Эффект при наведении на кнопку возврата */
+    .back-button:hover {
+      color: black;
+      /* Текст становится черным при наведении */
+      transform: translateY(-5px);
+      /* Подпрыгивание */
+    }
+
+
+    .sitename {
+      color: white;
+      font-size: 3rem;
+      /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
+      text-align: center;
+    }
+
+    /* Стиль для пагинации */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      /* Отступ сверху для пагинации */
+      margin-bottom: 50px;
+      /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
+      width: 100%;
+    }
+
+    .pagination .step-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .pagination a {
+      padding: 10px 20px;
+      margin: 0 5px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .pagination a:hover {
+      background-color: #0056b3;
+    }
+
+    .pagination .current {
+      text-align: center;
+      font-size: 1.2rem;
+      color: black;
+    }
+
+    .pagination .step-links a:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }

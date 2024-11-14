@@ -132,18 +132,43 @@
  }
 
  /* Стиль кнопки возврата */
- .back-button {
-     position: absolute;
-     top: 20px;
-     left: 20px;
-     z-index: 1000;
-     background-color: red;
-     color: white;
-     border: none;
-     padding: 10px 15px;
-     border-radius: 5px;
-     cursor: pointer;
- }
+ 
+
+/* Стиль для кнопки возврата */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    /* Убираем подчеркивание */
+    transition: transform 0.3s ease, color 0.3s ease;
+    /* Плавный переход для цвета текста */
+}
+
+.back-button {
+    text-decoration: none;
+    /* Убираем подчеркивание */
+}
+
+.back-button:hover {
+    text-decoration: none;
+    /* Убираем подчеркивание при наведении */
+}
+
+/* Эффект при наведении на кнопку возврата */
+.back-button:hover {
+    color: black;
+    /* Текст становится черным при наведении */
+    transform: translateY(-5px);
+    /* Подпрыгивание */
+}
 
  .back-button:hover {
      background-color: darkred;
@@ -156,21 +181,7 @@
      text-align: center;
  }
 
- .btn-add-recipe {
-     background-color: #00BFFF;
-     color: white;
-     font-size: 1.3rem;
-     padding: 10px 20px;
-     border: none;
-     border-radius: 5px;
-     cursor: pointer;
-     text-decoration: none;
-     margin-bottom: 20px;
- }
-
- .btn-add-recipe:hover {
-     background-color: rgba(0, 191, 255, 0.8);
- }
+ 
 
  /* Стиль для пагинации */
  .pagination {
