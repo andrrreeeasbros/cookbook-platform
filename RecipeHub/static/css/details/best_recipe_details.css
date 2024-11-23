@@ -166,8 +166,4 @@
     background-color: darkred;
   }
 
-  .sitename {
-    color: white;
-    font-size: 3rem;  /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
-    text-align: center;
-  }
+  

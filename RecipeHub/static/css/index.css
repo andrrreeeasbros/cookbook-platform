@@ -1,0 +1,276 @@
+.sitename {
+  font-family: 'Lora', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: rgb(245, 203, 167) !important;
+  text-align: center;
+  margin: 20px 0;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  box-shadow: none;
+  border-radius: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+  margin: 20px auto;
+}
+
+.categories-title {
+  color: #ffffff !important;
+}
+
+/* Основной стиль для ссылок в меню */
+.navmenu a {
+  color: white;
+  /* Цвет текста */
+  display: block;
+  padding: 15px;
+  /* Увеличиваем отступы */
+  border-radius: 20px;
+  /* Увеличиваем радиус закругления */
+  transition: background-color 0.3s, color 0.3s;
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Черный фон с прозрачностью */
+  font-family: 'Nunito', sans-serif;
+  /* Шрифт для основного текста */
+  font-size: 20px;
+  /* Размер шрифта уменьшен до 14px */
+  font-weight: 500;
+  /* Полужирный шрифт */
+  text-align: center;
+  /* Выравнивание текста по центру */
+  line-height: 1.4;
+  /* Интерлиньяж */
+  animation: none;
+  /* Без анимации по умолчанию */
+}
+
+/* Эффект при наведении на ссылку */
+.navmenu a:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Фон становится менее прозрачным при наведении */
+  color: white;
+  /* Белый цвет текста при наведении */
+  text-decoration: none;
+  /* Убираем подчеркивание */
+  animation: bounce 0.6s ease-in-out;
+  /* Анимация при наведении */
+  transform: scale(1.05);
+  /* Легкое увеличение кнопки при наведении */
+}
+
+/* Стиль для элементов списка */
+.navmenu li {
+  margin: 5px;
+  border-radius: 20px;
+  /* Увеличиваем радиус закругления для контейнера */
+}
+
+/* Убираем маркеры списка */
+.navmenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.image-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
+.about-site {
+  background-color: rgba(255, 255, 255, 0.9); /* Фон менее прозрачный */
+  padding: 30px;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  margin-top: 5px;
+  text-align: center;
+  border: 2px solid #000;
+  margin-bottom: 60px; /* Увеличиваем отступ снизу */
+}
+
+.about-site h2 {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000;
+  /* Темный цвет для заголовка */
+}
+
+.about-site p {
+  color: black !important;
+  line-height: 1.6;
+  font-size: 18px;
+  text-align: justify;
+}
+
+/* Стиль для правого выравнивания авторского текста */
+.author-text {
+  text-align: right;
+  /* Выравнивание текста по правому краю */
+  margin-right: 30px;
+  /* Добавляем небольшой отступ от правого края */
+  font-style: italic;
+  /* Добавлен курсив */
+  color: #555;
+  /* Темно-серый цвет для текста */
+}
+
+.logo-bar {
+  background-color: #ffffff;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  /* Распределяем элементы по краям */
+  align-items: center;
+  padding-left: 20px;
+  /* Отступ от левого края */
+  padding-right: 50px;
+  /* Отступ от правого края */
+}
+
+.logo-bar .left-section {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  /* Расстояние между логотипом и текстом */
+}
+
+.logo-bar img {
+  width: 70px;
+  /* Размер логотипа */
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+  /* Плавное увеличение при наведении */
+}
+
+.team-contact {
+  font-size: 1.3rem;
+  /* Размер текста */
+  color: #808080;
+  /* Серый цвет текста */
+  text-decoration: none;
+  /* Убираем подчеркивание */
+  transition: color 0.3s ease;
+  /* Плавное изменение цвета */
+}
+
+.team-contact:hover {
+  color: black;
+  /* Черный цвет текста */
+  text-decoration: none;
+  /* Убираем подчеркивание */
+}
+
+.social-icons {
+  display: flex;
+  /* Иконки будут располагаться в строку */
+  gap: 35px;
+  /* Промежуток между иконками */
+  align-items: center;
+  /* Вертикальное выравнивание иконок */
+}
+
+.social-icons a {
+  display: inline-block;
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+  /* Увеличиваем логотип при наведении */
+  filter: brightness(1.2);
+  /* Немного ярче логотип */
+}
+
+.social-icons img {
+  width: 30px;
+  /* Исходный размер логотипов */
+  height: auto;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease;
+  /* Плавное увеличение и изменение фильтра */
+  cursor: pointer;
+  /* Указывает, что логотип можно кликнуть */
+}
+
+.social-icons img[src*="facebook"] {
+  width: 30px;
+  /* Уменьшаем логотип Facebook */
+}
+
+.social-icons img[src*="instagram"] {
+  width: 30px;
+  /* Уменьшаем логотип Instagram */
+}
+
+.social-icons img[src*="VK"] {
+  width: 30px;
+  /* Уменьшаем логотип ВКонтакте */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.1);
+    /* Начальный размер */
+  }
+
+  50% {
+    transform: scale(1.3);
+    /* Максимальное увеличение */
+  }
+
+  100% {
+    transform: scale(1.1);
+    /* Возвращаемся к исходному размеру */
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+    /* Начальная позиция */
+  }
+
+  20% {
+    transform: translateY(-5px);
+    /* Немного поднимем кнопку */
+  }
+
+  40% {
+    transform: translateY(0);
+    /* Возвращаем на исходную позицию */
+  }
+
+  60% {
+    transform: translateY(-3px);
+    /* Немного поднимем кнопку снова */
+  }
+
+  80% {
+    transform: translateY(0);
+    /* Возвращаем на исходную позицию */
+  }
+
+  100% {
+    transform: translateY(-2px);
+    /* Легкий подпрыгивающий эффект */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .logo-bar {
+    position: relative !important;  /* Делаем позицию относительно, чтобы отступы работали */
+    margin-bottom: 80px !important;  /* Увеличиваем нижний отступ (можно попробовать другое значение) */
+    padding-bottom: 60px !important; /* Увеличиваем padding, если margin не помогает */
+  }
+}

@@ -7,8 +7,8 @@
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/best_recipes.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <link href="{% static 'css/best_recipes.css' %}" rel="stylesheet">
   <style>
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
@@ -19,83 +19,7 @@
       background-attachment: fixed;         /* Фон фиксирован при прокрутке */
       height: 100vh;                        /* Занимает всю высоту экрана */
       font-family: var(--default-font);
-    }
-
-    .btn {
-      background-color: #ffffff;
-      /* Белый фон */
-      color: #000000;
-      /* Черный текст */
-      border: 2px solid #000000;
-      /* Черная граница */
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-      /* Плавные переходы */
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-      /* Черный отсвет */
-  }
-  
-  /* Эффект при наведении на кнопки */
-  .btn:hover {
-      transform: translateY(-5px);
-      /* Двигаем кнопку вверх */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      /* Легкий отсвет при наведении */
-  }
-  
-  /* Стиль для кнопки "Посмотреть" (красная) */
-  .btn-red {
-      background-color: red;
-      /* Красный фон */
-      color: #ffffff;
-      /* Белый текст */
-      border-color: #dc3545;
-      /* Красная граница */
-  }
-  
-  .btn-red:hover {
-      background-color: red;
-      /* Темно-красный при наведении */
-      border-color: red;
-      /* Темно-красная граница при наведении */
-      transform: translateY(-5px);
-      /* Двигаем кнопку вверх */
-  }
-  
-  /* Стиль для кнопки возврата */
-  .back-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      text-decoration: none;
-      /* Убираем подчеркивание */
-      transition: transform 0.3s ease, color 0.3s ease;
-      /* Плавный переход для цвета текста */
-  }
-  
-  .back-button {
-      text-decoration: none;
-      /* Убираем подчеркивание */
-  }
-  
-  .back-button:hover {
-      text-decoration: none;
-      /* Убираем подчеркивание при наведении */
-  }
-  
-  /* Эффект при наведении на кнопку возврата */
-  .back-button:hover {
-      color: black;
-      /* Текст становится черным при наведении */
-      transform: translateY(-5px);
-      /* Подпрыгивание */
-  }
+    } 
   </style>
 </head>
 
@@ -105,9 +29,7 @@
   <header id="header" class="header">
     <div class="align-items-center">
       <div class="container">
-        <a href="" class="logo">
-          <h1 class="sitename">Лучшие рецепты</h1>
-        </a>
+           <h1 class="sitename">Лучшие рецепты</h1>
         <nav id="navmenu" class="navmenu">
           <ul class="d-flex flex-wrap justify-content-center">
           </ul>
@@ -139,14 +61,6 @@
               {% endfor %}
             </ol>
             <time>Время приготовления: {{ best_recipe.cooking_time }} мин.</time>
-            {% if best_recipe.dish_photo %}
-              <div class="recipe-photo">
-                <img src="{{ best_recipe.dish_photo.url }}" alt="{{ best_recipe.name }}">
-              </div>
-            {% else %}
-              <p>Фото не доступно</p>
-            {% endif %}
-            
             <!-- Кнопка в рамке -->
             <div class="recipe-btn-wrapper">
               <a class="btn-view-recipe" href="{% url 'RecipeHub:best_recipe_detail' name=best_recipe.name %}">Посмотреть рецепт</a>

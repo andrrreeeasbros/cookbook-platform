@@ -7,30 +7,29 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
-
-  <!-- Подключаем Bootstrap из CDN первым -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Подключаем ваш кастомный CSS -->
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/categories.css' %}" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <link href="{% static 'css/categories.css' %}" rel="stylesheet">
   <style>
     body.index-page {
-      background-image: url('{% static "img/1.jpg" %}');
-      background-color: rgba(0, 0, 0, 0.5);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 100vh;
+      background-image: url("{% static 'img/1.jpg' %}");
+      background-color: rgba(0, 0, 0, 0.5); /* Прозрачный чёрный фон */
+      background-size: cover;               /* Фон заполняет весь экран */
+      background-position: center;          /* Центрируем изображение */
+      background-repeat: no-repeat;         /* Не повторяем фон */
+      background-attachment: fixed;         /* Фон фиксирован при прокрутке */
+      height: 100vh;                        /* Задаём высоту экрана */
+      width: 100vw;                         /* Задаём ширину экрана */
       font-family: var(--default-font);
+      overflow-x: hidden;                   /* Отключаем горизонтальную прокрутку */
+      overflow-y: auto;                     /* Вертикальная прокрутка если контента слишком много */
+      padding-bottom: 100px; /* Отступ снизу, чтобы контент не перекрывался панелью */
     }
-    
   </style>
 </head>
 
 <body class="index-page">
-  <!-- Кнопка возврата -->
+
   <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
 
   <main class="main">
@@ -38,21 +37,20 @@
       <div class="container">
         <h1 class="sitename">Категории рецептов</h1>
         <div class="row justify-content-center">
-          <!-- Вегетарианские рецепты -->
+          <!-- Категории рецептов -->
           <div class="category-item text-center">
             <div class="category-card-container">
               <h3>Вегетарианские</h3>
               <p>Сборник лучших вегетарианских рецептов.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
-
           <!-- Веганские рецепты -->
           <div class="category-item text-center">
             <div class="category-card-container">
               <h3>Веганские</h3>
               <p>Рецепты для веганов, без использования продуктов животного происхождения.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
 
@@ -61,7 +59,7 @@
             <div class="category-card-container">
               <h3>По кухне мира</h3>
               <p>Рецепты какой мировой кухни они являются.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
 
@@ -70,7 +68,7 @@
             <div class="category-card-container">
               <h3>Быстрая еда</h3>
               <p>Рецепты для тех людей, кто очень спешит.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
 
@@ -79,7 +77,7 @@
             <div class="category-card-container">
               <h3>Десерты</h3>
               <p>Сладкие угощения для всех любителей десертов.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
 
@@ -88,7 +86,7 @@
             <div class="category-card-container">
               <h3>Напитки</h3>
               <p>Рецепты для приготовления освежающих и горячих напитков.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
 
@@ -97,7 +95,7 @@
             <div class="category-card-container">
               <h3>Завтраки</h3>
               <p>Рецепты для вкусного и продуктивного начала дня.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
 
@@ -106,7 +104,7 @@
             <div class="category-card-container">
               <h3>Обеды</h3>
               <p>Сытные блюда для перекуса в обеденное время.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
 
@@ -115,35 +113,33 @@
             <div class="category-card-container">
               <h3>Ужины</h3>
               <p>Легкие блюда для перекуса в вечернее время суток.</p>
-              <a href="#" class="btn btn-red">Посмотреть</a> <!-- Красная кнопка -->
+              <a href="#" class="btn btn-red">Посмотреть</a>
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
-    <div class="logo-bar">
-      <div class="left-section">
-        <img src="{% static 'img/logo.png' %}" alt="Логотип">
-        <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
-        <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
-      </div>
-      <div class="social-icons">
-        <a href="https://facebook.com" target="_blank">
-          <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
-        </a>
-        <a href="https://instagram.com" target="_blank">
-          <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
-        </a>
-        <a href="https://vk.com" target="_blank">
-          <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
-        </a>
-      </div>
-    </div>
   </main>
 
-  <!-- Подключаем необходимые скрипты -->
+  <div class="logo-bar">
+    <div class="left-section">
+      <img src="{% static 'img/logo.png' %}" alt="Логотип">
+      <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+      <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+    </div>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank">
+        <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
+      </a>
+      <a href="https://instagram.com" target="_blank">
+        <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
+      </a>
+      <a href="https://vk.com" target="_blank">
+        <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
+      </a>
+    </div>
+  </div>
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -151,3 +147,4 @@
 </body>
 
 </html>
+

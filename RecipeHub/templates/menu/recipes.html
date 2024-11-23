@@ -8,8 +8,9 @@
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <link href="{% static 'css/recipes.css' %}" rel="stylesheet">
   <style>
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
@@ -21,16 +22,16 @@
       height: 100vh;                        /* Занимает всю высоту экрана */
       font-family: var(--default-font);
     }
+
+    
+ 
   </style>
 </head>
-
 <body class="index-page">
   <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
   
   <main class="main">
-    <a href="" class="logo">
       <h1 class="title">Рецепты</h1>
-    </a>
     <a class="btn btn-add-recipe" href="">Добавить рецепт</a>
 
     <div>
@@ -42,7 +43,7 @@
               <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}">
             </div>
           {% else %}
-            <p>Фото не доступно</p>
+            <p class="no-photo">Фото не доступно</p>
           {% endif %}
           
           

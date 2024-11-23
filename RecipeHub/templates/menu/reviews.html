@@ -8,11 +8,9 @@
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/reviews.css' %}" rel="stylesheet">
-  <link href="{% static 'css/pieces/line_piece.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <link href="{% static 'css/reviews.css' %}" rel="stylesheet">
   <style>
-    /* Фоновое изображение на странице */
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
       background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
@@ -23,43 +21,6 @@
       height: 100vh;                        /* Занимает всю высоту экрана */
       font-family: var(--default-font);
     }
-    
-      /* Стиль для кнопки возврата */
-  .back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    /* Убираем подчеркивание */
-    transition: transform 0.3s ease, color 0.3s ease;
-    /* Плавный переход для цвета текста */
-}
-
-.back-button {
-    text-decoration: none;
-    /* Убираем подчеркивание */
-}
-
-.back-button:hover {
-    text-decoration: none;
-    /* Убираем подчеркивание при наведении */
-}
-
-/* Эффект при наведении на кнопку возврата */
-.back-button:hover {
-    color: black;
-    /* Текст становится черным при наведении */
-    transform: translateY(-5px);
-    /* Подпрыгивание */
-}
-
   </style>
 </head>
 
@@ -67,9 +28,7 @@
   <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
 
   <main class="main">
-    <a href="" class="logo">
-      <h1 class="sitename">Отзывы</h1>
-    </a>
+    <h1 class="sitename">Отзывы</h1>
     <a class="btn btn-add-recipe" href="{% static 'add_review' %}">Добавить отзыв</a>
 
     <!-- Контейнер для отзывов -->

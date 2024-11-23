@@ -41,12 +41,20 @@
      /* Учитываем отступы и рамки внутри контейнера */
  }
 
- /* Заголовок на главной */
- .title {
-     font-size: 3rem;
-     margin-bottom: 20px;
-     text-align: center;
-     color: white;
+ .sitename {
+    font-family: 'Lora', sans-serif;
+    font-size: 2.5rem; /* Используем rem для гибкости */
+    font-weight: bold;
+    color: rgb(245, 203, 167) !important; /* Персиковый цвет текста */
+    text-align: center;
+    margin: 0 20px 20px;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    box-shadow: none;
+    border-radius: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
  }
 
  /* Контейнер для отзывов, чтобы создать сетку 3x2 */
@@ -131,9 +139,46 @@
      /* Уменьшаем отступы между заголовками */
  }
 
- /* Стиль кнопки возврата */
- 
+/* Стиль кнопки "Посмотреть рецепт" */
+.btn-view-recipe {
+    display: inline-block;
+    background-color: rgba(0, 191, 255, 0.8);
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;  /* Убираем подчеркивание */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin-top: 15px;
+  }
+  
+  /* Убираем подчеркивание для всех состояний */
+  .btn-view-recipe:hover,
+  .btn-view-recipe:focus,
+  .btn-view-recipe:active {
+    text-decoration: none;  /* Убираем подчеркивание при наведении, фокусе и активации */
+  }
+  
+  .btn-view-recipe:hover {
+    background-color: rgba(0, 191, 255, 1);
+    transform: translateY(-5px);
+  }
 
+  .btn {
+    background-color: #ffffff;
+    /* Белый фон */
+    color: #000000;
+    /* Черный текст */
+    border: 2px solid #000000;
+    /* Черная граница */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    /* Плавные переходы */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    /* Черный отсвет */
+}
 /* Стиль для кнопки возврата */
 .back-button {
     position: absolute;
