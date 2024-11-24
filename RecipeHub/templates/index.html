@@ -7,10 +7,10 @@
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="{% static 'css/index.css' %}" rel="stylesheet">
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <link href="{% static 'css/menu/index.css' %}" rel="stylesheet">
   <style>
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
@@ -31,67 +31,67 @@
 </head>
 
 <body class="index-page">
-<header id="header" class="header d-flex align-items-center sticky-top">
-  <div class="container d-flex flex-column align-items-center">
-    <h1 class="sitename">Платформа обмена рецептами</h1>
-    <nav id="navmenu" class="navmenu">
-      <ul class="d-flex flex-wrap justify-content-center">
-        <li class="mx-3"><a href="">Мой профиль</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:best_recipes' %}">Лучшие рецепты</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:reviews' %}">Отзывы</a></li>
-      </ul>
-    </nav>
-    <div class="image-container">
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container d-flex flex-column align-items-center">
+      <h1 class="sitename fade-in">Платформа обмена рецептами</h1>
+      <nav id="navmenu" class="navmenu fade-in">
+        <ul class="d-flex flex-wrap justify-content-center">
+          <li class="mx-3"><a href="">Мой профиль</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:best_recipes' %}">Лучшие рецепты</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:reviews' %}">Отзывы</a></li>
+        </ul>
+      </nav>
+      <div class="image-container fade-in"></div>
     </div>
-  </div>
-</header>
+  </header>
 
-<section class="about-site">
-  <div class="container">
-    <h2>О сайте</h2>
-    <p class="author-text">
-      Автор сайта: Новик Андрей Иванович
-    </p>
-    <p>
-      Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества
-      любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными
-      кулинарными творениями, а также узнать много нового о различных кухнях мира.
-      Если вы хотите разнообразить свой рацион, этот сайт — именно для вас!
-    </p>
-    <p>
-      Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с
-      другими. Мы также регулярно обновляем коллекцию рецептов, чтобы каждый нашел что-то для себя.
-      Благодарим вас за посещение и надеемся, что вы найдете здесь что-то вкусное и полезное!
-    </p>
-  </div>
-</section>
-
-<!-- Белая полоса для логотипа -->
-<div class="logo-bar">
-  <div class="left-section">
-    <img src="{% static 'img/logo.png' %}" alt="Логотип">
-    <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
-    <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
-  </div>
-  <div class="social-icons">
-    <a href="https://facebook.com" target="_blank">
-      <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
-    </a>
-    <a href="https://instagram.com" target="_blank">
-      <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
-    </a>
-    <a href="https://vk.com" target="_blank">
-      <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
-    </a>
-  </div>
-</div>
+  <section class="about-site fade-in">
+    <div class="container">
+      <h2>О сайте</h2>
+      <p class="author-text fade-in">
+        Автор сайта: Новик Андрей Иванович
+      </p>
+      <p class="fade-in">
+        Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества
+        любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными
+        кулинарными творениями, а также узнать много нового о различных кухнях мира.
+        Если вы хотите разнообразить свой рацион, этот сайт — именно для вас!
+      </p>
+      <p class="fade-in">
+        Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с
+        другими. Мы также регулярно обновляем коллекцию рецептов, чтобы каждый нашел что-то для себя.
+        Благодарим вас за посещение и надеемся, что вы найдете здесь что-то вкусное и полезное!
+      </p>
+    </div>
+  </section>
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <div class="logo-bar">
+    <div class="left-section">
+      <img src="{% static 'img/logo.png' %}" alt="Логотип">
+      <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+      <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+    </div>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank">
+        <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
+      </a>
+      <a href="https://instagram.com" target="_blank">
+        <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
+      </a>
+      <a href="https://vk.com" target="_blank">
+        <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
+      </a>
+    </div>
 
+  
+
+  <script src="{% static 'javascript/line.js' %}"></script>
+  <script src="{% static 'javascript/script.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
