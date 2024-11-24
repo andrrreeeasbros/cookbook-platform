@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fadeInElements.forEach(element => {
       const elementTop = element.getBoundingClientRect().top; // Получаем расстояние до верхней границы элемента
-      const elementVisible = 150; // Начало появления элемента (чем больше число, тем позже элемент появляется)
+      const elementVisible = 100; // Начало появления элемента (чем больше число, тем позже элемент появляется)
 
       // Если элемент виден (его верхняя граница находится в пределах окна)
       if (elementTop < windowHeight - elementVisible) {

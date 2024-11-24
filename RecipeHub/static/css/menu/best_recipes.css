@@ -8,6 +8,24 @@
     padding-top: 20px;
 }
 
+body.index-page {
+    font-family: var(--default-font);
+    overflow-x: hidden;                   /* Отключаем горизонтальную прокрутку */
+    overflow-y: auto;                     /* Вертикальная прокрутка если контента слишком много */
+    padding-bottom: 100px; /* Отступ снизу, чтобы контент не перекрывался панелью */
+  }
+  
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover; /* Подгоняет изображение по размеру */
+    z-index: -1; /* Фиксируем изображение в фоновом слое */
+  }
+
+
 .sitename {
     font-family: 'Lora', sans-serif;
     font-size: 40px;
