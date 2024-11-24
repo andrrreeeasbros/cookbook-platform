@@ -10,7 +10,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
-  <link href="{% static 'css/recipes.css' %}" rel="stylesheet">
+  <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
   <style>
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
@@ -22,9 +22,17 @@
       height: 100vh;                        /* Занимает всю высоту экрана */
       font-family: var(--default-font);
     }
-
-    
- 
+    .btn-add-recipe {
+      background-color: #00BFFF;
+      color: black;
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body class="index-page">
@@ -71,7 +79,9 @@
 
     <div class="logo-bar">
       <div class="left-section">
-        <img src="{% static 'img/logo.png' %}" alt="Логотип">
+        <a href="{% url 'RecipeHub:main_template' %}">
+          <img src="{% static 'img/logo.png' %}" alt="Логотип">
+      </a>
         <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
         <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
       </div>

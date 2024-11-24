@@ -1,4 +1,8 @@
-/* Основной контейнер */
+main.main {
+  margin-bottom: 0; /* Убираем отступ снизу */
+  padding-bottom: 0px; /* Пространство для панели с логотипами */
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -25,83 +29,6 @@
   box-shadow: none;
   border-radius: 15px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-}
-
-/* Кнопка возврата */
-.btn {
-  background-color: #ffffff;
-  /* Белый фон */
-  color: #000000;
-  /* Черный текст */
-  border: 2px solid #000000;
-  /* Черная граница */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  /* Плавные переходы */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-  /* Черный отсвет */
-}
-
-/* Эффект при наведении на кнопки */
-.btn:hover {
-  transform: translateY(-5px);
-  /* Двигаем кнопку вверх */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  /* Легкий отсвет при наведении */
-}
-
-/* Стиль для кнопки "Посмотреть" (красная) */
-.btn-red {
-  background-color: red;
-  /* Красный фон */
-  color: #ffffff;
-  /* Белый текст */
-  border-color: #dc3545;
-  /* Красная граница */
-}
-
-.btn-red:hover {
-  background-color: red;
-  /* Темно-красный при наведении */
-  border-color: red;
-  /* Темно-красная граница при наведении */
-  transform: translateY(-5px);
-  /* Двигаем кнопку вверх */
-}
-
-/* Стиль для кнопки возврата */
-.back-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 1000;
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  /* Убираем подчеркивание */
-  transition: transform 0.3s ease, color 0.3s ease;
-  /* Плавный переход для цвета текста */
-}
-
-.back-button {
-  text-decoration: none;
-  /* Убираем подчеркивание */
-}
-
-.back-button:hover {
-  text-decoration: none;
-  /* Убираем подчеркивание при наведении */
-}
-
-/* Эффект при наведении на кнопку возврата */
-.back-button:hover {
-  color: black;
-  /* Текст становится черным при наведении */
-  transform: translateY(-5px);
-  /* Подпрыгивание */
 }
 
 .recipe {
@@ -222,21 +149,85 @@
   text-decoration: none;
 }
 
-/* Кнопка "Добавить рецепт" */
-.btn-add-recipe {
-  background-color: #00BFFF;
-  color: black;
-  font-size: 1.5rem;
-  padding: 10px 20px;
+.btn-add-recipe:hover {
+  background-color: rgba(0, 191, 255, 0.8);
+}
+
+/* Кнопка возврата */
+.btn {
+  background-color: #ffffff;
+  /* Белый фон */
+  color: #000000;
+  /* Черный текст */
+  border: 2px solid #000000;
+  /* Черная граница */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  /* Плавные переходы */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  /* Черный отсвет */
+}
+
+/* Эффект при наведении на кнопки */
+.btn:hover {
+  transform: translateY(-5px);
+  /* Двигаем кнопку вверх */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  /* Легкий отсвет при наведении */
+}
+
+/* Стиль для кнопки "Посмотреть" (красная) */
+.btn-red {
+  background-color: red;
+  /* Красный фон */
+  color: #ffffff;
+  /* Белый текст */
+  border-color: #dc3545;
+  /* Красная граница */
+}
+
+.btn-red:hover {
+  background-color: red;
+  /* Темно-красный при наведении */
+  border-color: red;
+  /* Темно-красная граница при наведении */
+  transform: translateY(-5px);
+  /* Двигаем кнопку вверх */
+}
+
+/* Стиль для кнопки возврата */
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background-color: red;
+  color: white;
   border: none;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  margin-bottom: 20px;
+  /* Убираем подчеркивание */
+  transition: transform 0.3s ease, color 0.3s ease;
+  /* Плавный переход для цвета текста */
 }
 
-.btn-add-recipe:hover {
-  background-color: rgba(0, 191, 255, 0.8);
+.back-button {
+  text-decoration: none;
+  /* Убираем подчеркивание */
+}
+
+.back-button:hover {
+  text-decoration: none;
+  /* Убираем подчеркивание при наведении */
+}
+
+/* Эффект при наведении на кнопку возврата */
+.back-button:hover {
+  color: black;
+  /* Текст становится черным при наведении */
+  transform: translateY(-5px);
+  /* Подпрыгивание */
 }
 
 /* Пагинация */
@@ -288,11 +279,6 @@
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   margin-top: 0px;  /* Увеличиваем отрицательный отступ для ещё большего сдвига вверх */
   border-radius: 15px;
-}
-
-main.main {
-  margin-bottom: 0; /* Убираем отступ снизу */
-  padding-bottom: 0px; /* Пространство для панели с логотипами */
 }
 
 

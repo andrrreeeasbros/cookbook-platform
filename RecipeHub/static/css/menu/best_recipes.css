@@ -104,6 +104,62 @@
     /* Подпрыгивание */
   }
 
+  .recipe-btn-wrapper {
+    position: absolute;
+    bottom: 10px; /* Отступ снизу, кнопка будет располагаться 20px от нижней границы */
+    right: 20px; /* Отступ справа */
+    border-radius: 10px; /* Закругление контейнера */
+    overflow: hidden; /* Скрывает лишние части, если кнопка выходит за пределы контейнера */
+}
+
+.btn-view-recipe {
+    display: inline-block;
+    background-color: rgba(0, 191, 255, 0.8);
+    color: black;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    margin-top: 100px; /* Увеличьте значение, чтобы кнопка была еще ниже */
+}
+
+  /* Эффект при наведении на кнопку */
+  .btn-view-recipe:hover {
+    background-color: rgba(0, 191, 255, 1);
+    transform: translateY(-5px);
+    color: black; /* Устанавливаем черный цвет текста при наведении */
+    text-decoration: none;
+  }
+  
+  /* Убираем подчеркивание при наведении, фокусе и активации */
+  .btn-view-recipe:hover,
+  .btn-view-recipe:focus,
+  .btn-view-recipe:active {
+    text-decoration: none;
+  }
+  
+  
+  /* Кнопка "Добавить рецепт" */
+  .btn-add-recipe {
+    background-color: #00BFFF;
+    color: black;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  
+  .btn-add-recipe:hover {
+    background-color: rgba(0, 191, 255, 0.8);
+  }
+
 .recipe-container {
     display: flex;
     justify-content: center;
@@ -210,62 +266,6 @@
     margin: 0;
     font-weight: bold;
 }
-
-.recipe-btn-wrapper {
-    position: absolute;
-    bottom: 10px; /* Отступ снизу, кнопка будет располагаться 20px от нижней границы */
-    right: 20px; /* Отступ справа */
-    border-radius: 10px; /* Закругление контейнера */
-    overflow: hidden; /* Скрывает лишние части, если кнопка выходит за пределы контейнера */
-}
-
-.btn-view-recipe {
-    display: inline-block;
-    background-color: rgba(0, 191, 255, 0.8);
-    color: black;
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    margin-top: 100px; /* Увеличьте значение, чтобы кнопка была еще ниже */
-}
-
-  /* Эффект при наведении на кнопку */
-  .btn-view-recipe:hover {
-    background-color: rgba(0, 191, 255, 1);
-    transform: translateY(-5px);
-    color: black; /* Устанавливаем черный цвет текста при наведении */
-    text-decoration: none;
-  }
-  
-  /* Убираем подчеркивание при наведении, фокусе и активации */
-  .btn-view-recipe:hover,
-  .btn-view-recipe:focus,
-  .btn-view-recipe:active {
-    text-decoration: none;
-  }
-  
-  
-  /* Кнопка "Добавить рецепт" */
-  .btn-add-recipe {
-    background-color: #00BFFF;
-    color: black;
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    margin-bottom: 20px;
-  }
-  
-  .btn-add-recipe:hover {
-    background-color: rgba(0, 191, 255, 0.8);
-  }
 
 .logo-bar {
     background: rgba(255, 255, 255, 0.9);

@@ -8,7 +8,7 @@
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="{% static 'css/contacts.css' %}" rel="stylesheet">
+  <link href="{% static 'css/line/contacts.css' %}" rel="stylesheet">
   <style>
     body.index-page {
       background-image: url("{% static 'img/1.jpg' %}");
@@ -20,6 +20,7 @@
       height: 100vh;                        /* Занимает всю высоту экрана */
       font-family: var(--default-font);
     }
+
   </style>
 </head>
 
@@ -60,7 +61,9 @@
 
   <div class="logo-bar">
     <div class="left-section">
-      <img src="{% static 'img/logo.png' %}" alt="Логотип">
+      <a href="{% url 'RecipeHub:main_template' %}">
+        <img src="{% static 'img/logo.png' %}" alt="Логотип">
+    </a>
       <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
       <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
     </div>

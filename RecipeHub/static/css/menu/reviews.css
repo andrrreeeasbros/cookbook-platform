@@ -7,23 +7,13 @@
     --background-color: rgba(0, 0, 0, 0.8);
   } 
  
- /* Фоновое изображение на странице */
- body.index-page {
-     background-image: url("{% static 'img/1.jpg' %}");
-     background-color: rgba(0, 0, 0, 0.5);
-     /* Прозрачный черный фон */
-     background-size: cover;
-     /* Фон заполняет весь экран, сохраняя пропорции */
-     background-position: center;
-     /* Центрируем изображение */
-     background-repeat: no-repeat;
-     /* Не повторять изображение */
-     background-attachment: fixed;
-     /* Фон фиксирован при прокрутке */
-     height: 100vh;
-     /* Занимает всю высоту экрана */
-     font-family: var(--default-font);
- }
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
  /* Основной контейнер */
  .main {
@@ -139,46 +129,6 @@
      /* Уменьшаем отступы между заголовками */
  }
 
-/* Стиль кнопки "Посмотреть рецепт" */
-.btn-view-recipe {
-    display: inline-block;
-    background-color: rgba(0, 191, 255, 0.8);
-    color: white;
-    font-size: 1.2rem;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;  /* Убираем подчеркивание */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    margin-top: 15px;
-  }
-  
-  /* Убираем подчеркивание для всех состояний */
-  .btn-view-recipe:hover,
-  .btn-view-recipe:focus,
-  .btn-view-recipe:active {
-    text-decoration: none;  /* Убираем подчеркивание при наведении, фокусе и активации */
-  }
-  
-  .btn-view-recipe:hover {
-    background-color: rgba(0, 191, 255, 1);
-    transform: translateY(-5px);
-  }
-
-  .btn {
-    background-color: #ffffff;
-    /* Белый фон */
-    color: #000000;
-    /* Черный текст */
-    border: 2px solid #000000;
-    /* Черная граница */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    /* Плавные переходы */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-    /* Черный отсвет */
-}
 /* Стиль для кнопки возврата */
 .back-button {
     position: absolute;
@@ -219,14 +169,33 @@
      background-color: darkred;
  }
 
- .sitename {
-     color: white;
-     font-size: 3rem;
-     /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
-     text-align: center;
- }
 
- 
+/* Кнопка "Добавить отзыв" */
+.btn-add-recipe {
+    background-color: #00BFFF !important; /* Голубой фон */
+    color: black; /* Черный текст */
+    font-size: 1.5rem; /* Размер шрифта */
+    padding: 10px 20px; /* Отступы */
+    border: none; /* Без границ */
+    border-radius: 5px; /* Скругленные углы */
+    cursor: pointer; /* Курсор-указатель */
+    text-decoration: none; /* Убираем подчеркивание */
+    margin-bottom: 20px; /* Отступ снизу */
+    display: inline-block; /* Чтобы кнопка была в одной строке */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавный переход для фона и анимация при наведении */
+}
+
+/* Эффект при наведении на кнопку "Добавить отзыв" */
+.btn-add-recipe:hover {
+    background-color: #008CBA; /* Темно-голубой цвет при наведении */
+    transform: translateY(-5px); /* Легкое подпрыгивание при наведении */
+}
+
+/* Убираем подчеркивание на активные состояния кнопки */
+.btn-add-recipe:focus,
+.btn-add-recipe:active {
+    text-decoration: none;
+}
 
  /* Стиль для пагинации */
  .pagination {
@@ -271,23 +240,6 @@
      background-color: #ccc;
      cursor: not-allowed;
  }
-
- @media (max-width: 768px) {
-
-     /* Для мобильных устройств уменьшаем колонки до 1 */
-     .reviews-container {
-         grid-template-columns: 1fr;
-         /* 1 колонка на маленьких экранах */
-     }
- }
-
- body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
 
 .logo-bar {
     background: rgba(255, 255, 255, 0.9); /* Полупрозрачный фон */
@@ -373,5 +325,15 @@
     }
     100% {
         transform: scale(1.1);
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    /* Для мобильных устройств уменьшаем колонки до 1 */
+    .reviews-container {
+        grid-template-columns: 1fr;
+        /* 1 колонка на маленьких экранах */
     }
 }
