@@ -1,28 +1,132 @@
-main.main {
-  margin-bottom: 0; /* Убираем отступ снизу */
-  padding-bottom: 0px; /* Пространство для панели с логотипами */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  /* Обеспечиваем, что body всегда занимает хотя бы всю высоту экрана */
+  display: flex;
+  flex-direction: column;
 }
 
+/* Основной контейнер */
 body.index-page {
-  background-image: url("{% static 'img/1.jpg' %}");
-  background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
-  background-size: cover;               /* Фон заполняет весь экран, сохраняя пропорции */
-  background-position: center;          /* Центрируем изображение */
-  background-repeat: no-repeat;         /* Не повторять изображение */
-  background-attachment: fixed;         /* Фон фиксирован при прокрутке */
-  height: 100vh;                        /* Занимает всю высоту экрана */
   font-family: var(--default-font);
+  padding-bottom: 0;
+  /* Убираем отступ снизу */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Прозрачный черный фон */
+  background-size: cover;
+  /* Фон заполняет весь экран */
+  background-position: center;
+  /* Центрируем изображение */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  /* Гарантируем, что body занимает весь экран */
+  display: flex;
+  flex-direction: column;
+  /* Контент располагается сверху вниз */
+  overflow-x: hidden;
+  /* Отключаем горизонтальную прокрутку */
 }
 
-.background-image {
-  position: absolute;
+/* Основной контейнер для контента */
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* Растягивает основной контент, чтобы заполнять всё пространство */
+  align-items: center;
+  justify-content: flex-start;
+  color: white;
+  padding-top: 20px;
+}
+
+.logo-bar {
+  background: rgba(255, 255, 255, 0.9); /* Полупрозрачный фон */
+  padding: 20px 0;
+  position: relative; /* Это будет обычный блок внизу */
+  bottom: 0;      /* Привязываем к низу */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 50px;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Тень */
+  z-index: 10;
+  margin-top: auto;
+}
+
+
+.logo-bar .left-section {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.logo-bar img {
+  width: 70px;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo-bar .team-contact {
+  font-size: 1.3rem;
+  color: #808080;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.logo-bar .team-contact:hover {
+  color: #333;
+}
+
+/* Иконки социальных сетей */
+.social-icons {
+  display: flex;
+  gap: 35px;
+  /* Устанавливаем расстояние между иконками */
+  align-items: center;
+}
+
+.social-icons a {
+  display: inline-block;
+}
+
+.social-icons img {
+  width: 30px;
+  /* Размер иконок */
+  height: auto;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+
+/* Фоновое изображение, которое будет фиксированно на весь экран */
+.background-image img {
+  position: fixed;
+  /* Фиксируем изображение на фоне */
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  object-fit: cover; /* Подгоняет изображение по размеру */
-  z-index: -1; /* Фиксируем изображение в фоновом слое */
+  /* Изображение растягивается по ширине */
+  height: 100%;
+  /* Изображение растягивается по высоте всего экрана */
+  object-fit: cover;
+  /* Изображение будет растягиваться, сохраняя пропорции, чтобы покрыть весь экран */
+  z-index: -1;
+  /* Отправляем изображение на задний план, чтобы оно не перекрывало контент */
 }
+
+
+
+
 .btn-add-recipe {
   background-color: #00BFFF !important;
   color: black;
@@ -47,12 +151,7 @@ body.index-page {
   margin-bottom: 20px;
 }
 
-body.index-page {
-  font-family: var(--default-font);
-  overflow-x: hidden;                   /* Отключаем горизонтальную прокрутку */
-  overflow-y: auto;                     /* Вертикальная прокрутка если контента слишком много */
-  padding-bottom: 100px; /* Отступ снизу, чтобы контент не перекрывался панелью */
-}
+
 
 .background-image {
   position: absolute;
@@ -60,27 +159,22 @@ body.index-page {
   left: 0;
   width: 100%;
   height: 100vh;
-  object-fit: cover; /* Подгоняет изображение по размеру */
-  z-index: -1; /* Фиксируем изображение в фоновом слое */
+  object-fit: cover;
+  /* Подгоняет изображение по размеру */
+  z-index: -1;
+  /* Фиксируем изображение в фоновом слое */
 }
 
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100%;
-  color: white;
-  padding-top: 20px;
-  box-sizing: border-box; /* Убедитесь, что padding не влияет на общий размер */
-}
+
 
 /* Заголовок на главной */
 .title {
   font-family: 'Lora', sans-serif;
-  font-size: 2.5rem; /* Используем rem для гибкости */
+  font-size: 2.5rem;
+  /* Используем rem для гибкости */
   font-weight: bold;
-  color: rgb(245, 203, 167) !important; /* Персиковый цвет текста */
+  color: rgb(245, 203, 167) !important;
+  /* Персиковый цвет текста */
   text-align: center;
   margin: 0 20px 20px;
   line-height: 1.4;
@@ -92,9 +186,14 @@ body.index-page {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
+
+
 .recipe {
-  background-color: rgba(255, 255, 255, 0.9); /* Сделаем фон менее прозрачным */
-  border-radius: 30px; /* Увеличиваем радиус округления */
+  background-color: rgba(255, 255, 255, 0.9);
+  /* Сделаем фон менее прозрачным */
+  animation: scale-in 0.6s ease-out;
+  border-radius: 30px;
+  /* Увеличиваем радиус округления */
   overflow: hidden;
   padding: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -115,27 +214,40 @@ body.index-page {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: color 0.3s ease, transform 0.3s ease;
-  border-radius: 15px; /* Добавляем округление для заголовка */
+  border-radius: 15px;
+  /* Добавляем округление для заголовка */
 }
 
 /* Контейнер для фото */
 .recipe-photo {
-  display: block; /* Используем block для правильного расчета высоты */
-  width: 100%; /* Контейнер занимает 100% ширины */
-  overflow: hidden; /* Скрываем лишние части изображения */
-  margin: 0 auto; /* Центрируем контейнер по горизонтали */
-  padding: 0; /* Убираем любые отступы */
-  position: relative; /* Для позиционирования элементов внутри */
-  border-radius: 30px; /* Округление для контейнера фото */
+  display: block;
+  /* Используем block для правильного расчета высоты */
+  width: 100%;
+  /* Контейнер занимает 100% ширины */
+  overflow: hidden;
+  /* Скрываем лишние части изображения */
+  margin: 0 auto;
+  /* Центрируем контейнер по горизонтали */
+  padding: 0;
+  /* Убираем любые отступы */
+  position: relative;
+  /* Для позиционирования элементов внутри */
+  border-radius: 30px;
+  /* Округление для контейнера фото */
 }
 
 /* Изображение внутри контейнера */
 .recipe-photo img {
-  width: 100%; /* Растягиваем изображение на всю ширину контейнера */
-  height: 100%; /* Растягиваем изображение по высоте контейнера */
-  object-fit: cover; /* Изображение покрывает весь контейнер */
-  object-position: center; /* Центрируем изображение, чтобы оно не обрезалось с одной стороны */
-  border-radius: 30px; /* Округление изображения */
+  width: 100%;
+  /* Растягиваем изображение на всю ширину контейнера */
+  height: 100%;
+  /* Растягиваем изображение по высоте контейнера */
+  object-fit: cover;
+  /* Изображение покрывает весь контейнер */
+  object-position: center;
+  /* Центрируем изображение, чтобы оно не обрезалось с одной стороны */
+  border-radius: 30px;
+  /* Округление изображения */
 }
 
 /* Контейнер для кнопки "Посмотреть рецепт" */
@@ -143,16 +255,23 @@ body.index-page {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  display: flex; /* Flexbox для выравнивания */
-  justify-content: flex-end; /* Размещение содержимого справа */
-  align-items: center; /* Центрируем кнопку по вертикали */
+  display: flex;
+  /* Flexbox для выравнивания */
+  justify-content: flex-end;
+  /* Размещение содержимого справа */
+  align-items: center;
+  /* Центрируем кнопку по вертикали */
   padding: 10px;
-  border-radius: 30px; /* Округление для контейнера кнопки */
-  background-color: rgba(0, 191, 255, 0.8); /* Можно убрать этот фон, если не нужен */
+  border-radius: 30px;
+  /* Округление для контейнера кнопки */
+  background-color: rgba(0, 191, 255, 0.8);
+  /* Можно убрать этот фон, если не нужен */
   width: auto;
   height: auto;
-  z-index: 10; /* Убедимся, что кнопка поверх других элементов */
-  text-align: right; /* Это можно оставить, но `justify-content` уже выполняет задачу */
+  z-index: 10;
+  /* Убедимся, что кнопка поверх других элементов */
+  text-align: right;
+  /* Это можно оставить, но `justify-content` уже выполняет задачу */
 }
 
 .recipe .no-photo {
@@ -167,16 +286,23 @@ body.index-page {
   position: absolute;
   bottom: 20px;
   right: 30px;
-  display: flex; /* Flexbox для выравнивания */
-  justify-content: flex-end; /* Размещение содержимого справа */
-  align-items: center; /* Центрируем кнопку по вертикали */
+  display: flex;
+  /* Flexbox для выравнивания */
+  justify-content: flex-end;
+  /* Размещение содержимого справа */
+  align-items: center;
+  /* Центрируем кнопку по вертикали */
   padding: 10px;
-  border-radius: 15px; /* Закругляем углы */
-  background-color: rgba(0, 191, 255, 0.8); /* Можно убрать этот фон, если не нужен */
+  border-radius: 15px;
+  /* Закругляем углы */
+  background-color: rgba(0, 191, 255, 0.8);
+  /* Можно убрать этот фон, если не нужен */
   width: auto;
   height: auto;
-  z-index: 10; /* Убедимся, что кнопка поверх других элементов */
-  text-align: right; /* Это можно оставить, но `justify-content` уже выполняет задачу */
+  z-index: 10;
+  /* Убедимся, что кнопка поверх других элементов */
+  text-align: right;
+  /* Это можно оставить, но `justify-content` уже выполняет задачу */
 }
 
 /* Кнопка "Посмотреть рецепт" */
@@ -187,7 +313,8 @@ body.index-page {
   font-size: 1.2rem;
   padding: 10px 20px;
   border: none;
-  border-radius: 15px; /* Закругленные углы для кнопки */
+  border-radius: 15px;
+  /* Закругленные углы для кнопки */
   cursor: pointer;
   text-decoration: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -199,7 +326,8 @@ body.index-page {
 .btn-view-recipe:hover {
   background-color: rgba(0, 191, 255, 1);
   transform: translateY(-5px);
-  color: black; /* Устанавливаем черный цвет текста при наведении */
+  color: black;
+  /* Устанавливаем черный цвет текста при наведении */
   text-decoration: none;
 }
 
@@ -324,154 +452,4 @@ body.index-page {
 .pagination a:disabled {
   background-color: #ccc;
   cursor: not-allowed;
-}
-
-/* Логотип и панель внизу */
-.logo-bar {
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 20px 0;
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 20px;
-  padding-right: 50px;
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 0px;  /* Увеличиваем отрицательный отступ для ещё большего сдвига вверх */
-  border-radius: 15px;
-}
-
-
-/* Логотип и текст слева */
-.logo-bar .left-section {
-  display: flex;
-  align-items: center;
-  gap: 35px;
-}
-
-.logo-bar img {
-  width: 70px;
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Контактная информация */
-.team-contact {
-  font-size: 1.3rem;
-  color: #808080;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.team-contact:hover {
-  color: black;
-  text-decoration: none;
-}
-
-/* Иконки социальных сетей */
-.social-icons {
-  display: flex;
-  gap: 35px;
-  align-items: center;
-}
-
-.social-icons a {
-  display: inline-block;
-}
-
-.social-icons img {
-  width: 30px;
-  height: auto;
-  transition: transform 0.3s ease-in-out, filter 0.3s ease;
-  cursor: pointer;
-}
-
-.social-icons img:hover {
-  transform: scale(1.2);
-  filter: brightness(1.2);
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1.1);
-  }
-  50% {
-    transform: scale(1.3);
-  }
-  100% {
-    transform: scale(1.1);
-  }
-}
-
-/* Медиазапросы для адаптивности */
-@media screen and (max-width: 1024px) {
-  .title {
-    font-size: 2rem; /* Уменьшаем размер на меньших экранах */
-  }
-
-  .recipe h1 {
-    font-size: 1.8rem;
-  }
-
-  .logo-bar {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .social-icons {
-    gap: 20px;
-  }
-
-  .pagination a {
-    font-size: 1rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .title {
-    font-size: 1.5rem;
-  }
-
-  .recipe {
-    padding: 10px;
-  }
-
-  .recipe h1 {
-    font-size: 1.5rem;
-  }
-
-  .back-button {
-    top: 10px;
-    left: 10px;
-    font-size: 0.9rem;
-  }
-
-  .pagination a {
-    font-size: 0.9rem;
-    padding: 8px 16px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .title {
-    font-size: 1.2rem;
-  }
-
-  .recipe {
-    padding: 8px;
-  }
-
-  .recipe h1 {
-    font-size: 1.2rem;
-  }
-
-  .logo-bar {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .social-icons {
-    gap: 15px;
-  }
 }

@@ -1,7 +1,9 @@
 from django.db import models
+from django.utils import timezone
 from datetime import timedelta
+from zoneinfo import ZoneInfo
 from django.urls import reverse
-
+import logging
 
 class RecipeManager(models.Manager):  # Менеджер для рецептов
     def get_queryset(self) -> models.QuerySet:
@@ -28,39 +30,32 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         verbose_name='Название блюда',
         primary_key=True,
         max_length=30,
-        unique=True,
-        blank=False
     )
 
     is_vegetarian = models.BooleanField(
         verbose_name='Вегетарианское ли блюдо?',
-        default=False,
         help_text="Проставьте галочку если это относится к этой категории"
     )
 
     is_fast_food = models.BooleanField(
         verbose_name="Еда быстрого приготовления?",
-        default=False,
         help_text="Проставьте галочку если это относится к этой категории"
     )
 
     is_dessert = models.BooleanField(
         verbose_name="Данная еда являетя десертом?",
-        default=False,
         help_text="Проставьте галочку если это относится к этой категории"
     )
 
     level = models.CharField(
         verbose_name='Уровень сложности',
         choices=DISH_LVL,
-        max_length=20,
-        blank=False
+        max_length=20
     )
 
     ingredients_list = models.TextField(
         verbose_name='Ингредиенты данного рецепта',
-        max_length=20000,
-        blank=False,
+        max_length=2000,
     )
 
     steps = models.TextField(
@@ -72,15 +67,14 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         verbose_name='Время приготовления блюда',
         default=timedelta(minutes=30),
         help_text='Напишите примерное время приготовления данного блюда(в минутах)',
-        blank=False,
-        null=False
     )
 
     dish_photo = models.ImageField(
+        unique=True,
         verbose_name='Фото блюда',
-        upload_to='static/img/dish_photos/',
-        blank=True,
-        null=True,
+        upload_to='dish_photos/',
+        height_field=None,
+        width_field=None,
         help_text='Загрузите фото данного блюда.'
     )
 
@@ -91,7 +85,20 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
 
     objects = models.Manager()  # Менеджер, применяемый по умолчанию
     recipe_manager = RecipeManager()  # Конкретно-прикладной менеджер
-
+    
+    def change_register(self):
+        s = self.name
+        logging.debug(f"Original name: {s}")  # Логирование исходного значения
+        if s and s[0].islower():  # Проверка на непустоту и на то, что первая буква строчная
+            s = s[0].upper() + s[1:]  # Заглавная первая буква, остальные без изменений
+            logging.debug(f"Changed name: {s}")  # Логирование изменённого значения
+        return s 
+    
+    def save(self, *args, **kwargs):
+        # Применяем метод change_register перед сохранением
+        self.name = self.change_register()
+        super().save(*args, **kwargs)
+    
     class Meta:
         ordering = ["-created_at"]
         verbose_name = "Рецепт"
@@ -116,7 +123,6 @@ class Reviews(models.Model):  # 2. Модель - модель моих отзы
     author = models.CharField(
         verbose_name='Автор',
         max_length=30,
-        unique=True,
         blank=True,
         help_text="По вашему желанию можете указать автора данного рецепта"
     )
@@ -145,7 +151,7 @@ class Reviews(models.Model):  # 2. Модель - модель моих отзы
         verbose_name="Комментарии",
         help_text="Оставьте ваши комментарии"
     )
-
+    
     objects = models.Manager()  # Менеджер, применяемый по умолчанию
     review_manager = ReviewManager()  # Конкретно-прикладной менеджер для моих отзыв
 
@@ -161,20 +167,112 @@ class Reviews(models.Model):  # 2. Модель - модель моих отзы
         return reverse("_detail", kwargs={"pk": self.pk})
 
 
-class TeamConnection(models.Model):  # Модель для contacts.html
-    pass
+class UserProfile(models.Model):
+    name = models.CharField(
+        verbose_name="Имя автора профиля",
+        unique=True,
+        max_length=20,
+        help_text='Введите ваше имя'
+    )
+    TIMEZONE_MAP = {
+        'Армения': 'Asia/Yerevan',  # Армения
+        'Азербайджан': 'Asia/Baku',  # Азербайджан
+        'Беларусь': 'Europe/Minsk',  # Беларусь
+        'Казахстан': 'Asia/Almaty',  # Казахстан
+        'Кыргызстан': 'Asia/Bishkek',  # Кыргызстан
+        'Молдова': 'Europe/Chisinau',  # Молдова
+        'Россия': 'Russia',  # Россия
+        'Таджикистан': 'Asia/Dushanbe',  # Таджикистан
+        'Туркменистан': 'Asia/Ashgabat',  # Туркменистан
+        'Украина': 'Europe/Kiev',  # Украина
+        'Узбекистан': 'Asia/Tashkent',  # Узбекистан
+    }
+
+    TIMEZONE_MAP2 = {
+        'Russia (Moscow)': 'Europe/Moscow',
+        'Russia (Saint Petersburg)': 'Europe/Moscow',
+        'Russia (Far East)': 'Asia/Vladivostok',
+        'Russia (Siberia)': 'Asia/Irkutsk',
+        'Russia (Ural)': 'Asia/Yekaterinburg',
+        'Russia (Krasnoyarsk)': 'Asia/Krasnoyarsk',
+    }
+
+    country = models.CharField(
+        verbose_name="Страна",
+        max_length=50,
+        choices=TIMEZONE_MAP.items(),  # Это будет кортеж пар (ключ, значение)
+        help_text="Введите вашу страну"
+    )
+
+    age_choices = [(i, str(i)) for i in range(1, 101)]
+
+    age = models.IntegerField(
+        verbose_name="Возраст",
+        choices=age_choices,
+        help_text="Ваш возраст"
+    )
+
+    description = models.TextField(
+        verbose_name="Описание",
+        max_length=500,
+        help_text="Описание пользователя"
+    )
+
+    created_at = models.DateTimeField(
+        verbose_name='Дата создания',
+        default=timezone.now,
+    )
+
+    profile_photo = models.ImageField(
+        verbose_name="Фото профиля",
+        upload_to="media/profile_photo",
+        default='static/css/img/profile.png',
+        help_text="Загрузите ваше фото"
+    )
+    
+    
+    def change_zone(self):
+        country = self.country
+        if country in self.TIMEZONE_MAP:
+            if country == 'Russia':
+                zone_info = ZoneInfo(self.TIMEZONE_MAP2.get(f"Russia ({country})", "UTC"))
+            else:
+                zone_info = ZoneInfo(self.TIMEZONE_MAP[country])
+        else:
+            zone_info = ZoneInfo("UTC")
+
+        self.created_at = timezone.localtime(self.created_at, zone_info)
+
+    def save(self, *args, **kwargs):
+        """
+        Переопределённый метод save для корректной обработки временной зоны.
+        """
+        if not self.created_at:
+            self.created_at = timezone.now()
+
+        # Применяем временную зону, если она не была задана
+        self.change_zone()  # Меняем временную зону в зависимости от страны
+        super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Профиль"
+        verbose_name_plural = "Профили"
+
+    def __str__(self):
+        return self.name[:10]
 
 
-class Comments(models.Model):  # Модель для того чтоб оставлять комментарии на отзыв
-    pass
+# class TeamConnection(models.Model):
+#     pass
 
 
-class Likes(models.Model):  # Модель для лайков и избарнных
-    pass
+# class Likes(models.Model):
+#     pass
 
 
-# TODO: ДОДЕЛАТЬ ВЕРТСКУ + перенести весь css из тегов style в css
-# TODO: js эффекты для файлов 
+# TODO: ДОДЕЛАТЬ ВЕРТСКУ + поправить полоску лого в categories.css + исправить reviews.css
+# TODO: js эффекты для файлов
 # TODO: Нужно добавить валидаторы для конвертации картинки.
 # TODO: Класс своего аккаунта(Добавить папку избранное в профиле + Добавить возможность пользователям ставить друг другу "лайки" на рецепты или на отзывы)
 # TODO: Класс для общего рейтенга лучшего рецепта если общее число рейтенга <4
@@ -189,4 +287,3 @@ class Likes(models.Model):  # Модель для лайков и избарнн
 # TODO: Заполнить categories_list
 # TODO: Заполнить tests.py
 # TODO: Пагинация: Разделить рецепты на страницы для ускорения загрузки.
-

@@ -9,21 +9,13 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
   <link href="{% static 'css/menu/best_recipes.css' %}" rel="stylesheet">
-  <style>
-    body.index-page {
-      background-image: url("{% static 'img/1.jpg' %}");
-      background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
-      background-size: cover;               /* Фон заполняет весь экран, сохраняя пропорции */
-      background-position: center;          /* Центрируем изображение */
-      background-repeat: no-repeat;         /* Не повторять изображение */
-      background-attachment: fixed;         /* Фон фиксирован при прокрутке */
-      height: 100vh;                        /* Занимает всю высоту экрана */
-      font-family: var(--default-font);
-    } 
-  </style>
+  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
 
 <body class="index-page">
+  <div class="background-image">
+    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+</div>
   <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
   
   <header id="header" class="header">
@@ -69,7 +61,6 @@
         {% endfor %}
       </div>
     {% else %}
-      <p>Нет лучших рецептов для отображения.</p>
     {% endif %}
   </div>
 

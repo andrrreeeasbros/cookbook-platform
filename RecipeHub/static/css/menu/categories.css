@@ -1,20 +1,33 @@
-/* Основной контент страницы */
-main.main {
-  padding-bottom: 150px;
-  /* Отступ снизу, чтобы избежать перекрытия нижней панели */
-  margin-bottom: 0;
-  /* Убираем отступ снизу */
-  flex-grow: 1;
-  /* Основной контент займет все доступное пространство */
+/* Панель с фоновым изображением */
+.background-image {
+  position: fixed; /* Сделаем фон фиксированным относительно экрана */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('your-image.jpg'); /* Ваш фон */
+  background-size: cover; /* Фон будет покрывать весь экран */
+  background-attachment: fixed; /* Фон фиксирован при прокрутке */
+  background-position: center; /* Фон будет выровнен по центру */
+  z-index: -1; /* Обеспечиваем, чтобы фон был позади контента */
 }
 
-body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+/* Обновляем html и body для прокрутки */
+html, body {
+  height: 100%; /* Растягиваем body на весь экран */
+  margin: 0;    /* Убираем отступы */
+  overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+  overflow-y: auto; /* Включаем вертикальную прокрутку */
+}
+
+/* Растягиваем main блок */
+main.main {
+  padding-bottom: 120px; /* Убираем перекрытие с нижней панели */
+  margin-bottom: 0; /* Убираем отступ снизу */
+  flex-grow: 1;
+  min-height: calc(100vh - 120px); /* Убираем высоту нижней панели */
+  overflow-y: auto; /* Включаем вертикальную прокрутку */
+  position: relative; /* Чтобы элементы внутри могли быть позади фона */
 }
 
 
@@ -71,63 +84,32 @@ html {
   transform: translateX(0);
 }
 
-body.index-page {
-  font-family: var(--default-font);
-  overflow-x: hidden;                   /* Отключаем горизонтальную прокрутку */
-  overflow-y: auto;                     /* Вертикальная прокрутка если контента слишком много */
-  padding-bottom: 100px; /* Отступ снизу, чтобы контент не перекрывался панелью */
-}
-
-.background-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover; /* Подгоняет изображение по размеру */
-  z-index: -1; /* Фиксируем изображение в фоновом слое */
-}
-
-
 /* Кнопка возврата */
 .btn {
   background-color: #ffffff;
-  /* Белый фон */
   color: #000000;
-  /* Черный текст */
   border: 2px solid #000000;
-  /* Черная граница */
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  /* Плавные переходы */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-  /* Черный отсвет */
 }
 
 /* Эффект при наведении на кнопки */
 .btn:hover {
   transform: translateY(-5px);
-  /* Двигаем кнопку вверх */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  /* Легкий отсвет при наведении */
 }
 
 /* Стиль для кнопки "Посмотреть" (красная) */
 .btn-red {
   background-color: red;
-  /* Красный фон */
   color: #ffffff;
-  /* Белый текст */
   border-color: #dc3545;
-  /* Красная граница */
 }
 
 .btn-red:hover {
   background-color: red;
-  /* Темно-красный при наведении */
   border-color: red;
-  /* Темно-красная граница при наведении */
   transform: translateY(-5px);
-  /* Двигаем кнопку вверх */
 }
 
 /* Стиль для кнопки возврата */
@@ -143,37 +125,21 @@ body.index-page {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  /* Убираем подчеркивание */
   transition: transform 0.3s ease, color 0.3s ease;
-  /* Плавный переход для цвета текста */
-}
-
-.back-button {
-  text-decoration: none;
-  /* Убираем подчеркивание */
-}
-
-.back-button:hover {
-  text-decoration: none;
-  /* Убираем подчеркивание при наведении */
 }
 
 /* Эффект при наведении на кнопку возврата */
 .back-button:hover {
   color: black;
-  /* Текст становится черным при наведении */
   transform: translateY(-5px);
-  /* Подпрыгивание */
 }
 
+/* Стили для нижней панели с логотипами и контактами */
 .logo-bar {
-  background: rgba(255, 255, 255, 0.9);
-  /* Полупрозрачный фон */
+  background: rgba(255, 255, 255, 0.9); /* Полупрозрачный фон */
   padding: 20px 0;
-  position: relative;
-  /* Панель теперь будет внизу контента */
-  bottom: 0;
-  /* Панель будет внизу страницы */
+  position: relative; /* Это будет обычный блок внизу */
+  bottom: 0;      /* Привязываем к низу */
   left: 0;
   width: 100%;
   display: flex;
@@ -181,8 +147,7 @@ body.index-page {
   align-items: center;
   padding-left: 20px;
   padding-right: 50px;
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  /* Тень */
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Тень */
   z-index: 10;
 }
 
@@ -207,7 +172,6 @@ body.index-page {
 
 .logo-bar .team-contact:hover {
   color: #333;
-  /* Убираем стандартное серое при наведении */
 }
 
 /* Иконки социальных сетей */
@@ -230,17 +194,12 @@ body.index-page {
 
 .social-icons img:hover {
   transform: scale(1.2);
-  /* Эффект увеличения */
   filter: brightness(1.2);
-  /* Немного ярче при наведении */
 }
-
-
 
 /* Стили для категории */
 .category-card-container {
   background-color: rgba(255, 255, 255, 0.8);
-  /* Полупрозрачный фон */
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -249,9 +208,7 @@ body.index-page {
 
 .category-card-container:hover {
   background-color: rgba(255, 255, 255, 1);
-  /* При наведении фон становится непрозрачным */
   transform: translateY(-10px);
-  /* Прыжок вверх при наведении */
 }
 
 /* Убедимся, что категории имеют одинаковые размеры */
@@ -260,69 +217,9 @@ body.index-page {
   margin: 15px;
   display: flex;
   justify-content: center;
-  /* Выравнивание по центру */
 }
 
 .category-card-container h3 {
   font-weight: bold;
-  /* Жирный шрифт для заголовков */
   margin-bottom: 10px;
-  /* Отступ снизу */
-}
-
-/* Адаптивность для экранов до 1024px */
-@media screen and (max-width: 1024px) {
-  .logo-bar {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .social-icons {
-    gap: 20px;
-  }
-}
-
-/* Адаптивность для экранов до 768px */
-@media screen and (max-width: 768px) {
-  .logo-bar {
-    padding: 15px 0;
-  }
-
-  .logo-bar .left-section {
-    gap: 20px;
-  }
-
-  .logo-bar img {
-    width: 60px;
-  }
-
-  .social-icons {
-    gap: 15px;
-  }
-}
-
-/* Адаптивность для экранов до 480px */
-@media screen and (max-width: 480px) {
-  .logo-bar {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .logo-bar .left-section {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .social-icons {
-    gap: 10px;
-  }
-
-  .logo-bar img {
-    width: 50px;
-  }
-
-  .logo-bar .team-contact {
-    font-size: 1rem;
-  }
 }

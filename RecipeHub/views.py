@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
 from django.http import Http404
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage
 
 
 def main_template(request):  # представдение для главного шаблона сайта
     return render(request,
                   'index.html')
+    
+
+def profile(request):
+    return render(request, 'menu/profile.html')
 
 
 def categories(request):  # представдение категорий рецептов
@@ -30,8 +34,9 @@ def best_recipes(request):  # представление для лучших р�
     page_number = request.GET.get('best_recipes', 1)
     try:
         recipes_pages = paginator.get_page(page_number)
-    except:
+    except EmptyPage:
         recipes_pages = paginator.get_page(1)
+        
     return render(request,
                   'menu/best_recipes.html',
                   {'best_recipes': recipes_pages})
@@ -48,7 +53,7 @@ def recipes(request):
     page_number = request.GET.get('page')
     try:
         recipes_page = paginator.get_page(page_number)
-    except ValueError:
+    except EmptyPage:
         recipes_page = paginator.get_page(1)
     return render(request,
                   'menu/recipes.html',
@@ -61,7 +66,7 @@ def reviews(request):
     page_number = request.GET.get('review', 1)
     try:
         reviews_page = paginator.get_page(page_number)
-    except ValueError:
+    except EmptyPage:
         reviews_page = paginator.get_page(1)
     return render(request,
                   'menu/reviews.html',

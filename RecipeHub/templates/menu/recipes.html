@@ -11,20 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
   <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
-  <style>
-    body.index-page {
-      background-image: url("{% static 'img/1.jpg' %}");
-      background-color: rgba(0, 0, 0, 0.5); /* Прозрачный черный фон */
-      background-size: cover;               /* Фон заполняет весь экран, сохраняя пропорции */
-      background-position: center;          /* Центрируем изображение */
-      background-repeat: no-repeat;         /* Не повторять изображение */
-      background-attachment: fixed;         /* Фон фиксирован при прокрутке */
-      height: 100vh;                        /* Занимает всю высоту экрана */
-      font-family: var(--default-font);
-    }
-  </style>
+  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
-<body class="index-page">
+<body class="index-page ">
+  <div class="background-image">
+    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+</div>
   <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
   
   <main class="main">
@@ -43,8 +35,7 @@
             <p class="no-photo">Фото не доступно</p>
           {% endif %}
           
-          
-        <a class="btn-view-recipe" href="{% url 'RecipeHub:recipe_detail' name=recipe.name %}">Посмотреть рецепт</a>
+          <a class="btn-view-recipe" href="{% url 'RecipeHub:recipe_detail' name=recipe.name %}">Посмотреть рецепт</a>
         </article>
       {% endfor %}
     </div>
@@ -68,9 +59,7 @@
 
     <div class="logo-bar">
       <div class="left-section">
-        <a href="{% url 'RecipeHub:main_template' %}">
-          <img src="{% static 'img/logo.png' %}" alt="Логотип">
-      </a>
+        <img src="{% static 'img/logo.png' %}" alt="Логотип">
         <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
         <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
       </div>
@@ -85,8 +74,30 @@
           <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
         </a>
       </div>
-    </div>
   </main>
+
+<script>  // Например, если у вас есть кнопка "Добавить рецепт"
+  const addRecipeButton = document.querySelector('.btn-add-recipe');
+  const body = document.body;
+  
+  // Функция, которая будет отслеживать, добавлен ли рецепт
+  function checkRecipeStatus() {
+    const isRecipeAdded = /* ваша логика для проверки добавления рецепта */ true; // Поставьте условие, которое отслеживает добавление рецепта
+  
+    if (isRecipeAdded) {
+      body.classList.remove('recipe-not-added'); // Убираем отступ, если рецепт добавлен
+    } else {
+      body.classList.add('recipe-not-added'); // Добавляем отступ, если рецепт не добавлен
+    }
+  }
+  
+  // Пример с обработчиком события для кнопки добавления рецепта
+  addRecipeButton.addEventListener('click', checkRecipeStatus);
+  
+  // Или вы можете вызвать `checkRecipeStatus` после того, как рецепт был добавлен через API или форму
+  
+
+</script>
 
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

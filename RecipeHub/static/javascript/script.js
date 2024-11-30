@@ -24,4 +24,3 @@ document.addEventListener('DOMContentLoaded', function () {
   // Проверяем видимость элементов при прокрутке
   window.addEventListener('scroll', checkVisibility);
 });
-

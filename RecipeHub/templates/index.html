@@ -11,15 +11,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
   <link href="{% static 'css/menu/index.css' %}" rel="stylesheet">
+  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
 <body class="index-page">
   <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
-  <header id="header" class="header d-flex align-items-center sticky-top">
+   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container d-flex flex-column align-items-center">
       <h1 class="sitename fade-in">Платформа обмена рецептами</h1>
       <nav id="navmenu" class="navmenu fade-in">
         <ul class="d-flex flex-wrap justify-content-center">
-          <li class="mx-3"><a href="">Мой профиль</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:profile' %}">Мой профиль</a></li>
           <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
           <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
           <li class="mx-3"><a href="{% url 'RecipeHub:best_recipes' %}">Лучшие рецепты</a></li>
@@ -29,7 +30,6 @@
       <div class="image-container fade-in"></div>
     </div>
   </header>
-
   <section class="about-site fade-in">
     <div class="container">
       <h2>О сайте</h2>

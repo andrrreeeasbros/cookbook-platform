@@ -1,8 +1,12 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Отключаем прокрутку полностью */
+}
+
 body.index-page {
   font-family: var(--default-font);
-  overflow-x: hidden;                   /* Отключаем горизонтальную прокрутку */
-  overflow-y: auto;                     /* Вертикальная прокрутка если контента слишком много */
-  padding-bottom: 100px; /* Отступ снизу, чтобы контент не перекрывался панелью */
+  padding-bottom: 0; /* Убираем отступ снизу */
 }
 
 .background-image {
@@ -10,8 +14,8 @@ body.index-page {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  object-fit: cover; /* Подгоняет изображение по размеру */
+  height: 100vh; /* Высота 100% от видимой области экрана */
+  object-fit: cover; /* Подгоняем изображение по размеру */
   z-index: -1; /* Фиксируем изображение в фоновом слое */
 }
 
@@ -32,19 +36,6 @@ body.index-page {
   margin: 20px auto;
 }
 
-/* Начальное состояние элемента с анимацией */
-.fade-in {
-  opacity: 0;                      /* Элемент невидим на старте */
-  transform: translateY(30px);      /* Немного смещаем вниз */
-  transition: opacity 1s ease-out, transform 1s ease-out;  /* Плавное изменение прозрачности и смещения */
-}
-
-/* Когда класс "visible" добавлен, элемент плавно появляется */
-.fade-in.visible {
-  opacity: 1;                      /* Полная непрозрачность */
-  transform: translateY(0);         /* Возвращаем элемент в исходное положение */
-}
-
 .categories-title {
   color: #ffffff !important;
 }
@@ -52,51 +43,32 @@ body.index-page {
 /* Основной стиль для ссылок в меню */
 .navmenu a {
   color: white;
-  /* Цвет текста */
   display: block;
   padding: 15px;
-  /* Увеличиваем отступы */
   border-radius: 20px;
-  /* Увеличиваем радиус закругления */
   transition: background-color 0.3s, color 0.3s;
   background-color: rgba(0, 0, 0, 0.9);
-  /* Черный фон с прозрачностью */
   font-family: 'Nunito', sans-serif;
-  /* Шрифт для основного текста */
   font-size: 20px;
-  /* Размер шрифта уменьшен до 14px */
   font-weight: 500;
-  /* Полужирный шрифт */
   text-align: center;
-  /* Выравнивание текста по центру */
   line-height: 1.4;
-  /* Интерлиньяж */
-  animation: none;
-  /* Без анимации по умолчанию */
 }
 
-/* Эффект при наведении на ссылку */
 .navmenu a:hover {
   background-color: rgba(0, 0, 0, 0.7);
-  /* Фон становится менее прозрачным при наведении */
   color: white;
-  /* Белый цвет текста при наведении */
   text-decoration: none;
-  /* Убираем подчеркивание */
   animation: bounce 0.6s ease-in-out;
-  /* Анимация при наведении */
   transform: scale(1.05);
-  /* Легкое увеличение кнопки при наведении */
 }
 
 /* Стиль для элементов списка */
 .navmenu li {
   margin: 5px;
   border-radius: 20px;
-  /* Увеличиваем радиус закругления для контейнера */
 }
 
-/* Убираем маркеры списка */
 .navmenu ul {
   list-style: none;
   padding: 0;
@@ -132,7 +104,6 @@ body.index-page {
   font-weight: bold;
   margin-bottom: 10px;
   color: #000;
-  /* Темный цвет для заголовка */
 }
 
 .about-site p {
@@ -142,16 +113,11 @@ body.index-page {
   text-align: justify;
 }
 
-/* Стиль для правого выравнивания авторского текста */
 .author-text {
   text-align: right;
-  /* Выравнивание текста по правому краю */
   margin-right: 30px;
-  /* Добавляем небольшой отступ от правого края */
   font-style: italic;
-  /* Добавлен курсив */
   color: #555;
-  /* Темно-серый цвет для текста */
 }
 
 .logo-bar {
@@ -162,54 +128,38 @@ body.index-page {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  /* Распределяем элементы по краям */
   align-items: center;
   padding-left: 20px;
-  /* Отступ от левого края */
   padding-right: 50px;
-  /* Отступ от правого края */
 }
 
 .logo-bar .left-section {
   display: flex;
   align-items: center;
   gap: 35px;
-  /* Расстояние между логотипом и текстом */
 }
 
 .logo-bar img {
   width: 70px;
-  /* Размер логотипа */
   height: auto;
   transition: transform 0.3s ease-in-out;
-  /* Плавное увеличение при наведении */
 }
 
 .team-contact {
   font-size: 1.3rem;
-  /* Размер текста */
   color: #808080;
-  /* Серый цвет текста */
   text-decoration: none;
-  /* Убираем подчеркивание */
   transition: color 0.3s ease;
-  /* Плавное изменение цвета */
 }
 
 .team-contact:hover {
   color: black;
-  /* Черный цвет текста */
-  text-decoration: none;
-  /* Убираем подчеркивание */
 }
 
 .social-icons {
   display: flex;
-  /* Иконки будут располагаться в строку */
   gap: 35px;
-  /* Промежуток между иконками */
   align-items: center;
-  /* Вертикальное выравнивание иконок */
 }
 
 .social-icons a {
@@ -218,84 +168,61 @@ body.index-page {
 
 .social-icons img:hover {
   transform: scale(1.2);
-  /* Увеличиваем логотип при наведении */
   filter: brightness(1.2);
-  /* Немного ярче логотип */
 }
 
 .social-icons img {
   width: 30px;
-  /* Исходный размер логотипов */
   height: auto;
   transition: transform 0.3s ease-in-out, filter 0.3s ease;
-  /* Плавное увеличение и изменение фильтра */
   cursor: pointer;
-  /* Указывает, что логотип можно кликнуть */
 }
 
 .social-icons img[src*="facebook"] {
   width: 30px;
-  /* Уменьшаем логотип Facebook */
 }
 
 .social-icons img[src*="instagram"] {
   width: 30px;
-  /* Уменьшаем логотип Instagram */
 }
 
 .social-icons img[src*="VK"] {
   width: 30px;
-  /* Уменьшаем логотип ВКонтакте */
 }
 
 @keyframes pulse {
   0% {
     transform: scale(1.1);
-    /* Начальный размер */
   }
-
   50% {
     transform: scale(1.3);
-    /* Максимальное увеличение */
   }
-
   100% {
     transform: scale(1.1);
-    /* Возвращаемся к исходному размеру */
   }
 }
 
 @keyframes bounce {
   0% {
     transform: translateY(0);
-    /* Начальная позиция */
   }
-
   20% {
     transform: translateY(-5px);
-    /* Немного поднимем кнопку */
   }
-
   40% {
     transform: translateY(0);
-    /* Возвращаем на исходную позицию */
   }
-
   60% {
     transform: translateY(-3px);
-    /* Немного поднимем кнопку снова */
   }
-
   80% {
     transform: translateY(0);
-    /* Возвращаем на исходную позицию */
   }
-
   100% {
     transform: translateY(-2px);
-    /* Легкий подпрыгивающий эффект */
   }
 }
+
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .logo-bar {

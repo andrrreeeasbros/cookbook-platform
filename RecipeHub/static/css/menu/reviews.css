@@ -270,11 +270,19 @@ body, html {
      cursor: not-allowed;
  }
 
-.logo-bar {
-    background: rgba(255, 255, 255, 0.9); /* Полупрозрачный фон */
+ main.main {
+    padding-bottom: 0; /* Убираем отступ снизу */
+    margin-bottom: 150px; /* Отступ для места под лого */
+    flex-grow: 1;
+    height: calc(100vh - 150px); /* Высота контента фиксированная, учитывая панель с лого */
+    overflow: hidden; /* Убираем прокрутку */
+  }
+  
+  .logo-bar {
+    background: rgba(255, 255, 255, 0.9);
     padding: 20px 0;
-    position: relative; /* Панель теперь будет внизу контента */
-    bottom: 0; /* Панель будет внизу страницы */
+    position: fixed;
+    bottom: 0;
     left: 0;
     width: 100%;
     display: flex;
@@ -282,8 +290,12 @@ body, html {
     align-items: center;
     padding-left: 20px;
     padding-right: 50px;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Тень */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
     z-index: 10;
+  }
+
+body {
+    padding-bottom: 80px; /* Добавляем отступ снизу, чтобы контент не перекрывался полоской */
 }
 
 .logo-bar .left-section {
@@ -366,3 +378,4 @@ body, html {
         /* 1 колонка на маленьких экранах */
     }
 }
+
