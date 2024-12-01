@@ -1,13 +1,13 @@
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from RecipeHub.views import *
+from .views import *
 
 
 app_name = 'RecipeHub'
 
 urlpatterns = [
-    path('', main_template, name='main_template'),
+    path('', main_template, name='main_template'), 
     path('profile/', profile, name='profile'),
     path('categories/', categories, name='categories'),
     path('about_us/', about_us, name='about_us'),
@@ -17,4 +17,5 @@ urlpatterns = [
     path('contacts/', contacts, name='contacts'),
     path('recipe/<str:name>/', recipe_details, name='recipe_detail'),
     path('best_recipes/<str:name>/', best_recipe_details, name='best_recipe_detail'),
+    path('register/', Registration, name='registration'), 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

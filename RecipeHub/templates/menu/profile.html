@@ -14,12 +14,15 @@
   <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
 <body class="index-page">
-    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+    <div class="background-image">
+        <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+    </div>
      <header id="header" class="header d-flex align-items-center sticky-top">
       <div class="container d-flex flex-column align-items-center">
         <h1 class="sitename fade-in">Мой профиль</h1>
         <div class="image-container fade-in"></div>
       </div>
+    <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
     </header>
 
 

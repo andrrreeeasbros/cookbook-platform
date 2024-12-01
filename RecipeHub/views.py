@@ -3,7 +3,9 @@ from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage
-
+from .forms import UserRegistration
+from django.contrib.auth import login
+from django.contrib import messages
 
 def main_template(request):  # представдение для главного шаблона сайта
     return render(request,
@@ -91,3 +93,20 @@ def best_recipe_details(request, name):
     return render(request,
                   'details/best_recipe_details.html',
                   {'best_recipe': best_recipe})
+
+def Registration(request):
+    if request.method == 'POST':
+        form = UserRegistration(request.POST)
+        
+        if form.is_valid():
+            # Сохраняем нового пользователя
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Вы успешно зарегистрированы!')
+        else:
+            # Если форма не валидна, покажем ошибки
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+    else:
+        form = UserRegistration()
+
+    return render(request, 'user/registration.html', {'form': form})

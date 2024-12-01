@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="Описание вашего сайта">
+  <meta name="keywords" content="ключевые, слова, вашего, сайта">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <link href="{% static 'css/menu/index.css' %}" rel="stylesheet">
+  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
+  <style>
+    /* Общие стили */
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    html {
+      scroll-behavior: smooth; /* Плавная прокрутка */
+      height: 100%;
+    }
+
+    .container {
+      max-width: 600px; /* Увеличиваем ширину контейнера */
+      width: 100%; /* Контейнер будет адаптироваться по ширине */
+      padding: 10px; /* Уменьшаем отступы вокруг контейнера */
+      box-sizing: border-box; /* Учитываем отступы в ширине контейнера */
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 5px; /* Уменьшаем отступы внутри формы */
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 10px; /* Уменьшаем отступ снизу */
+      color: #007bff;
+      font-size: 28px; /* Уменьшаем размер шрифта заголовка */
+    }
+
+    .form-group {
+      margin-bottom: 5px; /* Уменьшаем отступы между полями */
+    }
+
+    .form-group input {
+      font-size: 14px; /* Увеличиваем размер шрифта в полях */
+      border-radius: 5px;
+      padding: px; /* Уменьшаем отступы в полях */
+      border: 1px solid #ddd;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 10px; /* Уменьшаем отступы в кнопке */
+      font-size: 14px; /* Увеличиваем размер шрифта */
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .text-center {
+      margin-top: 10px; /* Уменьшаем отступ сверху для текста */
+      font-size: 14px; /* Уменьшаем размер шрифта для ссылки */
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .container {
+        max-width: 90%; /* Контейнер будет занимать 90% ширины экрана */
+      }
+
+      .form-header {
+        font-size: 16px; /* Уменьшаем размер заголовка на маленьких экранах */
+      }
+
+      .form-group input {
+        font-size: 12px; /* Уменьшаем размер шрифта в полях на маленьких экранах */
+      }
+
+      .btn-primary {
+        font-size: 12px; /* Уменьшаем размер шрифта на маленьких экранах */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2 class="form-header">Форма регистрации</h2>
+      <form method="POST" action="{% url 'RecipeHub:registration' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          {% for field in form %}
+            <div class="form-group">
+              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+      </form>
+      <div class="text-center">
+        <p>Уже зарегистрированы? <a href="">Войти</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Дополнительный JavaScript для обработки прокрутки -->
+  <script>
+    window.addEventListener('load', function() {
+      // Прокручиваем страницу до начала контейнера формы, если необходимо
+      window.scrollTo(0, document.querySelector('.container').offsetTop);
+    });
+  </script>
+</body>
+</html>

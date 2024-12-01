@@ -60,7 +60,7 @@ body, html {
      /* Учитываем отступы и рамки внутри контейнера */
  }
 
- .sitename {
+ .title {
     font-family: 'Lora', sans-serif;
     font-size: 2.5rem; /* Используем rem для гибкости */
     font-weight: bold;
@@ -89,7 +89,8 @@ body, html {
  }
 
  /* Оформление каждого отзыва */
- .reviews {
+/* Оформление каждого отзыва */
+.reviews {
     background-color: #fff;
     border: 1px solid #ddd;
     border-bottom: 3px solid #333; /* Добавляем более толстую рамку снизу */
@@ -100,7 +101,9 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    border-radius: 15px; /* Добавляем закругление углов */
 }
+
 
  /* Заголовок отзыва */
  .reviews h1 {
@@ -199,13 +202,13 @@ body, html {
  }
 
 
-/* Кнопка "Добавить отзыв" */
+/* Кнопка "Добавить отзыв" с черной обводкой */
 .btn-add-recipe {
     background-color: #00BFFF !important; /* Голубой фон */
     color: black; /* Черный текст */
     font-size: 1.5rem; /* Размер шрифта */
     padding: 10px 20px; /* Отступы */
-    border: none; /* Без границ */
+    border: 2px solid black; /* Черная обводка */
     border-radius: 5px; /* Скругленные углы */
     cursor: pointer; /* Курсор-указатель */
     text-decoration: none; /* Убираем подчеркивание */
@@ -218,6 +221,7 @@ body, html {
 .btn-add-recipe:hover {
     background-color: #008CBA; /* Темно-голубой цвет при наведении */
     transform: translateY(-5px); /* Легкое подпрыгивание при наведении */
+    border-color: #005f73; /* Меняем цвет границы при наведении */
 }
 
 /* Убираем подчеркивание на активные состояния кнопки */
@@ -225,6 +229,7 @@ body, html {
 .btn-add-recipe:active {
     text-decoration: none;
 }
+
 
  /* Стиль для пагинации */
  .pagination {

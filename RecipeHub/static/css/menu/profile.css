@@ -41,6 +41,41 @@ body.index-page {
     margin: 20px auto;
 }
 
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  /* Убираем подчеркивание */
+  transition: transform 0.3s ease, color 0.3s ease;
+  /* Плавный переход для цвета текста */
+}
+
+.back-button {
+  text-decoration: none;
+  /* Убираем подчеркивание */
+}
+
+.back-button:hover {
+  text-decoration: none;
+  /* Убираем подчеркивание при наведении */
+}
+
+/* Эффект при наведении на кнопку возврата */
+.back-button:hover {
+  color: black;
+  /* Текст становится черным при наведении */
+  transform: translateY(-5px);
+  /* Подпрыгивание */
+}
+
 
 .logo-bar {
     background-color: #ffffff;

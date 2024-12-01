@@ -231,3 +231,23 @@ body.index-page {
     padding-bottom: 60px !important; /* Увеличиваем padding, если margin не помогает */
   }
 }
+
+/* Анимация для плавного появления */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+/* Анимация появления снизу вверх */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px); /* Начальная позиция: снизу */
+  animation: fadeInUp 1s forwards; /* Длительность анимации 1 секунда */
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0); /* В конце анимации элемент возвращается на свою исходную позицию */
+  }
+}
