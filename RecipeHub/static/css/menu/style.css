@@ -175,6 +175,67 @@ animation: moveLeft 0.5s 0.2s forwards; /* Задержка */
 .category-item:nth-child(9) {
 animation: moveRight 0.5s 0.2s forwards; /* Задержка */
 }
+
+/* Анимация для scale-in */
+.scale-in {
+  opacity: 0;
+  transform: scale(0.8); /* Начальное состояние — уменьшенный элемент */
+  transition: opacity 1s ease-out, transform 1s ease-out; /* Плавное увеличение и появление */
+  }
+  
+  .scale-in.visible {
+  opacity: 1;  /* Элемент становится видимым */
+  transform: scale(1); /* Элемент увеличивается до нормального размера */
+  }
+  
+  /* Элементы с анимацией scale-in, которые должны появляться */
+  .title, .btn,.back-button, .btn-add-recipe, .btn-view-recipe, .reviews-container, .recipe-container  {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: scale-in 0.5s ease-out forwards; /* Применяем анимацию */
+  }
+  
+  /* Класс для кнопки "Назад" */
+  .back-button {
+  opacity: 1;  /* Убедитесь, что кнопка видимая по умолчанию */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Добавим плавность изменения */
+  }
+  
+  .back-button:hover {
+  opacity: 0.8;  /* Немного уменьшить прозрачность, но не исчезать */
+  transform: scale(1.05); /* Легкое увеличение кнопки */
+  }
+  
+  /* Основной стиль для текста в .team-contact */
+  .team-contact {
+    font-size: 1.3rem; /* Размер шрифта */
+    color: #808080;   /* Цвет текста по умолчанию */
+    text-decoration: none; /* Убираем подчеркивание */
+    transition: transform 0.3s ease, color 0.3s ease; /* Плавные изменения для трансформации и цвета */
+  }
+  
+  /* Эффект при наведении */
+  .team-contact:hover {
+    transform: scale(1.1); /* Масштабируем текст на 10% вместо 20% */
+    color: #000000; /* Цвет текста */
+  }
+  
+  
+  /* Анимация для плавного появления */
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+  
+  /* Анимация появления снизу вверх */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    /* Начальная позиция: снизу */
+    animation: fadeInUp 1s forwards;
+    /* Длительность анимации 1 секунда */
+  }
+  
 @keyframes bounce {
 0% {
   transform: translateY(0); /* Начальная позиция */
@@ -192,6 +253,8 @@ animation: moveRight 0.5s 0.2s forwards; /* Задержка */
   transform: translateY(0); /* Возвращаем в начальное положение */
 }
 }
+
+
 
 
 /* Анимация для появления элементов */
@@ -261,47 +324,11 @@ to {
 }
 }
 
-/* Анимация для scale-in */
-.scale-in {
-opacity: 0;
-transform: scale(0.8); /* Начальное состояние — уменьшенный элемент */
-transition: opacity 1s ease-out, transform 1s ease-out; /* Плавное увеличение и появление */
-}
 
-.scale-in.visible {
-opacity: 1;  /* Элемент становится видимым */
-transform: scale(1); /* Элемент увеличивается до нормального размера */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    /* В конце анимации элемент возвращается на свою исходную позицию */
+  }
 }
-
-/* Элементы с анимацией scale-in, которые должны появляться */
-.title, .btn,.back-button, .btn-add-recipe, .btn-view-recipe, .reviews-container, .recipe-container  {
-opacity: 0;
-transform: scale(0.8);
-animation: scale-in 0.5s ease-out forwards; /* Применяем анимацию */
-}
-
-/* Класс для кнопки "Назад" */
-.back-button {
-opacity: 1;  /* Убедитесь, что кнопка видимая по умолчанию */
-transition: opacity 0.3s ease, transform 0.3s ease; /* Добавим плавность изменения */
-}
-
-.back-button:hover {
-opacity: 0.8;  /* Немного уменьшить прозрачность, но не исчезать */
-transform: scale(1.05); /* Легкое увеличение кнопки */
-}
-
-/* Основной стиль для текста в .team-contact */
-.team-contact {
-  font-size: 1.3rem; /* Размер шрифта */
-  color: #808080;   /* Цвет текста по умолчанию */
-  text-decoration: none; /* Убираем подчеркивание */
-  transition: transform 0.3s ease, color 0.3s ease; /* Плавные изменения для трансформации и цвета */
-}
-
-/* Эффект при наведении */
-.team-contact:hover {
-  transform: scale(1.1); /* Масштабируем текст на 10% вместо 20% */
-  color: #000000; /* Цвет текста */
-}
-

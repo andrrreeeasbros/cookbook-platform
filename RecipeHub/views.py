@@ -94,7 +94,7 @@ def best_recipe_details(request, name):
                   'details/best_recipe_details.html',
                   {'best_recipe': best_recipe})
 
-def Registration(request):
+def registration(request):
     if request.method == 'POST':
         form = UserRegistration(request.POST)
         
@@ -103,6 +103,7 @@ def Registration(request):
             user = form.save()
             login(request, user)
             messages.success(request, 'Вы успешно зарегистрированы!')
+            return redirect('RecipeHub:main_template')
         else:
             # Если форма не валидна, покажем ошибки
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
@@ -110,3 +111,7 @@ def Registration(request):
         form = UserRegistration()
 
     return render(request, 'user/registration.html', {'form': form})
+
+
+def authorization(request):
+    return render(request, 'user/authorization.html')
