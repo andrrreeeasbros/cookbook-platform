@@ -26,11 +26,11 @@ body.index-page {
 
 .sitename {
     font-family: 'Lora', sans-serif;
-    font-size: 40px;
+    font-size: 2.5rem; /* Используем rem для гибкости */
     font-weight: bold;
-    color: rgb(245, 203, 167) !important;
+    color: rgb(245, 203, 167) !important; /* Персиковый цвет текста */
     text-align: center;
-    margin: 20px 0;
+    margin: 0 20px 20px;
     line-height: 1.4;
     letter-spacing: 0.5px;
     background: rgba(0, 0, 0, 0.8);
@@ -38,7 +38,6 @@ body.index-page {
     box-shadow: none;
     border-radius: 15px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-    margin: 20px auto;
 }
 
 .back-button {
@@ -188,3 +187,5 @@ body.index-page {
       padding-bottom: 60px !important; /* Увеличиваем padding, если margin не помогает */
     }
   }
+
+  

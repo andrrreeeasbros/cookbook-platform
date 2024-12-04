@@ -4,6 +4,9 @@ from datetime import timedelta
 from zoneinfo import ZoneInfo
 from django.urls import reverse
 import logging
+from multiselectfield import MultiSelectField
+import re
+
 
 class RecipeManager(models.Manager):  # Менеджер для рецептов
     def get_queryset(self) -> models.QuerySet:
@@ -26,25 +29,59 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         ('Очень сложно', 'Очень сложно'),
     )
 
+    DISH_CATEGORIES = (
+        ('vegetarian', 'Вегетарианское блюдо'),
+        ('fast_food', 'Еда быстрого приготовления'),
+        ('dessert', 'Десерт'),
+        ('vegan', 'Веганское'),
+        ('drinks', 'Напитки'),
+        ('breakfast', 'Завтрак'),
+        ('lunch', 'Обед'),
+        ('dinner', 'Ужин'),
+    )
+
+    WORLD_CUISINE_CATEGORIES = (
+        ('italian', 'Итальянская кухня'),
+        ('japanese', 'Японская кухня'),
+        ('mexican', 'Мексиканская кухня'),
+        ('chinese', 'Китайская кухня'),
+        ('indian', 'Индийская кухня'),
+        ('french', 'Французская кухня'),
+        ('greek', 'Греческая кухня'),
+        ('arabic', 'Арабская кухня'),
+        ('american', 'Американская кухня'),
+    )
+
     name = models.CharField(
         verbose_name='Название блюда',
         primary_key=True,
         max_length=30,
     )
 
-    is_vegetarian = models.BooleanField(
-        verbose_name='Вегетарианское ли блюдо?',
-        help_text="Проставьте галочку если это относится к этой категории"
+    categories = MultiSelectField(
+        verbose_name='Категории блюда',
+        choices=DISH_CATEGORIES,
+        max_length=100,
+        help_text="Выберите категории, которые подходят для этого рецепта",
+        default=[],
     )
 
-    is_fast_food = models.BooleanField(
-        verbose_name="Еда быстрого приготовления?",
-        help_text="Проставьте галочку если это относится к этой категории"
+    world_cuisine_categories = MultiSelectField(
+        verbose_name='Кухни мира',
+        choices=WORLD_CUISINE_CATEGORIES,
+        max_length=100,
+        help_text="Выберите кухни мира, если выбрана категория 'По кухне мира'",
+        default=[],
+        blank=True,
     )
 
-    is_dessert = models.BooleanField(
-        verbose_name="Данная еда являетя десертом?",
-        help_text="Проставьте галочку если это относится к этой категории"
+    meal_time = models.CharField(
+        verbose_name='Время приёма пищи',
+        choices=[('breakfast', 'Завтрак'),
+                 ('lunch', 'Обед'), ('dinner', 'Ужин')],
+        max_length=10,
+        blank=True,  # Поле может быть пустым
+        help_text="Выберите только одно время приёма пищи (завтрак, обед или ужин).",
     )
 
     level = models.CharField(
@@ -85,20 +122,54 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
 
     objects = models.Manager()  # Менеджер, применяемый по умолчанию
     recipe_manager = RecipeManager()  # Конкретно-прикладной менеджер
-    
+
     def change_register(self):
         s = self.name
         logging.debug(f"Original name: {s}")  # Логирование исходного значения
         if s and s[0].islower():  # Проверка на непустоту и на то, что первая буква строчная
-            s = s[0].upper() + s[1:]  # Заглавная первая буква, остальные без изменений
-            logging.debug(f"Changed name: {s}")  # Логирование изменённого значения
-        return s 
-    
+            # Заглавная первая буква, остальные без изменений
+            s = s[0].upper() + s[1:]
+            # Логирование изменённого значения
+            logging.debug(f"Changed name: {s}")
+        return s
+
+    def split_text(self):
+        patterns = [
+            "Подготовка моллюсков", "Приготовление пасты", "Готовим соус",
+            "Добавление моллюсков и вина", "Смешивание пасты с соусом", "Подача",
+            "Промывание моллюсков", "Проверка моллюсков на живость", "Вскипятить воду",
+            "Отварить пасту", "Разогреть оливковое масло", "Обжарить чеснок", "Добавить чили",
+            "Накрыть крышкой", "Готовить на среднем огне", "Добавить готовую пасту",
+            "Перемешать пасту с соусом", "Посыпать петрушкой", "Приправить солью и перцем",
+            "Подавать с лимоном", "Нарезать чеснок", "Обжаривать до золотистого цвета",
+            "Не пережаривать чеснок", "Использовать белое вино", "Готовить 5-7 минут",
+            "Проверить моллюсков", "Закрыть крышкой", "Дать настояться", "Подавать немедленно"
+        ]
+        s = self.steps
+        if isinstance(self.steps, str):
+            s = re.sub(r'\s+', ' ', self.steps.strip())  
+            s = re.sub(r'\.(?=\s|$)', '.\n', s)  
+            
+            split_steps = s.split('\n')
+            
+            result = []
+            for line in split_steps:
+                if any(pattern in line for pattern in patterns):
+                    result.append(line.strip()) 
+                else:
+                    result.append(line.strip())  
+            
+            return "\n".join(result)
+
     def save(self, *args, **kwargs):
-        # Применяем метод change_register перед сохранением
+        if 'world_cuisine' in self.categories and not self.world_cuisine_categories:
+            raise ValueError("Пожалуйста, выберите хотя бы одну кухню мира.")
         self.name = self.change_register()
+
+        self.steps = self.split_text()
+
         super().save(*args, **kwargs)
-    
+
     class Meta:
         ordering = ["-created_at"]
         verbose_name = "Рецепт"
@@ -151,7 +222,7 @@ class Reviews(models.Model):  # 2. Модель - модель моих отзы
         verbose_name="Комментарии",
         help_text="Оставьте ваши комментарии"
     )
-    
+
     objects = models.Manager()  # Менеджер, применяемый по умолчанию
     review_manager = ReviewManager()  # Конкретно-прикладной менеджер для моих отзыв
 
@@ -229,13 +300,13 @@ class UserProfile(models.Model):
         default='static/css/img/profile.png',
         help_text="Загрузите ваше фото"
     )
-    
-    
+
     def change_zone(self):
         country = self.country
         if country in self.TIMEZONE_MAP:
             if country == 'Russia':
-                zone_info = ZoneInfo(self.TIMEZONE_MAP2.get(f"Russia ({country})", "UTC"))
+                zone_info = ZoneInfo(self.TIMEZONE_MAP2.get(
+                    f"Russia ({country})", "UTC"))
             else:
                 zone_info = ZoneInfo(self.TIMEZONE_MAP[country])
         else:
@@ -271,6 +342,7 @@ class UserProfile(models.Model):
 #     pass
 
 
+# TODO: УБРАТЬ ЧТОБ НЕ БЫЛО ЛИШНИХ ПРОБЕЛОВ В РЕЦЕПТАХ И ЛУЧШИХ РЕЦЕПТАХ
 # TODO: ДОДЕЛАТЬ ВЕРТСКУ + поправить полоску лого в categories.css + исправить reviews.css
 # TODO: js эффекты для файлов
 # TODO: Нужно добавить валидаторы для конвертации картинки.
