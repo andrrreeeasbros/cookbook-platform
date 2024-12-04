@@ -80,20 +80,17 @@ body, html {
  .reviews-container {
      display: grid;
      grid-template-columns: repeat(3, 1fr);
-     /* 3 колонки */
      grid-gap: 15px;
-     /* Уменьшаем пробел между элементами */
      margin-top: 20px;
      margin-bottom: 50px;
      padding: 0 15px;
  }
 
- /* Оформление каждого отзыва */
-/* Оформление каждого отзыва */
+
+
 .reviews {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-bottom: 3px solid #333; /* Добавляем более толстую рамку снизу */
     padding: 10px 15px;
     box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -101,20 +98,29 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border-radius: 15px; /* Добавляем закругление углов */
+    border-radius: 20px; /* Добавляем закругление углов */
 }
 
 
  /* Заголовок отзыва */
  .reviews h1 {
-     font-size: 2.5rem;
-     /* Оставляем размер шрифта */
-     color: #333;
-     margin-bottom: 5px;
-     /* Уменьшаем отступ снизу */
-     margin-top: 0;
-     /* Убираем отступ сверху */
- }
+    font-size: 2rem;
+    color: #000;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin: 20px 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 15px;
+    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+
+    /* Начальный эффект отсвечивания */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+}
+
+
 
  /* Стиль для списка комментариев (убираем нумерацию и уменьшаем отступы) */
  .reviews ul {

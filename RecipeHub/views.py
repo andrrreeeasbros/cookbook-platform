@@ -6,6 +6,8 @@ from django.core.paginator import Paginator, EmptyPage
 from .forms import UserRegistration
 from django.contrib.auth import login
 from django.contrib import messages
+from django.http import JsonResponse
+
 
 def main_template(request):  # представдение для главного шаблона сайта
     return render(request,
@@ -26,7 +28,7 @@ def about_us(request):  # представление об авторе сайт�
                   'menu/about_us.html')
 
 
-def best_recipes(request):  # представление для лучших рецептов
+def best_recipes(request):  
     best_reviews = Reviews.review_manager.all()
     best_recipes = []
     for review in best_reviews:
@@ -60,6 +62,29 @@ def recipes(request):
     return render(request,
                   'menu/recipes.html',
                   {'recipes': recipes_page})
+    
+def recipe_details(request, name):
+    try:
+        recipe = Post_recipe.objects.get(name=name)  
+    except Post_recipe.DoesNotExist:
+        return JsonResponse({'error': 'Рецепт не найден'}, status=404)
+    
+    ingredients_list = recipe.ingredients_list.splitlines()
+    steps_list = recipe.steps.splitlines()
+    
+    data = {
+        'name': recipe.name,
+        'categories': recipe.categories,
+        'world_cuisine_categories': recipe.world_cuisine_categories,
+        'meal_time': recipe.meal_time,
+        'level': recipe.level,
+        'ingredients': ingredients_list,
+        'steps': steps_list,
+        'cooking_time': recipe.cooking_time,
+        'dish_photo': recipe.dish_photo.url if recipe.dish_photo else None,  
+    }
+    
+    return JsonResponse(data)
 
 
 def reviews(request):
@@ -74,25 +99,6 @@ def reviews(request):
                   'menu/reviews.html',
                   {'reviews': reviews_page})
 
-
-def recipe_details(request, name):  # представление для одного рецепта
-    try:
-        recipe = Post_recipe.objects.get(name=name)
-    except Post_recipe.DoesNotExist:
-        raise Http404("Рецепт не найден")
-    return render(request,
-                  'details/recipe_details.html',
-                  {'recipe': recipe})
-
-
-def best_recipe_details(request, name):
-    try:
-        best_recipe = Post_recipe.objects.get(name=name)
-    except Post_recipe.DoesNotExist:
-        raise Http404("Рецепт не найден")
-    return render(request,
-                  'details/best_recipe_details.html',
-                  {'best_recipe': best_recipe})
 
 def registration(request):
     if request.method == 'POST':

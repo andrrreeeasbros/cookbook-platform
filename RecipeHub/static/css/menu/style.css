@@ -1,11 +1,19 @@
-
 .fade-in {
-  opacity: 0;                      /* Элемент невидим на старте */
-  transform: translateY(30px);      /* Немного смещаем вниз */
-  transition: opacity 1s ease-out, transform 1s ease-out;  /* Плавное изменение прозрачности и смещения */
+  opacity: 0;
+  /* Элемент невидим на старте */
+  transform: translateY(30px);
+  /* Немного смещаем вниз */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  /* Плавное изменение прозрачности и смещения */
 }
 
-.recipe, .pagination, .team-contact, .social-icons,.sitename,.btn, .back-button{
+.recipe,
+.pagination,
+.team-contact,
+.social-icons,
+.sitename,
+.btn,
+.back-button {
   animation: scale-in 0.5s ease-out forwards;
 }
 
@@ -15,71 +23,86 @@
 
 /* Когда класс "visible" добавлен, элемент плавно появляется */
 .fade-in.visible {
-  opacity: 1;                      /* Полная непрозрачность */
-  transform: translateY(0);         /* Возвращаем элемент в исходное положение */
+  opacity: 1;
+  /* Полная непрозрачность */
+  transform: translateY(0);
+  /* Возвращаем элемент в исходное положение */
 }
 
 /* Применяем анимацию для .logo-bar */
 .logo-bar {
   opacity: 1;
-  animation: slideInRight 0.6s ease-out forwards; /* Полоска будет анимироваться справа налево */
+  animation: slideInRight 0.6s ease-out forwards;
+  /* Полоска будет анимироваться справа налево */
 }
 
 /* Элементы внутри .logo-bar будут анимироваться с задержкой */
-.left-section, .social-icons {
+.left-section,
+.social-icons {
   opacity: 0;
-  animation: fadeIn 0.8s ease-out forwards; /* Появление с эффектом fade-in */
-  animation-delay: 0.8s; /* Задержка после анимации полоски */
+  animation: fadeIn 0.8s ease-out forwards;
+  /* Появление с эффектом fade-in */
+  animation-delay: 0.8s;
+  /* Задержка после анимации полоски */
 }
 
 .team-contact {
   opacity: 0;
   animation: fadeIn 0.8s ease-out forwards;
-  animation-delay: 0.8s; /* Задержка для надписей */
+  animation-delay: 0.8s;
+  /* Задержка для надписей */
 }
 
 .social-icons img,
 .left-section img {
   opacity: 0;
   animation: fadeIn 1s ease-out forwards;
-  animation-delay: 1s; /* Задержка для изображений */
+  animation-delay: 1s;
+  /* Задержка для изображений */
 }
+
 /* Основная анимация scale-in */
 .scale-in {
-opacity: 0;
-transform: scale(0.8); /* Элемент начинается с уменьшенного размера */
-transition: opacity 1s ease-out, transform 1s ease-out;
+  opacity: 0;
+  transform: scale(0.8);
+  /* Элемент начинается с уменьшенного размера */
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 /* Когда класс "visible" добавляется, элемент становится видимым и увеличивается */
 .scale-in.visible {
-opacity: 1;
-transform: scale(1); /* Элемент увеличивается до нормального размера */
+  opacity: 1;
+  transform: scale(1);
+  /* Элемент увеличивается до нормального размера */
 }
 
 /* Основные стили для категории */
 .category {
-width: 30%;
-margin: 10px;
-padding: 20px;
-background-color: lightblue;
-text-align: center;
-border-radius: 8px;
-transition: transform 0.5s ease-in-out;
-opacity: 0; /* Скрыть категории по умолчанию */
+  width: 30%;
+  margin: 10px;
+  padding: 20px;
+  background-color: lightblue;
+  text-align: center;
+  border-radius: 8px;
+  transition: transform 0.5s ease-in-out;
+  opacity: 0;
+  /* Скрыть категории по умолчанию */
 }
 
 /* Анимации для вылетающих категорий */
 .move-right {
-animation: moveRight 0.5s forwards; /* Анимация с движением вправо */
+  animation: moveRight 0.5s forwards;
+  /* Анимация с движением вправо */
 }
 
 .move-left {
-animation: moveLeft 0.5s forwards; /* Анимация с движением влево */
+  animation: moveLeft 0.5s forwards;
+  /* Анимация с движением влево */
 }
 
 .move-back {
-animation: moveBack 0.5s forwards; /* Анимация возвращения в основное положение */
+  animation: moveBack 0.5s forwards;
+  /* Анимация возвращения в основное положение */
 }
 
 /* Стиль для кнопки возврата */
@@ -117,141 +140,195 @@ animation: moveBack 0.5s forwards; /* Анимация возвращения в
   transform: translateY(-5px);
   /* Подпрыгивание */
 }
+
 /* Контейнер для категории */
 .category-container {
-display: flex;
-justify-content: space-between;
-flex-wrap: wrap;
-position: relative;
-width: 100%;
-overflow: hidden;
-opacity: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  opacity: 1;
 }
 
 /* Добавляем отступы между категориями и настраиваем их позиционирование */
 .category-item {
-width: 30%;
-margin: 15px;
-display: flex;
-justify-content: center;
-opacity: 0; /* Все категории по умолчанию скрыты */
-transform: translateX(0); /* Категории начинаются с основного положения */
+  width: 30%;
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  /* Все категории по умолчанию скрыты */
+  transform: translateX(0);
+  /* Категории начинаются с основного положения */
 }
 
 
 /* Применяем анимации */
 .category-item:nth-child(1) {
-animation: moveRight 0.5s 0.2s forwards;
+  animation: moveRight 0.5s 0.2s forwards;
 }
 
 .category-item:nth-child(2) {
-animation: moveLeft 0.5s 0.2s forwards;
+  animation: moveLeft 0.5s 0.2s forwards;
 }
 
 .category-item:nth-child(3) {
-animation: moveRight 0.5s 0.2s forwards; /* Задержка */
+  animation: moveRight 0.5s 0.2s forwards;
+  /* Задержка */
 }
 
 .category-item:nth-child(4) {
-animation: moveLeft 0.5s 0.2s forwards; /* Задержка */
+  animation: moveLeft 0.5s 0.2s forwards;
+  /* Задержка */
 }
 
 .category-item:nth-child(5) {
-animation: moveRight 0.5s 0.2s forwards; /* Задержка */
+  animation: moveRight 0.5s 0.2s forwards;
+  /* Задержка */
 }
 
 .category-item:nth-child(6) {
-animation: moveLeft 0.5s 0.2s forwards; /* Задержка */
+  animation: moveLeft 0.5s 0.2s forwards;
+  /* Задержка */
 }
 
 .category-item:nth-child(7) {
-animation: moveRight 0.5s 0.2s forwards; /* Задержка */
+  animation: moveRight 0.5s 0.2s forwards;
+  /* Задержка */
 }
 
 .category-item:nth-child(8) {
-animation: moveLeft 0.5s 0.2s forwards; /* Задержка */
+  animation: moveLeft 0.5s 0.2s forwards;
+  /* Задержка */
 }
 
 .category-item:nth-child(9) {
-animation: moveRight 0.5s 0.2s forwards; /* Задержка */
+  animation: moveRight 0.5s 0.2s forwards;
+  /* Задержка */
 }
 
 /* Анимация для scale-in */
 .scale-in {
   opacity: 0;
-  transform: scale(0.8); /* Начальное состояние — уменьшенный элемент */
-  transition: opacity 1s ease-out, transform 1s ease-out; /* Плавное увеличение и появление */
-  }
-  
-  .scale-in.visible {
-  opacity: 1;  /* Элемент становится видимым */
-  transform: scale(1); /* Элемент увеличивается до нормального размера */
-  }
-  
-  /* Элементы с анимацией scale-in, которые должны появляться */
-  .title, .btn,.back-button, .btn-add-recipe, .btn-view-recipe, .reviews-container, .recipe-container  {
+  transform: scale(0.8);
+  /* Начальное состояние — уменьшенный элемент */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  /* Плавное увеличение и появление */
+}
+
+.scale-in.visible {
+  opacity: 1;
+  /* Элемент становится видимым */
+  transform: scale(1);
+  /* Элемент увеличивается до нормального размера */
+}
+
+/* Элементы с анимацией scale-in, которые должны появляться */
+.title,
+.btn,
+.back-button,
+.btn-add-recipe,
+.btn-view-recipe,
+.reviews-container,
+.recipe-container {
   opacity: 0;
   transform: scale(0.8);
-  animation: scale-in 0.5s ease-out forwards; /* Применяем анимацию */
-  }
-  
-  /* Класс для кнопки "Назад" */
-  .back-button {
-  opacity: 1;  /* Убедитесь, что кнопка видимая по умолчанию */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Добавим плавность изменения */
-  }
-  
-  .back-button:hover {
-  opacity: 0.8;  /* Немного уменьшить прозрачность, но не исчезать */
-  transform: scale(1.05); /* Легкое увеличение кнопки */
-  }
-  
-  /* Основной стиль для текста в .team-contact */
-  .team-contact {
-    font-size: 1.3rem; /* Размер шрифта */
-    color: #808080;   /* Цвет текста по умолчанию */
-    text-decoration: none; /* Убираем подчеркивание */
-    transition: transform 0.3s ease, color 0.3s ease; /* Плавные изменения для трансформации и цвета */
-  }
-  
-  /* Эффект при наведении */
-  .team-contact:hover {
-    transform: scale(1.1); /* Масштабируем текст на 10% вместо 20% */
-    color: #000000; /* Цвет текста */
-  }
-  
-  
-  /* Анимация для плавного появления */
-  .fade-in {
-    opacity: 0;
-    animation: fadeIn 1s forwards;
-  }
-  
-  /* Анимация появления снизу вверх */
-  .fade-in-up {
-    opacity: 0;
-    transform: translateY(20px);
-    /* Начальная позиция: снизу */
-    animation: fadeInUp 1s forwards;
-    /* Длительность анимации 1 секунда */
-  }
-  
+  animation: scale-in 0.5s ease-out forwards;
+  /* Применяем анимацию */
+}
+
+.btn-add-recipe {
+  opacity: 1;
+  /* Убедитесь, что кнопка видимая по умолчанию */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  /* Добавим плавность изменения */
+}
+
+.btn-add-recipe {
+  opacity: 0.8;
+  /* Немного уменьшить прозрачность, но не исчезать */
+  transform: scale(1.05);
+  /* Легкое увеличение кнопки */
+}
+
+/* Класс для кнопки "Назад" */
+.back-button {
+  opacity: 1;
+  /* Убедитесь, что кнопка видимая по умолчанию */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  /* Добавим плавность изменения */
+}
+
+.back-button:hover {
+  opacity: 0.8;
+  /* Немного уменьшить прозрачность, но не исчезать */
+  transform: scale(1.05);
+  /* Легкое увеличение кнопки */
+}
+
+/* Основной стиль для текста в .team-contact */
+.team-contact {
+  font-size: 1.3rem;
+  /* Размер шрифта */
+  color: #808080;
+  /* Цвет текста по умолчанию */
+  text-decoration: none;
+  /* Убираем подчеркивание */
+  transition: transform 0.3s ease, color 0.3s ease;
+  /* Плавные изменения для трансформации и цвета */
+}
+
+/* Эффект при наведении */
+.team-contact:hover {
+  transform: scale(1.1);
+  /* Масштабируем текст на 10% вместо 20% */
+  color: #000000;
+  /* Цвет текста */
+}
+
+
+/* Анимация для плавного появления */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+/* Анимация появления снизу вверх */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  /* Начальная позиция: снизу */
+  animation: fadeInUp 1s forwards;
+  /* Длительность анимации 1 секунда */
+}
+
 @keyframes bounce {
-0% {
-  transform: translateY(0); /* Начальная позиция */
-}
-30% {
-  transform: translateY(-10px); /* Подпрыгивание */
-}
-50% {
-  transform: translateY(0); /* Возвращаем в начальное положение */
-}
-70% {
-  transform: translateY(-5px); /* Маленькое подпрыгивание */
-}
-100% {
-  transform: translateY(0); /* Возвращаем в начальное положение */
-}
+  0% {
+    transform: translateY(0);
+    /* Начальная позиция */
+  }
+
+  30% {
+    transform: translateY(-10px);
+    /* Подпрыгивание */
+  }
+
+  50% {
+    transform: translateY(0);
+    /* Возвращаем в начальное положение */
+  }
+
+  70% {
+    transform: translateY(-5px);
+    /* Маленькое подпрыгивание */
+  }
+
+  100% {
+    transform: translateY(0);
+    /* Возвращаем в начальное положение */
+  }
 }
 
 
@@ -262,6 +339,7 @@ animation: moveRight 0.5s 0.2s forwards; /* Задержка */
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -270,58 +348,67 @@ animation: moveRight 0.5s 0.2s forwards; /* Задержка */
 @keyframes scale-in {
   from {
     opacity: 0;
-    transform: scale(0.8); /* Начинаем с маленького размера */
+    transform: scale(0.8);
+    /* Начинаем с маленького размера */
   }
+
   to {
     opacity: 1;
-    transform: scale(1); /* Конечный размер */
+    transform: scale(1);
+    /* Конечный размер */
   }
 }
 
 
 @keyframes slideInRight {
-from {
-  transform: translateX(100%); /* Начинаем с правой стороны за пределами экрана */
-}
-to {
-  transform: translateX(0); /* Перемещаем элемент в его финальную позицию */
-}
+  from {
+    transform: translateX(100%);
+    /* Начинаем с правой стороны за пределами экрана */
+  }
+
+  to {
+    transform: translateX(0);
+    /* Перемещаем элемент в его финальную позицию */
+  }
 }
 
 /* Ключевые кадры для анимации движения вправо */
 @keyframes moveRight {
-0% {
-  transform: translateX(100%);
-  opacity: 0;
-}
-100% {
-  transform: translateX(0);
-  opacity: 1;
-}
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Ключевые кадры для анимации движения влево */
 @keyframes moveLeft {
-0% {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-100% {
-  transform: translateX(0);
-  opacity: 1;
-}
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* Ключевые кадры для анимации возвращения в основное положение */
 @keyframes moveBack {
-0% {
-  transform: translateX(0);
-  opacity: 0;
-}
-100% {
-  transform: translateX(0);
-  opacity: 1;
-}
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 

@@ -52,10 +52,9 @@
                 <li>{{ forloop.counter }}. {{ step }}</li>
               {% endfor %}
             </ol>
-            <time>Время приготовления: {{ best_recipe.cooking_time }} мин.</time>
-            <!-- Кнопка в рамке -->
+            <time datetime="PT{{ best_recipe.cooking_time }}M">Время приготовления:</time>
+            <span class="time-span">{{ best_recipe.cooking_time }} мин.</span>
             <div class="recipe-btn-wrapper">
-              <a class="btn-view-recipe" href="{% url 'RecipeHub:best_recipe_detail' name=best_recipe.name %}">Посмотреть рецепт</a>
             </div>
           </article>
         {% endfor %}
