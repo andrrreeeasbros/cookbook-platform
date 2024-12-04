@@ -1,55 +1,225 @@
-
-
-.sitename {
-    color: #ffffff !important;
-    text-align: center;
-    font-size: 3rem;
-    margin-top: 20px;
-    /* Отступ сверху в 20 пикселей */
+/* Панель с фоновым изображением */
+.background-image {
+  position: fixed; /* Сделаем фон фиксированным относительно экрана */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('your-image.jpg'); /* Ваш фон */
+  background-size: cover; /* Фон будет покрывать весь экран */
+  background-attachment: fixed; /* Фон фиксирован при прокрутке */
+  background-position: center; /* Фон будет выровнен по центру */
+  z-index: -1; /* Обеспечиваем, чтобы фон был позади контента */
 }
 
-.btn-outline-secondary {
-    color: #fff;
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
+/* Обновляем html и body для прокрутки */
+html, body {
+  height: 100%; /* Растягиваем body на весь экран */
+  margin: 0;    /* Убираем отступы */
+  overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+  overflow-y: auto; /* Включаем вертикальную прокрутку */
 }
 
-.btn-outline-secondary:hover {
-    background-color: rgba(0, 0, 139, 0.75);
-    border-color: rgba(0, 0, 139, 0.75);
+/* Растягиваем main блок */
+main.main {
+  padding-bottom: 120px; /* Убираем перекрытие с нижней панели */
+  margin-bottom: 0; /* Убираем отступ снизу */
+  flex-grow: 1;
+  min-height: calc(100vh - 120px); /* Убираем высоту нижней панели */
+  overflow-y: auto; /* Включаем вертикальную прокрутку */
+  position: relative; /* Чтобы элементы внутри могли быть позади фона */
 }
 
+
+/* Заголовок сайта */
+.title {
+  font-family: 'Lora', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: rgb(245, 203, 167) !important;
+  text-align: center;
+  margin: 20px 0;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  box-shadow: none;
+  border-radius: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+  max-width: 45%;
+  margin: 20px auto;
+}
+
+/* Базовый стиль для контейнера */
+.category-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Стиль для каждой категории */
+.category {
+  width: 30%;
+  margin: 10px;
+  padding: 20px;
+  background-color: lightblue;
+  text-align: center;
+  border-radius: 8px;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Анимации для вылетающих категорий */
+.move-right {
+  transform: translateX(100%);
+}
+
+.move-left {
+  transform: translateX(-100%);
+}
+
+.move-back {
+  transform: translateX(0);
+}
+
+/* Кнопка возврата */
+.btn {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Эффект при наведении на кнопки */
+.btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Стиль для кнопки "Посмотреть" (красная) */
+.btn-red {
+  background-color: red;
+  color: #ffffff;
+  border-color: #dc3545;
+}
+
+.btn-red:hover {
+  background-color: red;
+  border-color: red;
+  transform: translateY(-5px);
+}
+
+/* Стиль для кнопки возврата */
 .back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Добавим отступ снизу для каждой категории */
+/* Эффект при наведении на кнопку возврата */
+.back-button:hover {
+  color: black;
+  transform: translateY(-5px);
+}
+
+/* Стили для нижней панели с логотипами и контактами */
+.logo-bar {
+  background: rgba(255, 255, 255, 0.9); /* Полупрозрачный фон */
+  padding: 20px 0;
+  position: relative; /* Это будет обычный блок внизу */
+  bottom: 0;      /* Привязываем к низу */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 50px;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Тень */
+  z-index: 10;
+}
+
+.logo-bar .left-section {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.logo-bar img {
+  width: 70px;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo-bar .team-contact {
+  font-size: 1.3rem;
+  color: #808080;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.logo-bar .team-contact:hover {
+  color: #333;
+}
+
+/* Иконки социальных сетей */
+.social-icons {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+}
+
+.social-icons a {
+  display: inline-block;
+}
+
+.social-icons img {
+  width: 30px;
+  height: auto;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+
+/* Стили для категории */
+.category-card-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.category-card-container:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: translateY(-10px);
+}
+
+/* Убедимся, что категории имеют одинаковые размеры */
 .category-item {
-    margin-bottom: 30px;
-    /* отступ снизу для каждого элемента категории */
+  width: 30%;
+  margin: 15px;
+  display: flex;
+  justify-content: center;
 }
 
-/* Можно добавить отступ снизу только для блока "По кухне мира" */
-.category-item.kitchen-world {
-    margin-bottom: 30px;
-    /* только для "По кухне мира" */
-}
-
-.category-card {
-    padding-bottom: 20px;
-    /* Добавляем отступ снизу внутри карточки */
-}
-
-.category-card .btn {
-    margin-top: 10px;
-    /* Добавляем отступ сверху для кнопки */
+.category-card-container h3 {
+  font-weight: bold;
+  margin-bottom: 10px;
 }

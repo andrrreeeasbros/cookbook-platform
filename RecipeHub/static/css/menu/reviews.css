@@ -1,20 +1,48 @@
- /* Фоновое изображение на странице */
- body.index-page {
-     background-image: url("{% static 'img/1.jpg' %}");
-     background-color: rgba(0, 0, 0, 0.5);
-     /* Прозрачный черный фон */
-     background-size: cover;
-     /* Фон заполняет весь экран, сохраняя пропорции */
-     background-position: center;
-     /* Центрируем изображение */
-     background-repeat: no-repeat;
-     /* Не повторять изображение */
-     background-attachment: fixed;
-     /* Фон фиксирован при прокрутке */
-     height: 100vh;
-     /* Занимает всю высоту экрана */
-     font-family: var(--default-font);
- }
+:root {
+    --default-font: "Roboto", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --heading-font: "Amatic SC", sans-serif;
+    --accent-color: #ff3b30;
+    --default-color: #ffffff;
+    --heading-color: #000;
+    --background-color: rgba(0, 0, 0, 0.8);
+  } 
+
+body.index-page {
+    font-family: var(--default-font);
+    overflow-x: hidden;                   /* Отключаем горизонтальную прокрутку */
+    overflow-y: auto;                     /* Вертикальная прокрутка если контента слишком много */
+    padding-bottom: 100px; /* Отступ снизу, чтобы контент не перекрывался панелью */
+  }
+  
+  .btn-add-recipe {
+    background-color: #00BFFF;
+    color: black;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover; /* Подгоняет изображение по размеру */
+    z-index: -1; /* Фиксируем изображение в фоновом слое */
+  }
+ 
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
  /* Основной контейнер */
  .main {
@@ -32,12 +60,20 @@
      /* Учитываем отступы и рамки внутри контейнера */
  }
 
- /* Заголовок на главной */
  .title {
-     font-size: 3rem;
-     margin-bottom: 20px;
-     text-align: center;
-     color: white;
+    font-family: 'Lora', sans-serif;
+    font-size: 2.5rem; /* Используем rem для гибкости */
+    font-weight: bold;
+    color: rgb(245, 203, 167) !important; /* Персиковый цвет текста */
+    text-align: center;
+    margin: 0 20px 20px;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    box-shadow: none;
+    border-radius: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
  }
 
  /* Контейнер для отзывов, чтобы создать сетку 3x2 */
@@ -53,23 +89,21 @@
  }
 
  /* Оформление каждого отзыва */
- .reviews {
-     background-color: #fff;
-     /* Белый фон для каждого отзыва */
-     border: 1px solid #ddd;
-     /* Уменьшаем толщину рамки */
-     padding: 10px 15px;
-     /* Уменьшаем внутренние отступы */
-     box-sizing: border-box;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-     /* Легкая тень для эффекта */
-     height: 100%;
-     /* Обеспечиваем, что все элементы будут одинаково по высоте */
-     display: flex;
-     flex-direction: column;
-     justify-content: flex-start;
-     /* Не распределяем пространство */
- }
+/* Оформление каждого отзыва */
+.reviews {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom: 3px solid #333; /* Добавляем более толстую рамку снизу */
+    padding: 10px 15px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 15px; /* Добавляем закругление углов */
+}
+
 
  /* Заголовок отзыва */
  .reviews h1 {
@@ -127,46 +161,75 @@
      /* Уменьшаем отступы между заголовками */
  }
 
- /* Стиль кнопки возврата */
- .back-button {
-     position: absolute;
-     top: 20px;
-     left: 20px;
-     z-index: 1000;
-     background-color: red;
-     color: white;
-     border: none;
-     padding: 10px 15px;
-     border-radius: 5px;
-     cursor: pointer;
- }
+/* Стиль для кнопки возврата */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    /* Убираем подчеркивание */
+    transition: transform 0.3s ease, color 0.3s ease;
+    /* Плавный переход для цвета текста */
+}
+
+.back-button {
+    text-decoration: none;
+    /* Убираем подчеркивание */
+}
+
+.back-button:hover {
+    text-decoration: none;
+    /* Убираем подчеркивание при наведении */
+}
+
+/* Эффект при наведении на кнопку возврата */
+.back-button:hover {
+    color: black;
+    /* Текст становится черным при наведении */
+    transform: translateY(-5px);
+    /* Подпрыгивание */
+}
 
  .back-button:hover {
      background-color: darkred;
  }
 
- .sitename {
-     color: white;
-     font-size: 3rem;
-     /* Заголовок "Отзывы" такой же размер, как у "Рецепты" */
-     text-align: center;
- }
 
- .btn-add-recipe {
-     background-color: #00BFFF;
-     color: white;
-     font-size: 1.3rem;
-     padding: 10px 20px;
-     border: none;
-     border-radius: 5px;
-     cursor: pointer;
-     text-decoration: none;
-     margin-bottom: 20px;
- }
+/* Кнопка "Добавить отзыв" с черной обводкой */
+.btn-add-recipe {
+    background-color: #00BFFF !important; /* Голубой фон */
+    color: black; /* Черный текст */
+    font-size: 1.5rem; /* Размер шрифта */
+    padding: 10px 20px; /* Отступы */
+    border: 2px solid black; /* Черная обводка */
+    border-radius: 5px; /* Скругленные углы */
+    cursor: pointer; /* Курсор-указатель */
+    text-decoration: none; /* Убираем подчеркивание */
+    margin-bottom: 20px; /* Отступ снизу */
+    display: inline-block; /* Чтобы кнопка была в одной строке */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавный переход для фона и анимация при наведении */
+}
 
- .btn-add-recipe:hover {
-     background-color: rgba(0, 191, 255, 0.8);
- }
+/* Эффект при наведении на кнопку "Добавить отзыв" */
+.btn-add-recipe:hover {
+    background-color: #008CBA; /* Темно-голубой цвет при наведении */
+    transform: translateY(-5px); /* Легкое подпрыгивание при наведении */
+    border-color: #005f73; /* Меняем цвет границы при наведении */
+}
+
+/* Убираем подчеркивание на активные состояния кнопки */
+.btn-add-recipe:focus,
+.btn-add-recipe:active {
+    text-decoration: none;
+}
+
 
  /* Стиль для пагинации */
  .pagination {
@@ -212,11 +275,112 @@
      cursor: not-allowed;
  }
 
- @media (max-width: 768px) {
+ main.main {
+    padding-bottom: 0; /* Убираем отступ снизу */
+    margin-bottom: 150px; /* Отступ для места под лого */
+    flex-grow: 1;
+    height: calc(100vh - 150px); /* Высота контента фиксированная, учитывая панель с лого */
+    overflow: hidden; /* Убираем прокрутку */
+  }
+  
+  .logo-bar {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 50px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
 
-     /* Для мобильных устройств уменьшаем колонки до 1 */
-     .reviews-container {
-         grid-template-columns: 1fr;
-         /* 1 колонка на маленьких экранах */
-     }
- }
+body {
+    padding-bottom: 80px; /* Добавляем отступ снизу, чтобы контент не перекрывался полоской */
+}
+
+.logo-bar .left-section {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.logo-bar img {
+    width: 70px;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.team-contact {
+    font-size: 1.3rem;
+    color: #808080;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.team-contact:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.social-icons {
+    display: flex;
+    gap: 35px;
+    align-items: center;
+}
+
+.social-icons a {
+    display: inline-block;
+}
+
+.social-icons img:hover {
+    transform: scale(1.2);
+    filter: brightness(1.2);
+}
+
+.social-icons img {
+    width: 30px;
+    height: auto;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease;
+    cursor: pointer;
+}
+
+.social-icons img[src*="facebook"] {
+    width: 30px;
+}
+
+.social-icons img[src*="instagram"] {
+    width: 30px;
+}
+
+.social-icons img[src*="VK"] {
+    width: 30px;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    /* Для мобильных устройств уменьшаем колонки до 1 */
+    .reviews-container {
+        grid-template-columns: 1fr;
+        /* 1 колонка на маленьких экранах */
+    }
+}
+

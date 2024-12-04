@@ -7,171 +7,114 @@
   <meta name="description" content="Описание вашего сайта">
   <meta name="keywords" content="ключевые, слова, вашего, сайта">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  <style>
-    body.index-page {
-      background-image: url("{% static 'img/1.jpg' %}");
-      background-color: rgba(0, 0, 0, 0.5);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 100vh;
-      font-family: var(--default-font);
-      position: relative;
-    }
-
-    .sitename {
-      color: #ffffff !important; 
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-    }
-
-    .categories-title {
-      color: #ffffff !important;
-    }
-
-    .navmenu a {
-      color: white;
-      display: block;
-      padding: 10px;
-      border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
-      background-color: black;
-    }
-
-    .navmenu li {
-      margin: 5px;
-      border-radius: 5px;
-    }
-
-    .navmenu a:hover {
-      background-color: #ff69b4;
-      color: white;
-      text-decoration: none;
-    }
-
-    .image-container {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .image-container img {
-      max-width: 100%; 
-      height: auto;
-      max-height: 400px; 
-    }
-
-    .navmenu ul {
-      list-style: none; 
-      padding: 0;
-      margin: 0; 
-    }
-
-    /* Белая полоса для логотипа внизу страницы */
-    .logo-bar {
-      background-color: #ffffff;
-      padding: 20px 0;
-      text-align: center;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      gap: 30px;
-      padding-left: 10px;
-      padding-right: 100px;
-    }
-    
-    .logo-bar img {
-      width: 30px !important;  /* Увеличиваем размер логотипов */
-      height: auto !important;  /* Сохраняем пропорции изображений */
-    }
-
-    /* Центрируем блок "О сайте" */
-    .about-site {
-      background-color: rgba(255, 255, 255, 0.8); /* Белый с прозрачностью */
-      padding: 30px;
-      max-width: 900px;
-      width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      margin: 0 auto;
-      margin-top: 5px;
-      text-align: center;
-      border: 2px solid #000; /* Черная рамка вокруг блока */
-    }
-    
-    .about-site h2 {
-      margin-bottom: 10px;
-      color: #000; /* Темный цвет для заголовка */
-    }
-    
-    .about-site p {
-      color: black !important; /* Заменить на чисто черный цвет */
-      line-height: 1.6;
-      font-size: 18px;
-      text-align: justify;
-    }
-
-    /* Стиль для правого выравнивания авторского текста */
-    .author-text {
-      text-align: right; /* Выравнивание текста по правому краю */
-      margin-right: 30px; /* Добавляем небольшой отступ от правого края */
-      font-style: italic; /* Добавлен курсив */
-      color: #555; /* Темно-серый цвет для текста */
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <link href="{% static 'css/menu/index.css' %}" rel="stylesheet">
+  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">  
 </head>
 
 <body class="index-page">
-<header id="header" class="header d-flex align-items-center sticky-top">
-  <div class="container d-flex flex-column align-items-center">
-    <a href="" class="logo">
-      <h1 class="sitename">Платформа обмена рецептами</h1>
-    </a>
-    <nav id="navmenu" class="navmenu">
-      <ul class="d-flex flex-wrap justify-content-center">
-        <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:best_recipes' %}">Лучшие рецепты</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:reviews' %}">Отзывы</a></li>
-        <li class="mx-3"><a href="{% url 'RecipeHub:contacts' %}">Связь с командой</a></li>
-      </ul>
-    </nav>
-    <div class="image-container">
+  <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container d-flex flex-column align-items-center">
+      <h1 class="sitename fade-in-up">Платформа обмена рецептами</h1>
+      <nav id="navmenu" class="navmenu fade-in">
+        <ul class="d-flex flex-wrap justify-content-center">
+          <li class="mx-3"><a href="{% url 'RecipeHub:profile' %}">Мой профиль</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:best_recipes' %}">Лучшие рецепты</a></li>
+          <li class="mx-3"><a href="{% url 'RecipeHub:reviews' %}">Отзывы</a></li>
+        </ul>
+      </nav>
+      <div class="image-container fade-in"></div>
+    </div>
+  </header>
+
+  <section class="about-site fade-in">
+    <div class="container">
+      <h2>О сайте</h2>
+      <p class="author-text fade-in">Автор сайта: Новик Андрей Иванович</p>
+      <p class="fade-in">
+        Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества
+        любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными
+        кулинарными творениями, а также узнать много нового о различных кухнях мира.
+      </p>
+      <p class="fade-in">
+        Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с
+        другими. Мы также регулярно обновляем коллекцию рецептов, чтобы каждый нашел что-то для себя.
+        Благодарим вас за посещение и надеемся, что вы найдете здесь что-то вкусное и полезное!
+      </p>
+    </div>
+  </section>
+
+  <div>
+    <button id="openModalBtn">Регистрация</button>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Форма регистрации</h2>
+        <form method="POST" action="{% url 'RecipeHub:registration' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="logo-bar">
+      <div class="left-section">
+        <a href="{% url 'RecipeHub:main_template' %}">
+          <img src="{% static 'img/logo.png' %}" alt="Логотип">
+        </a>
+        <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+        <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+      </div>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank">
+          <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
+        </a>
+        <a href="https://instagram.com" target="_blank">
+          <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
+        </a>
+        <a href="https://vk.com" target="_blank">
+          <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
+        </a>
+      </div>
     </div>
   </div>
-</header>
 
-<section class="about-site">
-  <div class="container">
-    <h2>О сайте</h2>
-    <p class="author-text">
-      Автор сайта: Новик Андрей Иванович
-    </p>
-    <p>
-      Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества
-      любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными
-      кулинарными творениями, а также узнать много нового о различных кухнях мира.
-      Если вы хотите разнообразить свой рацион, этот сайт — именно для вас!
-    </p>
-    <p>
-      Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с
-      другими. Мы также регулярно обновляем коллекцию рецептов, чтобы каждый нашел что-то для себя.
-      Благодарим вас за посещение и надеемся, что вы найдете здесь что-то вкусное и полезное!
-    </p>
-  </div>
-</section>
+  <script>
+    // Получаем элементы
+    const modal = document.getElementById("modal"); // Модальное окно
+    const openModalBtn = document.getElementById("openModalBtn"); // Кнопка открытия окна
+    const closeModal = document.getElementById("closeModal"); // Кнопка закрытия окна
 
-<!-- Белая полоса для логотипа -->
-<div class="logo-bar">
-  <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
-  <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
-  <img src="{% static 'img/VK.svg' %}" alt="ВК">
-</div>
+    // Открытие модального окна
+    openModalBtn.onclick = function() {
+      modal.style.display = "flex"; // Показываем модальное окно
+    };
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    // Закрытие модального окна
+    closeModal.onclick = function() {
+      modal.style.display = "none"; // Скрываем модальное окно
+    };
 
+    // Закрытие модального окна при клике вне окна
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none"; // Скрываем модальное окно при клике вне
+      }
+    };
+  </script>
+
+  <script src="{% static 'javascript/line.js' %}"></script>
+  <script src="{% static 'javascript/script.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

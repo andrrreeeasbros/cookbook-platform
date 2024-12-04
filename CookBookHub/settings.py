@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    "debug_toolbar",
+    
     'RecipeHub',
 ]
 
@@ -48,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'CookBookHub.urls'
@@ -77,7 +82,7 @@ WSGI_APPLICATION = 'CookBookHub.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3' ,
     }
 }
 
@@ -112,7 +117,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-\
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -120,7 +125,7 @@ STATIC_URL = '/static/'
 
 # Если у вас есть дополнительная папка для статики, укажите ее
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "RecipeHub/static",
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -128,3 +133,21 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL, по которому файлы будут доступны через браузер
+MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.your_email_provider.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'andrrreeeas@mail.ru'
+EMAIL_HOST_PASSWORD = 'merser228999922'
+DEFAULT_FROM_EMAIL = 'andrrreeeas@mail.ru'
+
+INTERNAL_IPS = [
+    '127.0.0.1',  
+]

@@ -2,12 +2,18 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
 from django.http import Http404
-from django.core.paginator import Paginator
-
+from django.core.paginator import Paginator, EmptyPage
+from .forms import UserRegistration
+from django.contrib.auth import login
+from django.contrib import messages
 
 def main_template(request):  # представдение для главного шаблона сайта
     return render(request,
                   'index.html')
+    
+
+def profile(request):
+    return render(request, 'menu/profile.html')
 
 
 def categories(request):  # представдение категорий рецептов
@@ -30,8 +36,9 @@ def best_recipes(request):  # представление для лучших р�
     page_number = request.GET.get('best_recipes', 1)
     try:
         recipes_pages = paginator.get_page(page_number)
-    except:
+    except EmptyPage:
         recipes_pages = paginator.get_page(1)
+        
     return render(request,
                   'menu/best_recipes.html',
                   {'best_recipes': recipes_pages})
@@ -48,7 +55,7 @@ def recipes(request):
     page_number = request.GET.get('page')
     try:
         recipes_page = paginator.get_page(page_number)
-    except ValueError:
+    except EmptyPage:
         recipes_page = paginator.get_page(1)
     return render(request,
                   'menu/recipes.html',
@@ -57,11 +64,11 @@ def recipes(request):
 
 def reviews(request):
     reviews = Reviews.objects.all()  # представление для всех отзывов
-    paginator = Paginator(reviews, 6)
+    paginator = Paginator(reviews, 3)
     page_number = request.GET.get('review', 1)
     try:
         reviews_page = paginator.get_page(page_number)
-    except ValueError:
+    except EmptyPage:
         reviews_page = paginator.get_page(1)
     return render(request,
                   'menu/reviews.html',
@@ -86,3 +93,25 @@ def best_recipe_details(request, name):
     return render(request,
                   'details/best_recipe_details.html',
                   {'best_recipe': best_recipe})
+
+def registration(request):
+    if request.method == 'POST':
+        form = UserRegistration(request.POST)
+        
+        if form.is_valid():
+            # Сохраняем нового пользователя
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Вы успешно зарегистрированы!')
+            return redirect('RecipeHub:main_template')
+        else:
+            # Если форма не валидна, покажем ошибки
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+    else:
+        form = UserRegistration()
+
+    return render(request, 'user/registration.html', {'form': form})
+
+
+def authorization(request):
+    return render(request, 'user/authorization.html')
