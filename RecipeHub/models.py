@@ -6,18 +6,20 @@ from django.urls import reverse
 import logging
 from multiselectfield import MultiSelectField
 import re
+from profanity import profanity
+from django.core.exceptions import ValidationError
 
 
-class RecipeManager(models.Manager):  # Менеджер для рецептов
+class RecipeManager(models.Manager):  
     def get_queryset(self) -> models.QuerySet:
         return super().get_queryset().filter(is_vegetarian=True)\
             .filter(is_fast_food=True)\
             .filter(is_dessert=True)
 
 
-class ReviewManager(models.Manager):  # Менеджер для отзывов
+class ReviewManager(models.Manager):  
     def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().filter(grade__in=['5★', '4★']).distinct()
+        return super().get_queryset().filter(grade__in=['★★★★', '★★★★★']).distinct()
 
 
 class Post_recipe(models.Model):  # 1. Модель - основная модель данных моих рецептов
@@ -148,22 +150,34 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         s = self.steps
         if isinstance(self.steps, str):
             s = re.sub(r'\s+', ' ', self.steps.strip())  
-            s = re.sub(r'\.(?=\s|$)', '.\n', s)  
+            s = re.sub(r'\.(?=\s|$)', '.\n', s)
             
-            split_steps = s.split('\n')
+        split_steps = s.split('\n')
             
-            result = []
-            for line in split_steps:
-                if any(pattern in line for pattern in patterns):
-                    result.append(line.strip()) 
-                else:
-                    result.append(line.strip())  
+        result = []
+        for line in split_steps:
+            if any(pattern in line for pattern in patterns):
+                result.append(line.strip()) 
+            else:
+                result.append(line.strip())  
             
-            return "\n".join(result)
+        return "\n".join(result)
+
+
 
     def save(self, *args, **kwargs):
+        text_fields = [
+        self.name, self.ingredients_list, self.steps
+    ]
+        
         if 'world_cuisine' in self.categories and not self.world_cuisine_categories:
             raise ValueError("Пожалуйста, выберите хотя бы одну кухню мира.")
+        
+        clean_text = " ".join([str(field).strip() for field in text_fields])
+        if profanity.contains_profanity(clean_text):
+                raise ValidationError('Матерные слова не допустимы')
+        
+        
         self.name = self.change_register()
 
         self.steps = self.split_text()
@@ -182,13 +196,13 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         return reverse('RecipeHub:recipe_detail', args=[self.name])
 
 
-class Reviews(models.Model):  # 2. Модель - модель моих отзывов
+class Reviews(models.Model):  
     tuple_of_ratings = (
-        ('1★', '1★'),
-        ('2★', '2★'),
-        ('3★', '3★'),
-        ('4★', '4★'),
-        ('5★', '5★'),
+        ('★', '1★'),
+        ('★★', '2★'),
+        ('★★★', '3★'),
+        ('★★★★', '4★'),
+        ('★★★★★', '5★'),
     )
 
     author = models.CharField(
@@ -342,9 +356,8 @@ class UserProfile(models.Model):
 #     pass
 
 
-# TODO: УБРАТЬ ЧТОБ НЕ БЫЛО ЛИШНИХ ПРОБЕЛОВ В РЕЦЕПТАХ И ЛУЧШИХ РЕЦЕПТАХ
-# TODO: ДОДЕЛАТЬ ВЕРТСКУ + поправить полоску лого в categories.css + исправить reviews.css
-# TODO: js эффекты для файлов
+# TODO: Сделать более корректный рейтинг звезд у лучших рецептов 
+# TODO: 
 # TODO: Нужно добавить валидаторы для конвертации картинки.
 # TODO: Класс своего аккаунта(Добавить папку избранное в профиле + Добавить возможность пользователям ставить друг другу "лайки" на рецепты или на отзывы)
 # TODO: Класс для общего рейтенга лучшего рецепта если общее число рейтенга <4

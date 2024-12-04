@@ -11,6 +11,7 @@ Django==5.1.2
 django-braces==1.16.0
 django-debug-toolbar==4.4.6
 django-model-utils==5.0.0
+django-multiselectfield==0.1.13
 executing==2.1.0
 filelock==3.16.1
 flake8==7.1.1
