@@ -127,12 +127,7 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
 
     def change_register(self):
         s = self.name
-        logging.debug(f"Original name: {s}")  # Логирование исходного значения
-        if s and s[0].islower():  # Проверка на непустоту и на то, что первая буква строчная
-            # Заглавная первая буква, остальные без изменений
-            s = s[0].upper() + s[1:]
-            # Логирование изменённого значения
-            logging.debug(f"Changed name: {s}")
+        s.capitalize()
         return s
 
     def split_text(self):
@@ -162,24 +157,35 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
                 result.append(line.strip())  
             
         return "\n".join(result)
-
-
-
-    def save(self, *args, **kwargs):
-        text_fields = [
-        self.name, self.ingredients_list, self.steps
-    ]
+    
+    def clean_bad_words(self):
+        text_fields = [self.name, self.ingredients_list, self.steps]
         
+        bad_list = ["Урод", "Тупой", "Придурок", "Чмо"]
+        
+        cleaned_fields = []
+        
+        for field in text_fields:
+            cleaned_field = ' '.join(
+                [len(word) * "*" if word.lower() in [bad_word.lower() for bad_word in bad_list] else word for word in field.split()]
+                )
+            cleaned_fields.append(cleaned_field)
+        
+        return cleaned_fields
+                
+        
+    def save(self, *args, **kwargs):
         if 'world_cuisine' in self.categories and not self.world_cuisine_categories:
             raise ValueError("Пожалуйста, выберите хотя бы одну кухню мира.")
         
-        clean_text = " ".join([str(field).strip() for field in text_fields])
-        if profanity.contains_profanity(clean_text):
-                raise ValidationError('Матерные слова не допустимы')
+        cleaned_fields = self.clean_bad_words()
         
+        clean_text = " ".join([str(field).strip() for field in cleaned_fields])
+        
+        if profanity.contains_profanity(clean_text):
+            raise ValidationError('Матерные слова не допустимы')
         
         self.name = self.change_register()
-
         self.steps = self.split_text()
 
         super().save(*args, **kwargs)
@@ -190,7 +196,7 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         verbose_name_plural = "Рецепты"
 
     def __str__(self):
-        return str(self.name)
+      return f"{self.name}"
 
     def get_absolute_url(self):
         return reverse('RecipeHub:recipe_detail', args=[self.name])
@@ -355,12 +361,11 @@ class UserProfile(models.Model):
 # class Likes(models.Model):
 #     pass
 
-
-# TODO: Сделать более корректный рейтинг звезд у лучших рецептов 
-# TODO: 
+# TODO: Класс для общего рейтенга лучшего рецепта если общее число рейтенга <4
+# TODO: Исправить лого в мой профиль
+# TODO: Проработать библиотку с избежанием мат слов
 # TODO: Нужно добавить валидаторы для конвертации картинки.
 # TODO: Класс своего аккаунта(Добавить папку избранное в профиле + Добавить возможность пользователям ставить друг другу "лайки" на рецепты или на отзывы)
-# TODO: Класс для общего рейтенга лучшего рецепта если общее число рейтенга <4
 # TODO: Заполнить кнопку посмотреть отзывы
 # TODO: Добавить пагинацию если 2+ лучших рецептов
 # TODO: поле кбжу ккал

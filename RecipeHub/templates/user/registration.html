@@ -12,8 +12,6 @@
   <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
   <link href="{% static 'css/user/registration.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
-  <style>
-  </style>
 </head>
 <body>
   <div class="container">
@@ -28,8 +26,7 @@
               {{ field }}
               {% if field.help_text %}
                 <small class="form-text text-muted">{{ field.help_text }}</small>
-              {% endif %}
-              
+              {% endif %} 
               {% if field.errors %}
                 <div class="invalid-feedback">
                   {% for error in field.errors %}
