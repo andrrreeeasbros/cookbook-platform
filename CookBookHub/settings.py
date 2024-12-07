@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.postgres',
     
     "debug_toolbar",
     
@@ -84,6 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3' ,
+        'OPTIONS': {
+            'timeout': 20,
+        },
     }
 }
 
@@ -123,6 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
 
 # Если у вас есть дополнительная папка для статики, укажите ее
 STATICFILES_DIRS = [

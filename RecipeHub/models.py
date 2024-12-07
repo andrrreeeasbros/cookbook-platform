@@ -3,7 +3,6 @@ from django.utils import timezone
 from datetime import timedelta
 from zoneinfo import ZoneInfo
 from django.urls import reverse
-import logging
 from multiselectfield import MultiSelectField
 import re
 from profanity import profanity
@@ -23,15 +22,15 @@ class ReviewManager(models.Manager):
 
 
 class Post_recipe(models.Model):  # 1. Модель - основная модель данных моих рецептов
-    DISH_LVL = (
-        ('Очень просто', 'Очень просто'),
-        ('Просто', 'Просто'),
-        ('Средней сложности', 'Средней сложности'),
-        ('Сложно', 'Сложно'),
-        ('Очень сложно', 'Очень сложно'),
+    name = models.CharField(
+        verbose_name='Название блюда',
+        primary_key=True,
+        max_length=30,
     )
 
-    DISH_CATEGORIES = (
+    categories = MultiSelectField(
+        verbose_name='Категории блюда',
+        choices=(
         ('vegetarian', 'Вегетарианское блюдо'),
         ('fast_food', 'Еда быстрого приготовления'),
         ('dessert', 'Десерт'),
@@ -40,9 +39,15 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         ('breakfast', 'Завтрак'),
         ('lunch', 'Обед'),
         ('dinner', 'Ужин'),
+    ),
+        max_length=100,
+        help_text="Выберите категории, которые подходят для этого рецепта",
+        default=[],
     )
 
-    WORLD_CUISINE_CATEGORIES = (
+    world_cuisine_categories = MultiSelectField(
+        verbose_name='Кухни мира',
+        choices=(
         ('italian', 'Итальянская кухня'),
         ('japanese', 'Японская кухня'),
         ('mexican', 'Мексиканская кухня'),
@@ -52,25 +57,7 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         ('greek', 'Греческая кухня'),
         ('arabic', 'Арабская кухня'),
         ('american', 'Американская кухня'),
-    )
-
-    name = models.CharField(
-        verbose_name='Название блюда',
-        primary_key=True,
-        max_length=30,
-    )
-
-    categories = MultiSelectField(
-        verbose_name='Категории блюда',
-        choices=DISH_CATEGORIES,
-        max_length=100,
-        help_text="Выберите категории, которые подходят для этого рецепта",
-        default=[],
-    )
-
-    world_cuisine_categories = MultiSelectField(
-        verbose_name='Кухни мира',
-        choices=WORLD_CUISINE_CATEGORIES,
+    ),
         max_length=100,
         help_text="Выберите кухни мира, если выбрана категория 'По кухне мира'",
         default=[],
@@ -88,7 +75,13 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
 
     level = models.CharField(
         verbose_name='Уровень сложности',
-        choices=DISH_LVL,
+        choices= (
+        ('Очень просто', 'Очень просто'),
+        ('Просто', 'Просто'),
+        ('Средней сложности', 'Средней сложности'),
+        ('Сложно', 'Сложно'),
+        ('Очень сложно', 'Очень сложно'),
+    ),
         max_length=20
     )
 
@@ -203,14 +196,6 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
 
 
 class Reviews(models.Model):  
-    tuple_of_ratings = (
-        ('★', '1★'),
-        ('★★', '2★'),
-        ('★★★', '3★'),
-        ('★★★★', '4★'),
-        ('★★★★★', '5★'),
-    )
-
     author = models.CharField(
         verbose_name='Автор',
         max_length=30,
@@ -228,7 +213,13 @@ class Reviews(models.Model):
 
     grade = models.CharField(
         max_length=50,
-        choices=tuple_of_ratings,
+        choices=(
+        ('★', '1★'),
+        ('★★', '2★'),
+        ('★★★', '3★'),
+        ('★★★★', '4★'),
+        ('★★★★★', '5★'),
+    ),
         verbose_name="Оценка пользователя",
         help_text="Оцените данный рецепт"
     )
