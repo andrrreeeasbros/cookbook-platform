@@ -37,9 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django.contrib.postgres',
+
     "debug_toolbar",
-    
+
     'RecipeHub',
 ]
 
@@ -51,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -81,11 +82,12 @@ WSGI_APPLICATION = 'CookBookHub.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3' ,
-        'OPTIONS': {
-            'timeout': 20,
-        },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'RecipeHub',
+        'USER': 'RecipeHub',
+        'PASSWORD': 'merser',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -145,7 +147,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 INTERNAL_IPS = [
-    '127.0.0.1',  
+    '127.0.0.1',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
