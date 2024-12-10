@@ -14,77 +14,61 @@ class RecipeManager(models.Manager):
         return super().get_queryset().filter(is_vegetarian=True)\
             .filter(is_fast_food=True)\
             .filter(is_dessert=True)
-
-
 class ReviewManager(models.Manager):  
     def get_queryset(self) -> models.QuerySet:
         return super().get_queryset().filter(grade__in=['★★★★', '★★★★★']).distinct()
 
+class Category(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
 
-class Post_recipe(models.Model):  # 1. Модель - основная модель данных моих рецептов
+    def __str__(self):
+        return self.name
+
+    @classmethod
+    def create_default_categories(cls):
+        categories = [
+            'Вегетарианское блюдо',
+            'Еда быстрого приготовления',
+            'Десерт',
+            'Веганское',
+            'Напитки',
+            'Завтрак',
+            'Обед',
+            'Ужин',
+        ]
+        for category_name in categories:
+            cls.objects.get_or_create(name=category_name)
+        
+class DifficultyLevel(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Post_recipe(models.Model):  
     name = models.CharField(
         verbose_name='Название блюда',
         primary_key=True,
         max_length=30,
     )
 
-    categories = MultiSelectField(
+    categories = models.ManyToManyField(
+        Category,
         verbose_name='Категории блюда',
-        choices=(
-        ('vegetarian', 'Вегетарианское блюдо'),
-        ('fast_food', 'Еда быстрого приготовления'),
-        ('dessert', 'Десерт'),
-        ('vegan', 'Веганское'),
-        ('drinks', 'Напитки'),
-        ('breakfast', 'Завтрак'),
-        ('lunch', 'Обед'),
-        ('dinner', 'Ужин'),
-    ),
-        max_length=100,
-        help_text="Выберите категории, которые подходят для этого рецепта",
-        default=[],
-    )
-
-    world_cuisine_categories = MultiSelectField(
-        verbose_name='Кухни мира',
-        choices=(
-        ('italian', 'Итальянская кухня'),
-        ('japanese', 'Японская кухня'),
-        ('mexican', 'Мексиканская кухня'),
-        ('chinese', 'Китайская кухня'),
-        ('indian', 'Индийская кухня'),
-        ('french', 'Французская кухня'),
-        ('greek', 'Греческая кухня'),
-        ('arabic', 'Арабская кухня'),
-        ('american', 'Американская кухня'),
-    ),
-        max_length=100,
-        help_text="Выберите кухни мира, если выбрана категория 'По кухне мира'",
-        default=[],
+        related_name='recipes',
         blank=True,
+        help_text="Выберите категории, которые подходят для этого рецепта"
     )
 
-    meal_time = models.CharField(
-        verbose_name='Время приёма пищи',
-        choices=[('breakfast', 'Завтрак'),
-                 ('lunch', 'Обед'), ('dinner', 'Ужин')],
-        max_length=10,
-        blank=True,  # Поле может быть пустым
-        help_text="Выберите только одно время приёма пищи (завтрак, обед или ужин).",
-    )
-
-    level = models.CharField(
-        verbose_name='Уровень сложности',
-        choices= (
-        ('Очень просто', 'Очень просто'),
-        ('Просто', 'Просто'),
-        ('Средней сложности', 'Средней сложности'),
-        ('Сложно', 'Сложно'),
-        ('Очень сложно', 'Очень сложно'),
-    ),
-        max_length=20
-    )
-
+    level = models.ForeignKey(
+        DifficultyLevel, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True
+        )
+    
     ingredients_list = models.TextField(
         verbose_name='Ингредиенты данного рецепта',
         max_length=2000,
@@ -115,13 +99,11 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
         verbose_name='Дата создания'
     )
 
-    objects = models.Manager()  # Менеджер, применяемый по умолчанию
-    recipe_manager = RecipeManager()  # Конкретно-прикладной менеджер
+    objects = models.Manager()  
+    recipe_manager = RecipeManager()  
 
     def change_register(self):
-        s = self.name
-        s.capitalize()
-        return s
+        return self.name.capitalize()
 
     def split_text(self):
         patterns = [
@@ -151,32 +133,8 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
             
         return "\n".join(result)
     
-    def clean_bad_words(self):
-        text_fields = [self.name, self.ingredients_list, self.steps]
-        
-        bad_list = ["Урод", "Тупой", "Придурок", "Чмо"]
-        
-        cleaned_fields = []
-        
-        for field in text_fields:
-            cleaned_field = ' '.join(
-                [len(word) * "*" if word.lower() in [bad_word.lower() for bad_word in bad_list] else word for word in field.split()]
-                )
-            cleaned_fields.append(cleaned_field)
-        
-        return cleaned_fields
-                
-        
+ 
     def save(self, *args, **kwargs):
-        if 'world_cuisine' in self.categories and not self.world_cuisine_categories:
-            raise ValueError("Пожалуйста, выберите хотя бы одну кухню мира.")
-        
-        cleaned_fields = self.clean_bad_words()
-        
-        clean_text = " ".join([str(field).strip() for field in cleaned_fields])
-        
-        if profanity.contains_profanity(clean_text):
-            raise ValidationError('Матерные слова не допустимы')
         
         self.name = self.change_register()
         self.steps = self.split_text()
@@ -194,7 +152,13 @@ class Post_recipe(models.Model):  # 1. Модель - основная моде�
     def get_absolute_url(self):
         return reverse('RecipeHub:recipe_detail', args=[self.name])
 
+class Grade(models.Model):
+    value = models.CharField(max_length=50) 
+    display_name = models.CharField(max_length=100)  
 
+    def __str__(self):
+        return self.display_name   
+    
 class Reviews(models.Model):  
     author = models.CharField(
         verbose_name='Автор',
@@ -211,19 +175,13 @@ class Reviews(models.Model):
         help_text='Выберите рецепт'
     )
 
-    grade = models.CharField(
-        max_length=50,
-        choices=(
-        ('★', '1★'),
-        ('★★', '2★'),
-        ('★★★', '3★'),
-        ('★★★★', '4★'),
-        ('★★★★★', '5★'),
-    ),
+    grade = models.ForeignKey(
+        Grade,  
+        on_delete=models.CASCADE,  
         verbose_name="Оценка пользователя",
         help_text="Оцените данный рецепт"
     )
-
+    
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата создания'
@@ -248,6 +206,16 @@ class Reviews(models.Model):
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
 
+class Timezone(models.Model):
+    country = models.CharField(max_length=100, unique=True)
+    timezone = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.country} - {self.timezone}'
+
+    class Meta:
+        verbose_name = "Timezone"
+        verbose_name_plural = "Timezones"
 
 class UserProfile(models.Model):
     name = models.CharField(
@@ -256,33 +224,13 @@ class UserProfile(models.Model):
         max_length=20,
         help_text='Введите ваше имя'
     )
-    TIMEZONE_MAP = {
-        'Армения': 'Asia/Yerevan',  # Армения
-        'Азербайджан': 'Asia/Baku',  # Азербайджан
-        'Беларусь': 'Europe/Minsk',  # Беларусь
-        'Казахстан': 'Asia/Almaty',  # Казахстан
-        'Кыргызстан': 'Asia/Bishkek',  # Кыргызстан
-        'Молдова': 'Europe/Chisinau',  # Молдова
-        'Россия': 'Russia',  # Россия
-        'Таджикистан': 'Asia/Dushanbe',  # Таджикистан
-        'Туркменистан': 'Asia/Ashgabat',  # Туркменистан
-        'Украина': 'Europe/Kiev',  # Украина
-        'Узбекистан': 'Asia/Tashkent',  # Узбекистан
-    }
-
-    TIMEZONE_MAP2 = {
-        'Russia (Moscow)': 'Europe/Moscow',
-        'Russia (Saint Petersburg)': 'Europe/Moscow',
-        'Russia (Far East)': 'Asia/Vladivostok',
-        'Russia (Siberia)': 'Asia/Irkutsk',
-        'Russia (Ural)': 'Asia/Yekaterinburg',
-        'Russia (Krasnoyarsk)': 'Asia/Krasnoyarsk',
-    }
-
-    country = models.CharField(
+   
+    country = models.ForeignKey(
+        Timezone,  # Связь с моделью Timezone
+        on_delete=models.SET_NULL,  # Если Timezone удален, не удалять UserProfile
+        null=True,  # Разрешаем пустое значение
+        blank=True,  # Разрешаем пустое значение
         verbose_name="Страна",
-        max_length=50,
-        choices=TIMEZONE_MAP.items(),  # Это будет кортеж пар (ключ, значение)
         help_text="Введите вашу страну"
     )
 
@@ -312,28 +260,13 @@ class UserProfile(models.Model):
         help_text="Загрузите ваше фото"
     )
 
-    def change_zone(self):
-        country = self.country
-        if country in self.TIMEZONE_MAP:
-            if country == 'Russia':
-                zone_info = ZoneInfo(self.TIMEZONE_MAP2.get(
-                    f"Russia ({country})", "UTC"))
-            else:
-                zone_info = ZoneInfo(self.TIMEZONE_MAP[country])
-        else:
-            zone_info = ZoneInfo("UTC")
-
-        self.created_at = timezone.localtime(self.created_at, zone_info)
-
     def save(self, *args, **kwargs):
         """
         Переопределённый метод save для корректной обработки временной зоны.
         """
         if not self.created_at:
             self.created_at = timezone.now()
-
-        # Применяем временную зону, если она не была задана
-        self.change_zone()  # Меняем временную зону в зависимости от страны
+ 
         super().save(*args, **kwargs)
 
     class Meta:
@@ -352,6 +285,9 @@ class UserProfile(models.Model):
 # class Likes(models.Model):
 #     pass
 
+
+# TODO: Убрать все choice и переписать под фикстуры 
+# TODO: вместо def НА КЛАССЫ В ВЬЮШКАХ 
 # TODO: Класс для общего рейтенга лучшего рецепта если общее число рейтенга <4
 # TODO: Исправить лого в мой профиль
 # TODO: Проработать библиотку с избежанием мат слов

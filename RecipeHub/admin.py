@@ -1,10 +1,19 @@
 from django.contrib import admin
-from RecipeHub.models import Post_recipe, Reviews, UserProfile
+from RecipeHub.models import Post_recipe, Reviews, UserProfile, Category
+
 
 
 @admin.register(Post_recipe)
 class PostRecipeAdmin(admin.ModelAdmin):
-    pass
+    filter_horizontal = ('categories',)
+    
+    list_display = ('name', 'get_categories')
+
+    def get_categories(self, obj):
+        return ", ".join([category.name for category in obj.categories.all()])
+    get_categories.short_description = 'Категории'
+    
+    
 
 
 @admin.register(Reviews)

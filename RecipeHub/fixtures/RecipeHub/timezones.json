@@ -1,0 +1,91 @@
+[
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 1,
+      "fields": {
+        "country": "Армения",
+        "timezone": "Asia/Yerevan"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 2,
+      "fields": {
+        "country": "Азербайджан",
+        "timezone": "Asia/Baku"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 3,
+      "fields": {
+        "country": "Беларусь",
+        "timezone": "Europe/Minsk"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 4,
+      "fields": {
+        "country": "Казахстан",
+        "timezone": "Asia/Almaty"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 5,
+      "fields": {
+        "country": "Кыргызстан",
+        "timezone": "Asia/Bishkek"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 6,
+      "fields": {
+        "country": "Молдова",
+        "timezone": "Europe/Chisinau"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 7,
+      "fields": {
+        "country": "Россия",
+        "timezone": "Russia"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 8,
+      "fields": {
+        "country": "Таджикистан",
+        "timezone": "Asia/Dushanbe"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 9,
+      "fields": {
+        "country": "Туркменистан",
+        "timezone": "Asia/Ashgabat"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 10,
+      "fields": {
+        "country": "Украина",
+        "timezone": "Europe/Kiev"
+      }
+    },
+    {
+      "model": "RecipeHub.timezone",
+      "pk": 11,
+      "fields": {
+        "country": "Узбекистан",
+        "timezone": "Asia/Tashkent"
+      }
+    }
+  ]
+  

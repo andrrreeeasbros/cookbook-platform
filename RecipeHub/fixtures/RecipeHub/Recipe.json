@@ -1,17 +1,71 @@
 [
     {
-        "model": "RecipeHub.post_recipe",
-        "pk": "����� � �������",
-        "fields": {
-            "categories": "vegetarian,fast_food,dessert",
-            "world_cuisine_categories": "",
-            "meal_time": "",
-            "level": "������",
-            "ingredients_list": "400 � ����� (��������, �������� ��� ������ ���� �� ��� ����)\r\n1 �� ��������� ������� (��� ������ ������ ���������)\r\n3 ������� �������, ����������\r\n100 �� ������ ������ ����2 �������� ����� ���������� �����1 ��������� ����� ������� ��������, ����������\r\n1/2 ������ ����� ���� (�� �������, ��� �����������)\r\n���� � ������ ����� �� �����\r\n����� (�� ������� ��� ������)",
-            "steps": "���� �� ����������� ������ �������, ��������� �������� �� ��� �������� �����, ������ ����� � �����, � �������� �� 30 ����� � �������� ����, ����� �������� �������� �����.\n���� �������� ��� � ������, ������ �������� ��.\n� ������� �������� � ����������� ����� �������� ���� �� �������, �������� ����� � �������� �������� ��������� �� �������� �� ��������� \"��� �����\".\n����� ���������� ������ ����, ������� ������� (�������� 1 ������) ��� �����.\n� �������� ��������� ���������� ��������� ����� �� ������� ����, �������� ������ � ����������� �� ����������� �����, �������� 1-2 ������.\n�������� ���� (���� �����������) � �������, ��������, ���������, ���� �������� �� ���������, ��� ������ ����� 5-7 �����.\n���� ������ ����� ���� � ����� ��� ������� ����������, ������� ������, �������� 2-3 ������.\n��� ������������� �������� ������� ���� �� �����, ����� ���� ��� ����� ������.\n�������� ������� ����� � ��������� � ���������� � ��������� �����������, ����������� ��� ������ 2-3 ������, ����� ����� ������� ������ �����.\n���������� �� ����, �������� ���� � ����� �� �������������.\n���������� ����� �� �������, �������� ������ ���������� ��������� � ��������� � �������� ������.\n",
-            "cooking_time": 21,
-            "dish_photo": "dish_photos/big_537904_9RleKRF.jpg",
-            "created_at": "2024-12-02T11:48:48.008Z"
-        }
+      "model": "RecipeHub.grade",
+      "pk": 1,
+      "fields": {
+        "value": "★",
+        "display_name": "1★"
+      }
+    },
+    {
+      "model": "RecipeHub.grade",
+      "pk": 2,
+      "fields": {
+        "value": "★★",
+        "display_name": "2★"
+      }
+    },
+    {
+      "model": "RecipeHub.grade",
+      "pk": 3,
+      "fields": {
+        "value": "★★★",
+        "display_name": "3★"
+      }
+    },
+    {
+      "model": "RecipeHub.grade",
+      "pk": 4,
+      "fields": {
+        "value": "★★★★",
+        "display_name": "4★"
+      }
+    },
+    {
+      "model": "RecipeHub.grade",
+      "pk": 5,
+      "fields": {
+        "value": "★★★★★",
+        "display_name": "5★"
+      }
+    },
+    {
+      "model": "RecipeHub.post_recipe",
+      "pk": "spaghetti_alle_vongole",
+      "fields": {
+        "name": "Spaghetti alle Vongole",
+        "categories": [1, 2, 3],
+        "level": 1,
+        "ingredients_list": "Spaghetti, clams, garlic, chili, white wine, parsley, olive oil, salt, pepper, lemon",
+        "steps": "1. Prepare clams\n2. Cook pasta\n3. Make sauce\n4. Add clams and wine\n5. Mix pasta with sauce\n6. Serve with parsley and lemon",
+        "cooking_time": 30,
+        "dish_photo": "dish_photos/spaghetti_alle_vongole.jpg",
+        "created_at": "2024-12-09T10:00:00Z"
+      }
+    },
+    {
+      "model": "RecipeHub.post_recipe",
+      "pk": "pasta_alfredo",
+      "fields": {
+        "name": "Pasta Alfredo",
+        "categories": [2, 3, 6],
+        "level": 2,
+        "ingredients_list": "Pasta, heavy cream, butter, garlic, parmesan, parsley, salt, pepper",
+        "steps": "1. Boil pasta\n2. Prepare sauce\n3. Toss pasta in sauce\n4. Serve with extra parmesan and parsley",
+        "cooking_time": 25,
+        "dish_photo": "dish_photos/pasta_alfredo.jpg",
+        "created_at": "2024-12-09T11:00:00Z"
+      }
     }
-]
+  ]
+  

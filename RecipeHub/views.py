@@ -72,12 +72,13 @@ def recipe_details(request, name):
     ingredients_list = recipe.ingredients_list.splitlines()
     steps_list = recipe.steps.splitlines()
     
+    # Serialize the related categories (assuming 'categories' is a Many-to-Many relationship)
+    categories_list = [category.name for category in recipe.categories.all()]
+    
     data = {
         'name': recipe.name,
-        'categories': recipe.categories,
-        'world_cuisine_categories': recipe.world_cuisine_categories,
-        'meal_time': recipe.meal_time,
-        'level': recipe.level,
+        'categories': categories_list,  
+        'level': recipe.level.name if recipe.level else None,  # If no level, set as None
         'ingredients': ingredients_list,
         'steps': steps_list,
         'cooking_time': recipe.cooking_time,
