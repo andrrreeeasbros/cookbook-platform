@@ -22,3 +22,4 @@ staticfiles/
 
 # Дополнительные игнорируемые файлы
 txt files/
+.env

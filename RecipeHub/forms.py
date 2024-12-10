@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.conf import settings
 from profanity import profanity
+from django.db import IntegrityError
 
 
 class UserRegistration(UserCreationForm):
@@ -55,12 +56,15 @@ class UserRegistration(UserCreationForm):
             raise ValidationError('Это имя пользователя уже занято.')
         return username
     
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exists():
-            raise ValidationError('Этот email уже зарегистрирован.')
-        return email
+    def validate_email(self):
+     email = self.cleaned_data.get('email')
+     try:
 
+         User.objects.create(email=email)
+     except IntegrityError:  
+        raise ValidationError('Этот email уже зарегистрирован.')
+     return email
+ 
     # Сохранение пользователя и отправка email
     def save(self, commit=True):
         user = super().save(commit=False)

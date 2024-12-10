@@ -620,3 +620,21 @@ body.index-page {
   margin-top: -8px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+/* Анимация вылета */
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Применяем анимацию к модальному окну */
+.modal.fade .modal-dialog {
+  animation: slideIn 0.5s ease-in-out;
+}

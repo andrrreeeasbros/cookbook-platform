@@ -3,8 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage
-from .forms import UserRegistration
-from django.contrib.auth import login
+from .forms import UserRegistration, CustomAuthenticationForm
+from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.http import JsonResponse
 
@@ -72,12 +72,13 @@ def recipe_details(request, name):
     ingredients_list = recipe.ingredients_list.splitlines()
     steps_list = recipe.steps.splitlines()
     
+    # Serialize the related categories (assuming 'categories' is a Many-to-Many relationship)
+    categories_list = [category.name for category in recipe.categories.all()]
+    
     data = {
         'name': recipe.name,
-        'categories': recipe.categories,
-        'world_cuisine_categories': recipe.world_cuisine_categories,
-        'meal_time': recipe.meal_time,
-        'level': recipe.level,
+        'categories': categories_list,  
+        'level': recipe.level.name if recipe.level else None,  # If no level, set as None
         'ingredients': ingredients_list,
         'steps': steps_list,
         'cooking_time': recipe.cooking_time,
@@ -105,19 +106,33 @@ def registration(request):
         form = UserRegistration(request.POST)
         
         if form.is_valid():
-            # Сохраняем нового пользователя
-            user = form.save()
-            login(request, user)
+            login(request, form.save())
             messages.success(request, 'Вы успешно зарегистрированы!')
-            return redirect('RecipeHub:main_template')
+            return redirect('RecipeHub:authorization')
         else:
-            # Если форма не валидна, покажем ошибки
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
-    else:
-        form = UserRegistration()
-
+            form = UserRegistration()
+            
     return render(request, 'user/registration.html', {'form': form})
 
 
-def authorization(request):
+def login(request):
+    if request.method == "POST":
+        form = CustomAuthenticationForm(data=request.POST)
+        
+    if form.is_valid():
+        login(request, form.get_user())
+        messages.success(request, 'Вы успешно вошли!')
+        return redirect('RecipeHub:main_template')
+    else:
+        messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+        form = CustomAuthenticationForm()
+    
     return render(request, 'user/authorization.html')
+
+def logout(request):
+    if request.method == 'POST':
+        logout(request)
+    return redirect('RecipeHub:main_template')
+        
+    

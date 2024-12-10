@@ -24,20 +24,22 @@ body.index-page {
     /* Фиксируем изображение в фоновом слое */
 }
 
-.sitename {
-    font-family: 'Lora', sans-serif;
-    font-size: 2.5rem; /* Используем rem для гибкости */
-    font-weight: bold;
-    color: rgb(245, 203, 167) !important; /* Персиковый цвет текста */
-    text-align: center;
-    margin: 0 20px 20px;
-    line-height: 1.4;
-    letter-spacing: 0.5px;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px 20px;
-    box-shadow: none;
-    border-radius: 15px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+.sitename{
+  font-family: 'Lora', sans-serif;
+  font-size: 2.5rem;
+  /* Используем rem для гибкости */
+  font-weight: bold;
+  color: rgb(245, 203, 167) !important;
+  /* Персиковый цвет текста */
+  text-align: center;
+  margin: 0 20px 20px;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  box-shadow: none;
+  border-radius: 15px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 .back-button {

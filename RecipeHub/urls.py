@@ -7,7 +7,7 @@ from .views import *
 app_name = 'RecipeHub'
 
 urlpatterns = [
-      path('recipe-details/<str:name>/', recipe_details, name='recipe-details'),  # используем name как строку
+    path('recipe-details/<str:name>/', recipe_details, name='recipe-details'),  # используем name как строку
     path('', main_template, name='main_template'), 
     path('profile/', profile, name='profile'),
     path('categories/', categories, name='categories'),
@@ -18,5 +18,6 @@ urlpatterns = [
     path('contacts/', contacts, name='contacts'),
     path('recipe/<str:name>/', recipe_details, name='recipe_detail'),
     path('register/', registration, name='registration'), 
-    path('authorization/', authorization, name='authorization')
+    path('login/', login, name='authorization'),
+    path('logout/', logout, name='logout')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

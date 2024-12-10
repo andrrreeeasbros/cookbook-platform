@@ -13,7 +13,8 @@
   <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
-<body class="index-page ">
+
+<body class="index-page">
   <div class="background-image">
     <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
   </div>
@@ -54,7 +55,7 @@
     </div>
 
     <!-- Модальное окно -->
-    <div class="modal" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">
+    <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -117,18 +118,27 @@
             
             // Создаем HTML содержимое для модального окна
             recipeContent.innerHTML = `
-            <h1 class="text-center">${data.name}</h1>
-            <h5>Уровень сложности: ${data.level}</h5>
-            <ul>${data.world_cuisine_categories.map(cuisine => `<li>${cuisine}</li>`).join('')}</ul>
-            <h5>Ингредиенты:</h5>
-            <ul>${data.ingredients.map((ingredient, index) => `<li>${index + 1}. ${ingredient}</li>`).join('')}</ul>
-            <h5>Шаги приготовления:</h5>
-            <ol>${data.steps.map((step, index) => `<li>${index + 1}. ${step}</li>`).join('')}</ol>
-            <div class="cooking-time">
-              <h5>Время приготовления:</h5>
-              <span>${data.cooking_time} минут</span>
-            </div>
-          `;
+  <h1 class="text-center">${data.name}</h1>
+  <h5>Уровень сложности: ${data.level}</h5>
+  
+  <!-- Категории блюда -->
+  <h5>Категории:</h5>
+  <ul>${data.categories.map(cuisine => `<li>${cuisine}</li>`).join('')}</ul> 
+
+  <!-- Ингредиенты -->
+  <h5>Ингредиенты:</h5>
+  <ul>${data.ingredients.map((ingredient, index) => `<li>${index + 1}. ${ingredient}</li>`).join('')}</ul>
+
+  <!-- Шаги приготовления -->
+  <h5>Шаги приготовления:</h5>
+  <ol>${data.steps.map((step, index) => `<li>${index + 1}. ${step}</li>`).join('')}</ol>
+
+  <!-- Время приготовления -->
+  <div class="cooking-time">
+    <h5>Время приготовления:</h5>
+    <span>${data.cooking_time} минут</span>
+  </div>
+`;
           }
         })
         .catch(error => {
