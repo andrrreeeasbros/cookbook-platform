@@ -27,10 +27,17 @@
     <div class="reviews-container">
       {% for review in reviews %}
         <article class="reviews">
-
-          <h1 class="text-center">{{ review.recipe.name }}</h1> 
-          <h5 class="text-right">{{ review.author }}</h5>
-          <h3>Оценка пользователя: {{ review.grade }}</h3>
+          <h1>{{ review.recipe.name }}</h1>
+          <div> 
+            <h2 class="text-left"> 
+              Автор: <span class="author"> {{ review.author }} </span>
+            </h2>
+          </div>
+          <div> 
+            <h3 class="text-left"> 
+              Оценка: <span class="author"> {{ review.grade }} </span>
+            </h3>
+          </div>
           <h4>Комментарии:</h4>
           <ul>
             {% for comment in review.comments.splitlines %}

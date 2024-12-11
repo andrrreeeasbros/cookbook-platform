@@ -81,7 +81,7 @@ def recipe_details(request, name):
         'level': recipe.level.name if recipe.level else None,  # If no level, set as None
         'ingredients': ingredients_list,
         'steps': steps_list,
-        'cooking_time': recipe.cooking_time,
+        'cooking_time': recipe.minutes_to_hours_to_days(),
         'dish_photo': recipe.dish_photo.url if recipe.dish_photo else None,  
     }
     
