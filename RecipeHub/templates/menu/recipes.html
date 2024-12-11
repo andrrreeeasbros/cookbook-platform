@@ -121,9 +121,6 @@
   <h1 class="text-center">${data.name}</h1>
   <h5>Уровень сложности: ${data.level}</h5>
   
-  <!-- Категории блюда -->
-  <h5>Категории:</h5>
-  <ul>${data.categories.map(cuisine => `<li>${cuisine}</li>`).join('')}</ul> 
 
   <!-- Ингредиенты -->
   <h5>Ингредиенты:</h5>
@@ -136,7 +133,7 @@
   <!-- Время приготовления -->
   <div class="cooking-time">
     <h5>Время приготовления:</h5>
-    <span>${data.cooking_time} минут</span>
+    <span>${data.cooking_time}</span>
   </div>
 `;
           }

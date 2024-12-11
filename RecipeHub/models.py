@@ -1,20 +1,23 @@
 from django.db import models
 from django.utils import timezone
 from datetime import timedelta
-from zoneinfo import ZoneInfo
 from django.urls import reverse
-from multiselectfield import MultiSelectField
 import re
-from profanity import profanity
-from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
+<<<<<<< HEAD
+class RecipeManager(models.Manager):  
+    pass
+
+=======
 class RecipeManager(models.Manager):
     def get_queryset(self) -> models.QuerySet:
         return super().get_queryset().filter(is_vegetarian=True)\
             .filter(is_fast_food=True)\
             .filter(is_dessert=True)
 <<<<<<< HEAD
+>>>>>>> dadb929109da20cc0ca311ef890b7babe11c4f19
 class ReviewManager(models.Manager):  
 =======
 
@@ -22,7 +25,7 @@ class ReviewManager(models.Manager):
 class ReviewManager(models.Manager):
 >>>>>>> 10af2ddf79176b7368e15ae5346368dc6a9230af
     def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().filter(grade__in=['★★★★', '★★★★★']).distinct()
+        return super().get_queryset().filter(grade__in=[4, 5]).distinct()
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -52,6 +55,8 @@ class DifficultyLevel(models.Model):
     def __str__(self):
         return self.name
 
+# class Likes(models.Model):
+#     pass
 
 class Post_recipe(models.Model):  
     name = models.CharField(
@@ -143,6 +148,16 @@ class Post_recipe(models.Model):
         blank=False,
     )
 
+<<<<<<< HEAD
+    cooking_time = models.IntegerField(
+        verbose_name='Время приготовления блюда',
+        default=timedelta(minutes=30),
+        help_text='Напишите примерное время приготовления данного блюда(в минутах)',
+        validators=[MinValueValidator(0)]
+    )
+
+=======
+>>>>>>> dadb929109da20cc0ca311ef890b7babe11c4f19
     dish_photo = models.ImageField(
         unique=True,
         verbose_name='Фото блюда',
@@ -194,8 +209,24 @@ class Post_recipe(models.Model):
         return "\n".join(result)
 <<<<<<< HEAD
     
+    def minutes_to_hours_to_days(self):
+        if self.cooking_time >= 1440:
+            days = self.cooking_time // 1440
+            remaining_minutes = self.cooking_time % 1440
+            hours = remaining_minutes // 60
+            minutes = remaining_minutes % 60
+            return f'{days} дней {hours} часов {minutes} минут'
+        elif self.cooking_time >= 60:
+            hours = self.cooking_time // 60
+            minutes = self.cooking_time % 60
+            return f"{hours} часов {minutes} минут"
+        else:
+            return f"{self.cooking_time} минут"
+
  
     def save(self, *args, **kwargs):
+<<<<<<< HEAD
+=======
         
 =======
 
@@ -227,6 +258,7 @@ class Post_recipe(models.Model):
             raise ValidationError('Матерные слова не допустимы')
 
 >>>>>>> 10af2ddf79176b7368e15ae5346368dc6a9230af
+>>>>>>> dadb929109da20cc0ca311ef890b7babe11c4f19
         self.name = self.change_register()
         self.steps = self.split_text()
 
@@ -244,13 +276,16 @@ class Post_recipe(models.Model):
         return reverse('RecipeHub:recipe_detail', args=[self.name])
 
 class Grade(models.Model):
-    value = models.CharField(max_length=50) 
+    value = models.IntegerField() 
     display_name = models.CharField(max_length=100)  
 
 <<<<<<< HEAD
     def __str__(self):
         return self.display_name   
-    
+
+# class Likes(models.Model):
+#     pass
+
 class Reviews(models.Model):  
 =======
 class Reviews(models.Model):
@@ -258,8 +293,6 @@ class Reviews(models.Model):
     author = models.CharField(
         verbose_name='Автор',
         max_length=30,
-        blank=True,
-        help_text="По вашему желанию можете указать автора данного рецепта"
     )
 
     recipe = models.ForeignKey(
@@ -324,6 +357,20 @@ class Timezone(models.Model):
         verbose_name = "Timezone"
         verbose_name_plural = "Timezones"
 
+class Age(models.Model):
+    years = models.IntegerField(
+        verbose_name="Возраст", 
+        help_text="Введите возраст", 
+        validators=[MinValueValidator(0), MaxValueValidator(120)]  
+    )
+
+    def __str__(self):
+        return f'{self.years}'
+    
+    class Meta:
+        verbose_name = 'Age'
+        verbose_name_plural = 'Ages'
+
 class UserProfile(models.Model):
     name = models.CharField(
         verbose_name="Имя автора профиля",
@@ -341,12 +388,13 @@ class UserProfile(models.Model):
         help_text="Введите вашу страну"
     )
 
-    age_choices = [(i, str(i)) for i in range(1, 101)]
-
-    age = models.IntegerField(
+    age = models.ForeignKey(
+        Age,
         verbose_name="Возраст",
-        choices=age_choices,
-        help_text="Ваш возраст"
+        help_text="Ваш возраст",
+        on_delete=models.SET_NULL,  # Если объект Age будет удален, оставляем UserProfile
+        null=True,  # Разрешаем пустое значение
+        blank=True  # Разрешаем пустое значение
     )
 
     description = models.TextField(
@@ -368,9 +416,6 @@ class UserProfile(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        """
-        Переопределённый метод save для корректной обработки временной зоны.
-        """
         if not self.created_at:
             self.created_at = timezone.now()
  
@@ -388,11 +433,9 @@ class UserProfile(models.Model):
 # class TeamConnection(models.Model):
 #     pass
 
-
-# class Likes(models.Model):
-#     pass
-
-
+# TODO: Использовать block для logo html
+# TODO: Придумать как распределять рецепты по критериям
+# TODO: изменить поле время готовки чтоб не было отрицательным 
 # TODO: Убрать все choice и переписать под фикстуры 
 # TODO: вместо def НА КЛАССЫ В ВЬЮШКАХ 
 # TODO: Класс для общего рейтенга лучшего рецепта если общее число рейтенга <4
