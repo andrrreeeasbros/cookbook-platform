@@ -4,28 +4,110 @@ from datetime import timedelta
 from django.urls import reverse
 import re
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.exceptions import ValidationError
+from PIL import Image
+from django.db.models.signals import post_save
 
 
-<<<<<<< HEAD
-class RecipeManager(models.Manager):  
+class RecipeManager(models.Manager):
     pass
 
-=======
-class RecipeManager(models.Manager):
-    def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().filter(is_vegetarian=True)\
-            .filter(is_fast_food=True)\
-            .filter(is_dessert=True)
-<<<<<<< HEAD
->>>>>>> dadb929109da20cc0ca311ef890b7babe11c4f19
-class ReviewManager(models.Manager):  
-=======
+
+class VegetarianRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(categories__name="Вегетарианское блюдо")
+
+
+class QuickRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(categories__name="Еда быстрого приготовления")
+
+
+class DessertRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(categories__name="Десерт")
+
+
+class VeganRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(categories__name="Веганское")
+
+
+class DrinkRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(categories__name="Напитки")
+
+
+class SnackRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(categories__name="Закуски")
+
+
+class SideDishRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(categories__name="Гарниры")
+
+
+class BakingRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(categories__name="Печенье и выпечка")
+
+
+class ItalianRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Итальянская")
+
+
+class FrenchRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Французская")
+
+
+class JapaneseRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Японская")
+
+
+class ChineseRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Китайская")
+
+
+class MexicanRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Мексиканская")
+
+
+class ThaiRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Тайская")
+
+
+class IndianRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Индийская")
+
+
+class GreekRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Греческая")
+
+
+class SpanishRecipeManager(RecipeManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(cuisines__name="Испанская")
 
 
 class ReviewManager(models.Manager):
->>>>>>> 10af2ddf79176b7368e15ae5346368dc6a9230af
-    def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().filter(grade__in=[4, 5]).distinct()
+    def get_average_rating(self, recipe):
+        reviews = self.filter(recipe=recipe)
+        if reviews.exists():
+            total_grade = sum([review.grade.value for review in reviews])
+            average_rating = total_grade / reviews.count()
+            if average_rating > 4:
+                return average_rating
+        return 0
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -42,23 +124,35 @@ class Category(models.Model):
             'Десерт',
             'Веганское',
             'Напитки',
-            'Завтрак',
-            'Обед',
-            'Ужин',
         ]
         for category_name in categories:
             cls.objects.get_or_create(name=category_name)
-        
+
+
 class DifficultyLevel(models.Model):
     name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
         return self.name
 
+
+class Cuisine(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Кухня мира"
+        verbose_name_plural = "Кухни мира"
+
+
 # class Likes(models.Model):
 #     pass
 
-class Post_recipe(models.Model):  
+
+class Post_recipe(models.Model):
     name = models.CharField(
         verbose_name='Название блюда',
         primary_key=True,
@@ -68,76 +162,27 @@ class Post_recipe(models.Model):
     categories = models.ManyToManyField(
         Category,
         verbose_name='Категории блюда',
-<<<<<<< HEAD
         related_name='recipes',
-=======
-        choices=(
-            ('vegetarian', 'Вегетарианское блюдо'),
-            ('fast_food', 'Еда быстрого приготовления'),
-            ('dessert', 'Десерт'),
-            ('vegan', 'Веганское'),
-            ('drinks', 'Напитки'),
-            ('breakfast', 'Завтрак'),
-            ('lunch', 'Обед'),
-            ('dinner', 'Ужин'),
-        ),
-        max_length=100,
-        help_text="Выберите категории, которые подходят для этого рецепта",
-        default=[],
-    )
-
-    world_cuisine_categories = MultiSelectField(
-        verbose_name='Кухни мира',
-        choices=(
-            ('italian', 'Итальянская кухня'),
-            ('japanese', 'Японская кухня'),
-            ('mexican', 'Мексиканская кухня'),
-            ('chinese', 'Китайская кухня'),
-            ('indian', 'Индийская кухня'),
-            ('french', 'Французская кухня'),
-            ('greek', 'Греческая кухня'),
-            ('arabic', 'Арабская кухня'),
-            ('american', 'Американская кухня'),
-        ),
-        max_length=100,
-        help_text="Выберите кухни мира, если выбрана категория 'По кухне мира'",
-        default=[],
->>>>>>> 10af2ddf79176b7368e15ae5346368dc6a9230af
         blank=True,
         help_text="Выберите категории, которые подходят для этого рецепта"
     )
 
-<<<<<<< HEAD
+    cuisines = models.ManyToManyField(
+        Cuisine,
+        verbose_name="Кухни мира",
+        related_name="recipes",
+        blank=True,
+        help_text="Выберите кухни мира для этого рецепта"
+    )
+
     level = models.ForeignKey(
-        DifficultyLevel, 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=True
-        )
-    
-=======
-    meal_time = models.CharField(
-        verbose_name='Время приёма пищи',
-        choices=[('breakfast', 'Завтрак'),
-                 ('lunch', 'Обед'), ('dinner', 'Ужин')],
-        max_length=10,
-        blank=True,  # Поле может быть пустым
-        help_text="Выберите только одно время приёма пищи (завтрак, обед или ужин).",
-    )
-
-    level = models.CharField(
+        DifficultyLevel,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         verbose_name='Уровень сложности',
-        choices=(
-            ('Очень просто', 'Очень просто'),
-            ('Просто', 'Просто'),
-            ('Средней сложности', 'Средней сложности'),
-            ('Сложно', 'Сложно'),
-            ('Очень сложно', 'Очень сложно'),
-        ),
-        max_length=20
     )
 
->>>>>>> 10af2ddf79176b7368e15ae5346368dc6a9230af
     ingredients_list = models.TextField(
         verbose_name='Ингредиенты данного рецепта',
         max_length=2000,
@@ -148,7 +193,6 @@ class Post_recipe(models.Model):
         blank=False,
     )
 
-<<<<<<< HEAD
     cooking_time = models.IntegerField(
         verbose_name='Время приготовления блюда',
         default=timedelta(minutes=30),
@@ -156,8 +200,6 @@ class Post_recipe(models.Model):
         validators=[MinValueValidator(0)]
     )
 
-=======
->>>>>>> dadb929109da20cc0ca311ef890b7babe11c4f19
     dish_photo = models.ImageField(
         unique=True,
         verbose_name='Фото блюда',
@@ -166,32 +208,65 @@ class Post_recipe(models.Model):
         width_field=None,
         help_text='Загрузите фото данного блюда.'
     )
-    
-    cooking_time = models.DurationField(default=0)
 
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата создания'
     )
 
-    objects = models.Manager()  
-    recipe_manager = RecipeManager()  
-
     def change_register(self):
         return self.name.capitalize()
 
     def split_text(self):
         patterns = [
-            "Подготовка моллюсков", "Приготовление пасты", "Готовим соус",
-            "Добавление моллюсков и вина", "Смешивание пасты с соусом", "Подача",
-            "Промывание моллюсков", "Проверка моллюсков на живость", "Вскипятить воду",
-            "Отварить пасту", "Разогреть оливковое масло", "Обжарить чеснок", "Добавить чили",
-            "Накрыть крышкой", "Готовить на среднем огне", "Добавить готовую пасту",
-            "Перемешать пасту с соусом", "Посыпать петрушкой", "Приправить солью и перцем",
-            "Подавать с лимоном", "Нарезать чеснок", "Обжаривать до золотистого цвета",
-            "Не пережаривать чеснок", "Использовать белое вино", "Готовить 5-7 минут",
-            "Проверить моллюсков", "Закрыть крышкой", "Дать настояться", "Подавать немедленно"
-        ]
+    "Подготовка моллюсков", "Приготовление пасты", "Готовим соус",
+    "Добавление моллюсков и вина", "Смешивание пасты с соусом", "Подача",
+    "Промывание моллюсков", "Проверка моллюсков на живость", "Вскипятить воду",
+    "Отварить пасту", "Разогреть оливковое масло", "Обжарить чеснок", "Добавить чили",
+    "Накрыть крышкой", "Готовить на среднем огне", "Добавить готовую пасту",
+    "Перемешать пасту с соусом", "Посыпать петрушкой", "Приправить солью и перцем",
+    "Подавать с лимоном", "Нарезать чеснок", "Обжаривать до золотистого цвета",
+    "Не пережаривать чеснок", "Использовать белое вино", "Готовить 5-7 минут",
+    "Проверить моллюсков", "Закрыть крышкой", "Дать настояться", "Подавать немедленно",
+    "Очищение овощей", "Нарезка кубиками", "Жарить на сильном огне", "Кипятить бульон",
+    "Добавить специи", "Тушить", "Замариновать мясо", "Выложить на тарелку",
+    "Сервировать", "Режем кольцами", "Варить на пару", "Готовить в духовке", 
+    "Мелко нарезать", "Резать ломтями", "Измельчить зелень", "Фаршировать",
+    "Пожарить до хрустящей корочки", "Подогреть", "Слегка подрумянить", "Добавить в воду",
+    "Завернуть в фольгу", "Крошить сыр", "Приготовить к жарке", "Печь в духовке",
+    "Протереть через сито", "Взбить до пены", "Готовить на гриле", "Обработать блендером",
+    "Легко обжарить", "Налить в форму", "Пропарить", "Растирать в ступке", "Приготовить соус на основе бульона",
+    "Использовать чесночный порошок", "Разделить на порции", "Обжаривать на масле", "Украсить зеленью",
+    "Подсушить хлеб", "Разогреть сковороду", "Добавить масло", "Приготовить в аэрогриле",
+    "Подготовить специи", "Включить таймер", "Режем соломкой", "Отварить яйца", "Использовать остроту чили",
+    "Тушить на медленном огне", "Сделать крем", "Разделить на части", "Размять пюре", "Вымешать тесто",
+    "Выпекать до готовности", "Карамелизовать", "Полить медом", "Приготовить шницель", "Устроить дегустацию",
+    "Замораживать ингредиенты", "Протереть на терке", "Использовать свежие травы", "Нарезать пластинами",
+    "Поджарить бекон", "Вскипятить молоко", "Убрать из кастрюли", "Готовить в пароварке", "Прокипятить вино",
+    "Охладить перед подачей", "Притушить до мягкости", "Готовить на огне", "Завернуть в тесто", "Взбить яйца с сахаром",
+    "Добавить свежие овощи", "Подготовить ингредиенты", "Заварить чай", "Очистить рыбу", "Порезать ломтями",
+    "Измельчить орехи", "Разогреть жаровню", "Приготовить пудинг", "Подогреть суп", "Подсушить орехи",
+    "Смешать все компоненты", "Готовить на сковороде", "Готовить на медленном огне", "Использовать специи по вкусу",
+    "Нарезать мелко", "Печь в печи", "Выложить на противень", "Вылить в кастрюлю", "Готовить с добавлением меда",
+    "Высыпать муку в миску", "Приготовить мясо на гриле", "Покрошить в салат", "Приправить зеленью", "Налить соус",
+    "Тонко нарезать", "Взбить венчиком", "Замесить тесто", "Отправить в морозильник", "Выложить на тарелку с соусом",
+    "Разогревать кастрюлю", "Налить в чашку", "Обжарить на сковороде с маслом", "Сформировать котлеты", "Нарезать полосками",
+    "Запечь до золотистой корочки", "Готовить в мультиварке", "Смешать с мукой", "Добавить мед или сахар",
+    "Подготовить противень", "Обернуть в пленку", "Порезать кольцами", "Кипятить воду с солью", "Тонко нарезать овощи",
+    "Положить в кастрюлю", "Готовить до мягкости", "Залить соусом", "Прокипятить на медленном огне", "Обработать овощи",
+    "Готовить на пару до готовности", "Нарезать мясо ломтями", "Приготовить десерт", "Запечь в фольге", "Использовать приправы",
+    "Сделать подливку", "Обжаривать до хрустящей корочки", "Положить в духовку", "Готовить в сковороде на оливковом масле",
+    "Нарезать зелень", "Подавать с соусом", "Залить горячим бульоном", "Сформировать форму для запеканки", "Обработать мясо специями",
+    "Варить до готовности", "Разогреть духовку до 180 градусов", "Использовать лимонный сок", "Готовить на большой температуре",
+    "Нарезать поперек", "Перемешать все ингредиенты", "Сделать пасту", "Завернуть в пергамент", "Приготовить по рецепту",
+    "Порезать на кусочки", "Разогреть масло", "Смешать с уксусом", "Подавать горячим", "Сделать карри", "Положить в кастрюлю",
+    "Порезать хлеб", "Разложить по тарелкам", "Отправить в холодильник", "Измельчить на блендере", "Приготовить соус для пасты",
+    "Украсить соусом", "Готовить с оливковым маслом", "Пропустить через мясорубку", "Обжарить до румяной корочки", "Сервировать на столе",
+    "Печь в микроволновке", "Приготовить картофельное пюре", "Готовить в кастрюле", "Разогреть масло в кастрюле", "Залить водой",
+    "Провести дегустацию", "Приготовить картофельное пюре", "Протереть овощи", "Печь до готовности", "Порезать на небольшие кусочки",
+    "Готовить с помидорами", "Растерзать мясо", "Очищать овощи", "Приготовить бульон"
+    ]
+
         s = self.steps
         if isinstance(self.steps, str):
             s = re.sub(r'\s+', ' ', self.steps.strip())
@@ -207,62 +282,73 @@ class Post_recipe(models.Model):
                 result.append(line.strip())
 
         return "\n".join(result)
-<<<<<<< HEAD
-    
+
+
     def minutes_to_hours_to_days(self):
-        if self.cooking_time >= 1440:
-            days = self.cooking_time // 1440
-            remaining_minutes = self.cooking_time % 1440
-            hours = remaining_minutes // 60
-            minutes = remaining_minutes % 60
-            return f'{days} дней {hours} часов {minutes} минут'
-        elif self.cooking_time >= 60:
-            hours = self.cooking_time // 60
-            minutes = self.cooking_time % 60
-            return f"{hours} часов {minutes} минут"
+        if isinstance(self.cooking_time, int):  
+            if self.cooking_time >= 1440:
+                days = self.cooking_time // 1440
+                remaining_minutes = self.cooking_time % 1440
+                hours = remaining_minutes // 60
+                minutes = remaining_minutes % 60
+                return f'{days} дн. {hours} ч. {minutes} мин.'
+            elif self.cooking_time >= 60:
+                hours = self.cooking_time // 60
+                minutes = self.cooking_time % 60
+                return f"{hours} ч. {minutes} мин."
+            else:
+                return f"{self.cooking_time} мин."
         else:
-            return f"{self.cooking_time} минут"
+            return "Некорректное время"
 
- 
-    def save(self, *args, **kwargs):
-<<<<<<< HEAD
-=======
-        
-=======
 
-    def clean_bad_words(self):
-        text_fields = [self.name, self.ingredients_list, self.steps]
+    def clean(self):
+        super().clean()
 
-        bad_list = ["Урод", "Тупой", "Придурок", "Чмо"]
-
-        cleaned_fields = []
-
-        for field in text_fields:
-            cleaned_field = ' '.join(
-                [len(word) * "*" if word.lower() in [bad_word.lower()
-                                                     for bad_word in bad_list] else word for word in field.split()]
-            )
-            cleaned_fields.append(cleaned_field)
-
-        return cleaned_fields
+        if self.categories.count() > 3:
+            raise ValidationError('Рецепт не может иметь более 3 категорий.')
 
     def save(self, *args, **kwargs):
-        if 'world_cuisine' in self.categories and not self.world_cuisine_categories:
-            raise ValueError("Пожалуйста, выберите хотя бы одну кухню мира.")
-
-        cleaned_fields = self.clean_bad_words()
-
-        clean_text = " ".join([str(field).strip() for field in cleaned_fields])
-
-        if profanity.contains_profanity(clean_text):
-            raise ValidationError('Матерные слова не допустимы')
-
->>>>>>> 10af2ddf79176b7368e15ae5346368dc6a9230af
->>>>>>> dadb929109da20cc0ca311ef890b7babe11c4f19
         self.name = self.change_register()
         self.steps = self.split_text()
 
         super().save(*args, **kwargs)
+
+        if self.dish_photo:
+            self.resize_image()
+
+    def resize_image(self):
+
+        image_path = self.dish_photo.path
+        img = Image.open(image_path)
+
+        img = img.resize((674, 446), Image.Resampling.LANCZOS)
+
+        # Сохраняем измененное изображение
+        img.save(image_path)
+
+    recipe_manager = RecipeManager()
+    objects = models.Manager()
+    italian_manager = ItalianRecipeManager()
+    french_manager = FrenchRecipeManager()
+    japanese_manager = JapaneseRecipeManager()
+    chinese_manager = ChineseRecipeManager()
+    mexican_manager = MexicanRecipeManager()
+    thai_manager = ThaiRecipeManager()
+    indian_manager = IndianRecipeManager()
+    greek_manager = GreekRecipeManager()
+    spanish_manager = SpanishRecipeManager()
+
+    # Менеджер для вегетарианских рецептов
+    vegetarian_manager = VegetarianRecipeManager()
+    # Менеджер для рецептов быстрого приготовления
+    quick_manager = QuickRecipeManager()
+    dessert_manager = DessertRecipeManager()  # Менеджер для десертов
+    vegan_manager = VeganRecipeManager()  # Менеджер для веганских рецептов
+    drink_manager = DrinkRecipeManager()  # Менеджер для напитков
+    snack_manager = SnackRecipeManager()  # Менеджер для закусок
+    side_dish_manager = SideDishRecipeManager()  # Менеджер для гарниров
+    baking_manager = BakingRecipeManager()  # Менеджер для печенья и выпечки
 
     class Meta:
         ordering = ["-created_at"]
@@ -275,21 +361,19 @@ class Post_recipe(models.Model):
     def get_absolute_url(self):
         return reverse('RecipeHub:recipe_detail', args=[self.name])
 
-class Grade(models.Model):
-    value = models.IntegerField() 
-    display_name = models.CharField(max_length=100)  
 
-<<<<<<< HEAD
+class Grade(models.Model):
+    value = models.IntegerField()
+    display_name = models.CharField(max_length=100)
+
     def __str__(self):
-        return self.display_name   
+        return self.display_name
 
 # class Likes(models.Model):
 #     pass
 
-class Reviews(models.Model):  
-=======
+
 class Reviews(models.Model):
->>>>>>> 10af2ddf79176b7368e15ae5346368dc6a9230af
     author = models.CharField(
         verbose_name='Автор',
         max_length=30,
@@ -303,25 +387,13 @@ class Reviews(models.Model):
         help_text='Выберите рецепт'
     )
 
-<<<<<<< HEAD
     grade = models.ForeignKey(
-        Grade,  
-        on_delete=models.CASCADE,  
-=======
-    grade = models.CharField(
-        max_length=50,
-        choices=(
-            ('★', '1★'),
-            ('★★', '2★'),
-            ('★★★', '3★'),
-            ('★★★★', '4★'),
-            ('★★★★★', '5★'),
-        ),
->>>>>>> 10af2ddf79176b7368e15ae5346368dc6a9230af
+        Grade,
+        on_delete=models.CASCADE,
         verbose_name="Оценка пользователя",
         help_text="Оцените данный рецепт"
     )
-    
+
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата создания'
@@ -346,6 +418,7 @@ class Reviews(models.Model):
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
 
+
 class Timezone(models.Model):
     country = models.CharField(max_length=100, unique=True)
     timezone = models.CharField(max_length=100)
@@ -357,19 +430,21 @@ class Timezone(models.Model):
         verbose_name = "Timezone"
         verbose_name_plural = "Timezones"
 
+
 class Age(models.Model):
     years = models.IntegerField(
-        verbose_name="Возраст", 
-        help_text="Введите возраст", 
-        validators=[MinValueValidator(0), MaxValueValidator(120)]  
+        verbose_name="Возраст",
+        help_text="Введите возраст",
+        validators=[MinValueValidator(0), MaxValueValidator(120)]
     )
 
     def __str__(self):
         return f'{self.years}'
-    
+
     class Meta:
         verbose_name = 'Age'
         verbose_name_plural = 'Ages'
+
 
 class UserProfile(models.Model):
     name = models.CharField(
@@ -378,12 +453,12 @@ class UserProfile(models.Model):
         max_length=20,
         help_text='Введите ваше имя'
     )
-   
+
     country = models.ForeignKey(
-        Timezone,  # Связь с моделью Timezone
-        on_delete=models.SET_NULL,  # Если Timezone удален, не удалять UserProfile
-        null=True,  # Разрешаем пустое значение
-        blank=True,  # Разрешаем пустое значение
+        Timezone,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         verbose_name="Страна",
         help_text="Введите вашу страну"
     )
@@ -392,9 +467,9 @@ class UserProfile(models.Model):
         Age,
         verbose_name="Возраст",
         help_text="Ваш возраст",
-        on_delete=models.SET_NULL,  # Если объект Age будет удален, оставляем UserProfile
-        null=True,  # Разрешаем пустое значение
-        blank=True  # Разрешаем пустое значение
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
     )
 
     description = models.TextField(
@@ -418,7 +493,7 @@ class UserProfile(models.Model):
     def save(self, *args, **kwargs):
         if not self.created_at:
             self.created_at = timezone.now()
- 
+
         super().save(*args, **kwargs)
 
     class Meta:
@@ -430,15 +505,14 @@ class UserProfile(models.Model):
         return self.name[:10]
 
 
-# class TeamConnection(models.Model):
-#     pass
+class TeamConnection(models.Model):
+    pass
 
-# TODO: Использовать block для logo html
-# TODO: Придумать как распределять рецепты по критериям
-# TODO: изменить поле время готовки чтоб не было отрицательным 
-# TODO: Убрать все choice и переписать под фикстуры 
-# TODO: вместо def НА КЛАССЫ В ВЬЮШКАХ 
-# TODO: Класс для общего рейтенга лучшего рецепта если общее число рейтенга <4
+
+# TODO: Сделать расположение по алфовитному порядку в "Все рецепты"
+# TODO: Сделать поле для время перекуса
+# TODO: изменить поле время готовки чтоб не было отрицательным
+# TODO: вместо def НА КЛАССЫ В ВЬЮШКАХ
 # TODO: Исправить лого в мой профиль
 # TODO: Проработать библиотку с избежанием мат слов
 # TODO: Нужно добавить валидаторы для конвертации картинки.

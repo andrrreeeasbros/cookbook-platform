@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -13,15 +13,16 @@
   <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
+<style>
+</style>
 
 <body class="index-page">
   <div class="background-image">
-    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
   </div>
-  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
+  <a href="{% url 'RecipeHub:world_kitchens' %}" class="back-button">Вернуться назад</a>
   <main class="main">
-    <h1 class="title">Все рецепты</h1>
-    <a class="btn btn-add-recipe" href="">Добавить рецепт</a>
+    <h1 class="title">{{ cuisine.name }} кухня</h1>
 
     <div>
       {% for recipe in recipes %}
@@ -37,6 +38,8 @@
           
           <button class="btn-view-recipe" data-toggle="modal" data-target="#recipeModal" data-recipe-name="{{ recipe.name }}">Посмотреть рецепт</button>
         </article>
+      {% empty %}
+        <p>Рецепты этой кухни ещё не добавлены 😔</p>
       {% endfor %}
     </div>
 
@@ -120,7 +123,6 @@
             recipeContent.innerHTML = `
   <h1 class="text-center">${data.name}</h1>
   <h5>Уровень сложности: ${data.level}</h5>
-  
 
   <!-- Ингредиенты -->
   <h5>Ингредиенты:</h5>
