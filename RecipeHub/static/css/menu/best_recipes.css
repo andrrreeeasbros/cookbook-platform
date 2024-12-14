@@ -223,7 +223,7 @@ body.index-page {
 
 .recipe h1 {
   font-family: 'Lora', serif;
-  font-size: 2.2em;
+  font-size: 2.5em;
   /* Увеличиваем размер заголовка */
   font-weight: 700;
   /* Жирное начертание для выделения */
@@ -585,3 +585,30 @@ body.index-page.empty-recipes .logo-bar {
     /* 1 колонка на маленьких экранах */
   }
 }
+
+
+.recipe-rating {
+  text-align: right; /* Выравнивание текста вправо */
+  margin-bottom: 8px; /* Уменьшаем отступ снизу */
+}
+
+.recipe-rating .rating-label {
+  font-family: 'Lora', serif;
+  font-size: 1.3em; /* Уменьшаем размер шрифта */
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px; /* Уменьшаем отступ снизу */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Уменьшаем тень */
+}
+
+.recipe-rating .rating-value {
+  font-family: 'Lora', serif;
+  font-size: 1.3em; /* Уменьшаем размер шрифта */
+  font-weight: 700;
+  color: #FFBF00; /* Желтый цвет для выделения */
+  background-color: rgba(255, 191, 0, 0.1); /* Сделаем фон еще более прозрачным */
+  padding: 2px 5px; /* Уменьшаем отступы */
+  border-radius: 4px; /* Закругленные углы для выделения */
+  box-shadow: 0 0 4px rgba(255, 191, 0, 0.4); /* Уменьшаем тень для более прозрачного эффекта */
+}
+

@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
@@ -32,21 +33,18 @@ def categories(request):
 
 
 def best_recipes(request):
-    best_reviews = Reviews.review_manager.all()
-    best_recipes = []
-    for review in best_reviews:
-        if review.recipe not in best_recipes:
-            best_recipes.append(review.recipe)
-    paginator = Paginator(best_recipes, 2)
-    page_number = request.GET.get('best_recipes', 1)
+    best_recipes = Post_recipe.objects.annotate(
+        avg_rating=Avg('reviews__grade__value')
+    ).filter(avg_rating__gt=4)
+
+    paginator = Paginator(best_recipes, 10)
+    page_number = request.GET.get('page', 1)
     try:
         recipes_pages = paginator.get_page(page_number)
     except EmptyPage:
         recipes_pages = paginator.get_page(1)
 
-    return render(request,
-                  'menu/best_recipes.html',
-                  {'best_recipes': recipes_pages})
+    return render(request, 'menu/best_recipes.html', {'best_recipes': recipes_pages})
 
 
 def contacts(request):  # представление для связи с разработчиком
@@ -185,6 +183,7 @@ def baking_recipes(request):
     recipes = Post_recipe.baking_recipes.all()  # Все печенье и выпечка
     return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Печенье и выпечка'})
 
+
 def world_kitchens(request):
     cuisines = Cuisine.objects.all()
     return render(request, 'categories/world_kitchen_list.html', {'cuisines': cuisines})
@@ -222,4 +221,3 @@ def cuisine_detail(request, pk, cuisine_name=None):
         recipes = Post_recipe.objects.filter(cuisines=cuisine)
 
     return render(request, 'categories/cuisine_detail.html', {'cuisine': cuisine, 'recipes': recipes})
-

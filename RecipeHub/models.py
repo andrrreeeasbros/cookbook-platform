@@ -5,6 +5,8 @@ from django.urls import reverse
 import re
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
+from PIL import Image
+from django.db.models.signals import post_save
 
 
 class RecipeManager(models.Manager):
@@ -97,8 +99,14 @@ class SpanishRecipeManager(RecipeManager):
 
 
 class ReviewManager(models.Manager):
-    def get_queryset(self) -> models.QuerySet:
-        return super().get_queryset().filter(grade__in=[4, 5]).distinct()
+    def get_average_rating(self, recipe):
+        reviews = self.filter(recipe=recipe)
+        if reviews.exists():
+            total_grade = sum([review.grade.value for review in reviews])
+            average_rating = total_grade / reviews.count()
+            if average_rating > 4:
+                return average_rating
+        return 0
 
 
 class Category(models.Model):
@@ -139,8 +147,7 @@ class Cuisine(models.Model):
         verbose_name = "Кухня мира"
         verbose_name_plural = "Кухни мира"
 
-    
-    
+
 # class Likes(models.Model):
 #     pass
 
@@ -168,12 +175,12 @@ class Post_recipe(models.Model):
         help_text="Выберите кухни мира для этого рецепта"
     )
 
-
     level = models.ForeignKey(
         DifficultyLevel,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        verbose_name='Уровень сложности',
     )
 
     ingredients_list = models.TextField(
@@ -207,24 +214,59 @@ class Post_recipe(models.Model):
         verbose_name='Дата создания'
     )
 
-    objects = models.Manager()
-    recipe_manager = RecipeManager()
-
     def change_register(self):
         return self.name.capitalize()
 
     def split_text(self):
         patterns = [
-            "Подготовка моллюсков", "Приготовление пасты", "Готовим соус",
-            "Добавление моллюсков и вина", "Смешивание пасты с соусом", "Подача",
-            "Промывание моллюсков", "Проверка моллюсков на живость", "Вскипятить воду",
-            "Отварить пасту", "Разогреть оливковое масло", "Обжарить чеснок", "Добавить чили",
-            "Накрыть крышкой", "Готовить на среднем огне", "Добавить готовую пасту",
-            "Перемешать пасту с соусом", "Посыпать петрушкой", "Приправить солью и перцем",
-            "Подавать с лимоном", "Нарезать чеснок", "Обжаривать до золотистого цвета",
-            "Не пережаривать чеснок", "Использовать белое вино", "Готовить 5-7 минут",
-            "Проверить моллюсков", "Закрыть крышкой", "Дать настояться", "Подавать немедленно"
-        ]
+    "Подготовка моллюсков", "Приготовление пасты", "Готовим соус",
+    "Добавление моллюсков и вина", "Смешивание пасты с соусом", "Подача",
+    "Промывание моллюсков", "Проверка моллюсков на живость", "Вскипятить воду",
+    "Отварить пасту", "Разогреть оливковое масло", "Обжарить чеснок", "Добавить чили",
+    "Накрыть крышкой", "Готовить на среднем огне", "Добавить готовую пасту",
+    "Перемешать пасту с соусом", "Посыпать петрушкой", "Приправить солью и перцем",
+    "Подавать с лимоном", "Нарезать чеснок", "Обжаривать до золотистого цвета",
+    "Не пережаривать чеснок", "Использовать белое вино", "Готовить 5-7 минут",
+    "Проверить моллюсков", "Закрыть крышкой", "Дать настояться", "Подавать немедленно",
+    "Очищение овощей", "Нарезка кубиками", "Жарить на сильном огне", "Кипятить бульон",
+    "Добавить специи", "Тушить", "Замариновать мясо", "Выложить на тарелку",
+    "Сервировать", "Режем кольцами", "Варить на пару", "Готовить в духовке", 
+    "Мелко нарезать", "Резать ломтями", "Измельчить зелень", "Фаршировать",
+    "Пожарить до хрустящей корочки", "Подогреть", "Слегка подрумянить", "Добавить в воду",
+    "Завернуть в фольгу", "Крошить сыр", "Приготовить к жарке", "Печь в духовке",
+    "Протереть через сито", "Взбить до пены", "Готовить на гриле", "Обработать блендером",
+    "Легко обжарить", "Налить в форму", "Пропарить", "Растирать в ступке", "Приготовить соус на основе бульона",
+    "Использовать чесночный порошок", "Разделить на порции", "Обжаривать на масле", "Украсить зеленью",
+    "Подсушить хлеб", "Разогреть сковороду", "Добавить масло", "Приготовить в аэрогриле",
+    "Подготовить специи", "Включить таймер", "Режем соломкой", "Отварить яйца", "Использовать остроту чили",
+    "Тушить на медленном огне", "Сделать крем", "Разделить на части", "Размять пюре", "Вымешать тесто",
+    "Выпекать до готовности", "Карамелизовать", "Полить медом", "Приготовить шницель", "Устроить дегустацию",
+    "Замораживать ингредиенты", "Протереть на терке", "Использовать свежие травы", "Нарезать пластинами",
+    "Поджарить бекон", "Вскипятить молоко", "Убрать из кастрюли", "Готовить в пароварке", "Прокипятить вино",
+    "Охладить перед подачей", "Притушить до мягкости", "Готовить на огне", "Завернуть в тесто", "Взбить яйца с сахаром",
+    "Добавить свежие овощи", "Подготовить ингредиенты", "Заварить чай", "Очистить рыбу", "Порезать ломтями",
+    "Измельчить орехи", "Разогреть жаровню", "Приготовить пудинг", "Подогреть суп", "Подсушить орехи",
+    "Смешать все компоненты", "Готовить на сковороде", "Готовить на медленном огне", "Использовать специи по вкусу",
+    "Нарезать мелко", "Печь в печи", "Выложить на противень", "Вылить в кастрюлю", "Готовить с добавлением меда",
+    "Высыпать муку в миску", "Приготовить мясо на гриле", "Покрошить в салат", "Приправить зеленью", "Налить соус",
+    "Тонко нарезать", "Взбить венчиком", "Замесить тесто", "Отправить в морозильник", "Выложить на тарелку с соусом",
+    "Разогревать кастрюлю", "Налить в чашку", "Обжарить на сковороде с маслом", "Сформировать котлеты", "Нарезать полосками",
+    "Запечь до золотистой корочки", "Готовить в мультиварке", "Смешать с мукой", "Добавить мед или сахар",
+    "Подготовить противень", "Обернуть в пленку", "Порезать кольцами", "Кипятить воду с солью", "Тонко нарезать овощи",
+    "Положить в кастрюлю", "Готовить до мягкости", "Залить соусом", "Прокипятить на медленном огне", "Обработать овощи",
+    "Готовить на пару до готовности", "Нарезать мясо ломтями", "Приготовить десерт", "Запечь в фольге", "Использовать приправы",
+    "Сделать подливку", "Обжаривать до хрустящей корочки", "Положить в духовку", "Готовить в сковороде на оливковом масле",
+    "Нарезать зелень", "Подавать с соусом", "Залить горячим бульоном", "Сформировать форму для запеканки", "Обработать мясо специями",
+    "Варить до готовности", "Разогреть духовку до 180 градусов", "Использовать лимонный сок", "Готовить на большой температуре",
+    "Нарезать поперек", "Перемешать все ингредиенты", "Сделать пасту", "Завернуть в пергамент", "Приготовить по рецепту",
+    "Порезать на кусочки", "Разогреть масло", "Смешать с уксусом", "Подавать горячим", "Сделать карри", "Положить в кастрюлю",
+    "Порезать хлеб", "Разложить по тарелкам", "Отправить в холодильник", "Измельчить на блендере", "Приготовить соус для пасты",
+    "Украсить соусом", "Готовить с оливковым маслом", "Пропустить через мясорубку", "Обжарить до румяной корочки", "Сервировать на столе",
+    "Печь в микроволновке", "Приготовить картофельное пюре", "Готовить в кастрюле", "Разогреть масло в кастрюле", "Залить водой",
+    "Провести дегустацию", "Приготовить картофельное пюре", "Протереть овощи", "Печь до готовности", "Порезать на небольшие кусочки",
+    "Готовить с помидорами", "Растерзать мясо", "Очищать овощи", "Приготовить бульон"
+    ]
+
         s = self.steps
         if isinstance(self.steps, str):
             s = re.sub(r'\s+', ' ', self.steps.strip())
@@ -241,35 +283,51 @@ class Post_recipe(models.Model):
 
         return "\n".join(result)
 
-    def minutes_to_hours_to_days(self):
-        if self.cooking_time >= 1440:
-            days = self.cooking_time // 1440
-            remaining_minutes = self.cooking_time % 1440
-            hours = remaining_minutes // 60
-            minutes = remaining_minutes % 60
-            return f'{days} дней {hours} часов {minutes} минут'
-        elif self.cooking_time >= 60:
-            hours = self.cooking_time // 60
-            minutes = self.cooking_time % 60
-            return f"{hours} часов {minutes} минут"
-        else:
-            return f"{self.cooking_time} минут"
-        
-    def clean(self):
-        super().clean() 
 
-        
+    def minutes_to_hours_to_days(self):
+        if isinstance(self.cooking_time, int):  
+            if self.cooking_time >= 1440:
+                days = self.cooking_time // 1440
+                remaining_minutes = self.cooking_time % 1440
+                hours = remaining_minutes // 60
+                minutes = remaining_minutes % 60
+                return f'{days} дн. {hours} ч. {minutes} мин.'
+            elif self.cooking_time >= 60:
+                hours = self.cooking_time // 60
+                minutes = self.cooking_time % 60
+                return f"{hours} ч. {minutes} мин."
+            else:
+                return f"{self.cooking_time} мин."
+        else:
+            return "Некорректное время"
+
+
+    def clean(self):
+        super().clean()
+
         if self.categories.count() > 3:
             raise ValidationError('Рецепт не может иметь более 3 категорий.')
 
-        
-    
     def save(self, *args, **kwargs):
         self.name = self.change_register()
         self.steps = self.split_text()
 
         super().save(*args, **kwargs)
 
+        if self.dish_photo:
+            self.resize_image()
+
+    def resize_image(self):
+
+        image_path = self.dish_photo.path
+        img = Image.open(image_path)
+
+        img = img.resize((674, 446), Image.Resampling.LANCZOS)
+
+        # Сохраняем измененное изображение
+        img.save(image_path)
+
+    recipe_manager = RecipeManager()
     objects = models.Manager()
     italian_manager = ItalianRecipeManager()
     french_manager = FrenchRecipeManager()
@@ -280,16 +338,18 @@ class Post_recipe(models.Model):
     indian_manager = IndianRecipeManager()
     greek_manager = GreekRecipeManager()
     spanish_manager = SpanishRecipeManager()
-    
-    vegetarian_manager = VegetarianRecipeManager()  # Менеджер для вегетарианских рецептов
-    quick_manager = QuickRecipeManager()  # Менеджер для рецептов быстрого приготовления
+
+    # Менеджер для вегетарианских рецептов
+    vegetarian_manager = VegetarianRecipeManager()
+    # Менеджер для рецептов быстрого приготовления
+    quick_manager = QuickRecipeManager()
     dessert_manager = DessertRecipeManager()  # Менеджер для десертов
     vegan_manager = VeganRecipeManager()  # Менеджер для веганских рецептов
     drink_manager = DrinkRecipeManager()  # Менеджер для напитков
     snack_manager = SnackRecipeManager()  # Менеджер для закусок
     side_dish_manager = SideDishRecipeManager()  # Менеджер для гарниров
     baking_manager = BakingRecipeManager()  # Менеджер для печенья и выпечки
-    
+
     class Meta:
         ordering = ["-created_at"]
         verbose_name = "Рецепт"
@@ -395,10 +455,10 @@ class UserProfile(models.Model):
     )
 
     country = models.ForeignKey(
-        Timezone, 
-        on_delete=models.SET_NULL,  
-        null=True,  
-        blank=True, 
+        Timezone,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         verbose_name="Страна",
         help_text="Введите вашу страну"
     )
@@ -407,9 +467,9 @@ class UserProfile(models.Model):
         Age,
         verbose_name="Возраст",
         help_text="Ваш возраст",
-        on_delete=models.SET_NULL,  
-        null=True,  
-        blank=True  
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
     )
 
     description = models.TextField(
@@ -445,15 +505,14 @@ class UserProfile(models.Model):
         return self.name[:10]
 
 
-# class TeamConnection(models.Model):
-#     pass
+class TeamConnection(models.Model):
+    pass
 
 
 # TODO: Сделать расположение по алфовитному порядку в "Все рецепты"
 # TODO: Сделать поле для время перекуса
 # TODO: изменить поле время готовки чтоб не было отрицательным
 # TODO: вместо def НА КЛАССЫ В ВЬЮШКАХ
-# TODO: Класс для общего рейтенга лучшего рецепта если общее число рейтенга <4
 # TODO: Исправить лого в мой профиль
 # TODO: Проработать библиотку с избежанием мат слов
 # TODO: Нужно добавить валидаторы для конвертации картинки.
