@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -13,16 +13,16 @@
   <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
+<style>
+</style>
 
 <body class="index-page">
   <div class="background-image">
-    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
   </div>
-  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
+  <a href="{% url 'RecipeHub:categories' %}" class="back-button">Вернуться назад</a>
   <main class="main">
-    <h1 class="title">Все рецепты</h1>
-
-    <button class="btn-add-recipe" data-toggle="modal" data-target="#addRecipeModal">Добавить рецепт</button>
+    <h1 class="title">Десерты</h1>
 
     <div>
       {% for recipe in recipes %}
@@ -38,10 +38,11 @@
           
           <button class="btn-view-recipe" data-toggle="modal" data-target="#recipeModal" data-recipe-name="{{ recipe.name }}">Посмотреть рецепт</button>
         </article>
+      {% empty %}
+        <p>Рецепты этой Категории ещё не добавлены 😔</p>
       {% endfor %}
     </div>
 
-    <!-- Pagination Links -->
     <div class="pagination">
       <span class="step-links">
         {% if recipes.has_previous %}
@@ -56,33 +57,7 @@
       </span>
     </div>
 
-    <!-- Модальное окно для добавления рецепта -->
-    <div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="addRecipeModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addRecipeModalLabel">Добавить новый рецепт</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form method="POST" enctype="multipart/form-data" id="addRecipeForm">
-              {% csrf_token %}
-              {{ form.as_p }} <!-- Отображаем форму с полями -->
-              <div id="form-errors"></div>  <!-- Место для отображения ошибок -->
-              <!-- Кнопка для отправки формы внутри модального окна -->
-              <button type="submit" class="btn-add-recipe">Добавить рецепт</button>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Модальное окно для просмотра рецепта -->
+    <!-- Модальное окно -->
     <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -127,42 +102,6 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
-    // Обработчик для отправки формы добавления рецепта через AJAX
-    $('#addRecipeForm').on('submit', function(event) {
-      event.preventDefault(); // Отменяем стандартную отправку формы
-
-      const form = $(this); // Получаем форму
-      $('#form-errors').html('');  // Очищаем место для ошибок
-
-      // Отправляем данные формы на сервер с использованием AJAX
-      $.ajax({
-        type: "POST",
-        url: "{% url 'RecipeHub:add_recipe' %}",  // Путь к представлению для добавления рецепта
-        data: form.serialize(),  // Сериализуем данные формы
-        success: function(response) {
-          if (response.success) {
-            alert(response.message);  // Показываем сообщение об успехе
-            $('#addRecipeModal').modal('hide');  // Закрываем модальное окно
-            location.reload();  // Перезагружаем страницу для отображения нового рецепта
-          } else {
-            alert('Ошибка при добавлении рецепта.');
-          }
-        },
-        error: function(response) {
-          // Если ошибка при добавлении, отображаем ошибки формы
-          const errors = response.responseJSON.errors;
-          let errorMessages = '<ul>';
-          for (let field in errors) {
-            errors[field].forEach(function(error) {
-              errorMessages += `<li>${error}</li>`;
-            });
-          }
-          errorMessages += '</ul>';
-          $('#form-errors').html(errorMessages);  // Показываем ошибки на странице
-        }
-      });
-    });
-
     // Обработчик для открытия модального окна и загрузки данных рецепта
     $('#recipeModal').on('show.bs.modal', function (event) {
       const button = $(event.relatedTarget);
@@ -182,22 +121,30 @@
             
             // Создаем HTML содержимое для модального окна
             recipeContent.innerHTML = `
-              <h1 class="text-center">${data.name}</h1>
-              <h5>Уровень сложности: ${data.level}</h5>
+  <h1 class="text-center">${data.name}</h1>
+  <h5>Уровень сложности: ${data.level}</h5>
 
-              <!-- Ингредиенты -->
-              <h5>Ингредиенты:</h5>
-              <ul>${data.ingredients.map((ingredient, index) => `<li>${index + 1}. ${ingredient}</li>`).join('')}</ul>
+  <!-- Ингредиенты -->
+  <h5>Ингредиенты:</h5>
+  <ul>${data.ingredients.map((ingredient, index) => `<li>${index + 1}. ${ingredient}</li>`).join('')}</ul>
 
-              <!-- Этапы приготовления -->
-              <h5>Этапы приготовления:</h5>
-              <ul>${data.steps.map((step, index) => `<li>${index + 1}. ${step}</li>`).join('')}</ul>
-            `;
+  <!-- Шаги приготовления -->
+  <h5>Шаги приготовления:</h5>
+  <ol>${data.steps.map((step, index) => `<li>${index + 1}. ${step}</li>`).join('')}</ol>
+
+  <!-- Время приготовления -->
+  <div class="cooking-time">
+    <h5>Время приготовления:</h5>
+    <span>${data.cooking_time}</span>
+  </div>
+`;
           }
         })
-        .catch(error => alert('Ошибка при загрузке данных рецепта'));
+        .catch(error => {
+          console.error('Ошибка при получении данных рецепта:', error);
+        });
     });
   </script>
-</body>
 
+</body>
 </html>

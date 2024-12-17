@@ -2,7 +2,6 @@ from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
-from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage
 from .forms import UserRegistration, CustomAuthenticationForm
 from django.contrib.auth import login, logout
@@ -10,16 +9,15 @@ from django.contrib import messages
 from django.http import JsonResponse
 from RecipeHub.models import Cuisine
 from RecipeHub.models import Category
-
+from .forms import PostRecipeForm
+from .models import UserProfile
+from django.urls import reverse_lazy
+from .models import UserProfile
+from django.contrib.auth.models import User
 
 def main_template(request):
     return render(request,
                   'index.html')
-
-
-def profile(request):
-    return render(request, 'menu/profile.html')
-
 
 def about_us(request):
     return render(request,
@@ -89,6 +87,21 @@ def recipe_details(request, name):
 
     return JsonResponse(data)
 
+def add_recipe(request):
+    if request.method == 'POST':
+        form = PostRecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True, 'message': 'Рецепт успешно добавлен!'})
+        else:
+            # Отправляем ошибки формы обратно
+            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+    else:
+        form = PostRecipeForm()
+    
+    return render(request, 'your_template_name.html', {'form': form})
+
+
 
 def reviews(request):
     reviews = Reviews.objects.all()  # представление для всех отзывов
@@ -139,49 +152,44 @@ def logout(request):
     return redirect('RecipeHub:main_template')
 
 
-def recipe_detail(request, recipe_name):
-    recipe = Post_recipe.objects.get(name=recipe_name)
-    return render(request, 'Recipehub/recipe_detail.html', {'recipe': recipe})
-
-
 def vegetarian_recipes(request):
-    recipes = Post_recipe.vegetarian_recipes.all()
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Вегетарианские блюда'})
+    recipes = Post_recipe.vegetarian_manager.all()
+    return render(request, 'categories/vegetarian_recipes.html', {'recipes': recipes, 'category': 'Вегетарианские блюда'})
 
 
 def quick_recipes(request):
-    recipes = Post_recipe.quick_recipes.all()  # Все рецепты быстрого приготовления
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Еда быстрого приготовления'})
+    recipes = Post_recipe.quick_manager.all()  
+    return render(request, 'categories/quick_recipes.html', {'recipes': recipes, 'category': 'Еда быстрого приготовления'})
 
 
 def dessert_recipes(request):
-    recipes = Post_recipe.dessert_recipes.all()  # Все десерты
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Десерты'})
+    recipes = Post_recipe.dessert_manager.all()  
+    return render(request, 'categories/dessert_recipes.html', {'recipes': recipes, 'category': 'Десерты'})
 
 
 def vegan_recipes(request):
-    recipes = Post_recipe.vegan_recipes.all()  # Все веганские рецепты
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Веганские блюда'})
+    recipes = Post_recipe.vegan_manager.all()  # Все веганские рецепты
+    return render(request, 'categories/vegan_recipes.html', {'recipes': recipes, 'category': 'Веганские блюда'})
 
 
 def drink_recipes(request):
-    recipes = Post_recipe.drink_recipes.all()  # Все напитки
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Напитки'})
+    recipes = Post_recipe.drink_manager.all()  # Все напитки
+    return render(request, 'categories/drink_recipes.html', {'recipes': recipes, 'category': 'Напитки'})
 
 
 def snack_recipes(request):
-    recipes = Post_recipe.snack_recipes.all()  # Все закуски
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Закуски'})
+    recipes = Post_recipe.snack_manager.all()  # Все закуски
+    return render(request, 'categories/snack_recipes.html', {'recipes': recipes, 'category': 'Закуски'})
 
 
 def side_dish_recipes(request):
-    recipes = Post_recipe.side_dish_recipes.all()  # Все гарниры
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Гарниры'})
+    recipes = Post_recipe.side_dish_manager.all()  # Все гарниры
+    return render(request, 'categories/side_dish_recipes.html', {'recipes': recipes, 'category': 'Гарниры'})
 
 
 def baking_recipes(request):
-    recipes = Post_recipe.baking_recipes.all()  # Все печенье и выпечка
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Печенье и выпечка'})
+    recipes = Post_recipe.baking_manager.all()  # Все печенье и выпечка
+    return render(request, 'categories/baking_recipes.html', {'recipes': recipes, 'category': 'Печенье и выпечка'})
 
 
 def world_kitchens(request):
@@ -221,3 +229,18 @@ def cuisine_detail(request, pk, cuisine_name=None):
         recipes = Post_recipe.objects.filter(cuisines=cuisine)
 
     return render(request, 'categories/cuisine_detail.html', {'cuisine': cuisine, 'recipes': recipes})
+
+def profile(request):
+    # Assuming you want to display the profile for the logged-in user
+    try:
+        profile = UserProfile.profiles.get(user=request.user)  # Retrieve the profile for the logged-in user
+    except UserProfile.DoesNotExist:
+        profile = None  # If no profile exists for the user, display None
+
+    # Passing the profile data to the template
+    return render(request, 'menu/profile.html', {'profile': profile})
+
+
+def set_user_default():
+    default_user = User.objects.first()  
+    return default_user

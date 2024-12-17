@@ -1,84 +1,74 @@
 {% load static %}
 <html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Описание вашего сайта" />
+    <meta name="keywords" content="ключевые, слова, вашего, сайта" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
+    <link href="{% static 'css/menu/categories.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/menu/style.css' %}" rel="stylesheet" />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="description" content="Описание вашего сайта">
-  <meta name="keywords" content="ключевые, слова, вашего, сайта">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
-  <link href="{% static 'css/menu/categories.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
-</head>
+  <body class="index-page background-image">
+    <div class="background-image">
+      <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image" /> <!-- Фоновое изображение -->
+    </div>
+    <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
 
-<body class="index-page background-image">
-  <div class="background-image">
-    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
-  </div>
-  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
-
-  <main class="main">
-    <section id="categories" class="categories">
-      <div class="container">
-        <h1 class="title">Категории рецептов</h1>
-        <div class="row justify-content-center">
-          {% for category in categories %}
-          <div class="category-item text-center">
-            <div class="category-card-container">
-              <h3>{{ category.name }}</h3>
-              <p>{{ category.description }}</p>
-              {% if category.name == "Вегетарианское блюдо" %}
-                <a href="{% url 'RecipeHub:vegetarian_recipes' %}" class="btn btn-red">Посмотреть </a>
-              {% elif category.name == "Еда быстрого приготовления" %}
-                <a href="{% url 'RecipeHub:quick_recipes' %}" class="btn btn-red">Посмотреть</a>
-              {% elif category.name == "Десерт" %}
-                <a href="{% url 'RecipeHub:dessert_recipes' %}" class="btn btn-red">Посмотреть</a>
-              {% elif category.name == "Веганское" %}
-                <a href="{% url 'RecipeHub:vegan_recipes' %}" class="btn btn-red">Посмотреть</a>
-              {% elif category.name == "Напитки" %}
-                <a href="{% url 'RecipeHub:drink_recipes' %}" class="btn btn-red">Посмотреть</a>
-              {% elif category.name == "Мировая кухня" %}
-                <a href="{% url 'RecipeHub:world_kitchens' %}" class="btn btn-red">Посмотреть</a>
-                {% elif category.name == "Закуски" %}
-                <a href="{% url 'RecipeHub:snack_recipes' %}" class="btn btn-red">Посмотреть</a>
-              {% elif category.name == "Гарниры" %}
-                <a href="{% url 'RecipeHub:side_dish_recipes' %}" class="btn btn-red">Посмотреть</a>
-              {% elif category.name == "Печенье и выпечка" %}
-                <a href="{% url 'RecipeHub:baking_recipes' %}" class="btn btn-red">Посмотреть</a>
-              
-              {% endif %}
-            </div>
+    <main class="main">
+      <section id="categories" class="categories">
+        <div class="container">
+          <h1 class="title">Категории рецептов</h1>
+          <div class="row justify-content-center">
+            {% for category in categories %}
+              <div class="category-item text-center">
+                <div class="category-card-container">
+                  <h3>{{ category.name }}</h3>
+                  <p>{{ category.description }}</p>
+                  {% if category.name == 'Вегетарианское блюдо' %}
+                    <a href="{% url 'RecipeHub:vegetarian_recipes' %}" class="btn btn-red">Посмотреть</a>
+                  {% elif category.name == 'Еда быстрого приготовления' %}
+                    <a href="{% url 'RecipeHub:quick_recipes' %}" class="btn btn-red">Посмотреть</a>
+                  {% elif category.name == 'Десерт' %}
+                    <a href="{% url 'RecipeHub:dessert_recipes' %}" class="btn btn-red">Посмотреть</a>
+                  {% elif category.name == 'Веганское' %}
+                    <a href="{% url 'RecipeHub:vegan_recipes' %}" class="btn btn-red">Посмотреть</a>
+                  {% elif category.name == 'Напитки' %}
+                    <a href="{% url 'RecipeHub:drink_recipes' %}" class="btn btn-red">Посмотреть</a>
+                  {% elif category.name == 'Мировая кухня' %}
+                    <a href="{% url 'RecipeHub:world_kitchens' %}" class="btn btn-red">Посмотреть</a>
+                  {% elif category.name == 'Закуски' %}
+                    <a href="{% url 'RecipeHub:snack_recipes' %}" class="btn btn-red">Посмотреть</a>
+                  {% elif category.name == 'Гарниры' %}
+                    <a href="{% url 'RecipeHub:side_dish_recipes' %}" class="btn btn-red">Посмотреть</a>
+                  {% elif category.name == 'Печенье и выпечка' %}
+                    <a href="{% url 'RecipeHub:baking_recipes' %}" class="btn btn-red">Посмотреть</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
+      </section>
+    </main>
+
+    <div class="logo-bar">
+      <div class="left-section">
+        <img src="{% static 'img/logo.png' %}" alt="Логотип" />
+        <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+        <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
       </div>
-    </section>
-  </main>
-
-  <div class="logo-bar">
-    <div class="left-section">
-      <img src="{% static 'img/logo.png' %}" alt="Логотип">
-      <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
-      <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank"><img src="{% static 'img/facebook.svg' %}" alt="Facebook" /></a>
+        <a href="https://instagram.com" target="_blank"><img src="{% static 'img/instagram.svg' %}" alt="Instagram" /></a>
+        <a href="https://vk.com" target="_blank"><img src="{% static 'img/VK.svg' %}" alt="ВКонтакте" /></a>
+      </div>
     </div>
-    <div class="social-icons">
-      <a href="https://facebook.com" target="_blank">
-        <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
-      </a>
-      <a href="https://instagram.com" target="_blank">
-        <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
-      </a>
-      <a href="https://vk.com" target="_blank">
-        <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
-      </a>
-    </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>
