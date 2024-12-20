@@ -1,4 +1,4 @@
-{% extends 'categories/categories_details.html' %}
+{% extends 'categories/category_details.html' %}
 
 {% block content %}
   <h1 class="title">{{category}}</h1>
@@ -19,7 +19,6 @@
         <button class="btn-view-recipe" data-toggle="modal" data-target="#recipeModal" data-recipe-name="{{ recipe.name }}">Посмотреть рецепт</button>
       </article>
     {% empty %}
-      <p>Рецепты этой Категории ещё не добавлены 😔</p>
     {% endfor %}
   </div>
 {% endblock %}

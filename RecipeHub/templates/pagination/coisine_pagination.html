@@ -1,0 +1,11 @@
+<div class="pagination">
+  <span class="step-links">
+    {% if cuisines.has_previous %}
+      <a href="?page=1">Предыдущая категория</a>
+    {% endif %}
+
+    {% if cuisines.has_next %}
+      <a href="?page={{ cuisines.next_page_number }}">Следующая категория</a>
+    {% endif %}
+  </span>
+</div>

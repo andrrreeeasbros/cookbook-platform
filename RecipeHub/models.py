@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 from django.urls import reverse
-import re
+from PIL import Image, ImageEnhance, ImageFilter
 from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
 from django.contrib.auth.models import User
@@ -32,6 +32,7 @@ class ReviewManager(models.Manager):
             if average_rating > 4:
                 return average_rating
         return 0
+    
 
 
 class Category(models.Model):
@@ -75,8 +76,8 @@ class Ingredient(models.Model):
         return f"{self.name}"
 
 
-# class Likes(models.Model):
-#     pass
+class Likes_recipes(models.Model):
+    pass
 
 
 class Post_recipe(models.Model):
@@ -179,6 +180,20 @@ class Post_recipe(models.Model):
         img = img.resize((674, 446), Image.Resampling.LANCZOS)
 
         img.save(image_path)
+    
+    def enhance_image_quality(self):
+        image_path = self.dish_photo.path
+        img = Image.open(image_path)
+        
+        enhancer_sharp = ImageEnhance.Sharpness(img)
+        img = enhancer_sharp.enhance(2.0)  # Увеличиваем резкость в 2 раза
+        
+        enhancer_contrast = ImageEnhance.Contrast(img)
+        img = enhancer_contrast.enhance(1.5)  # Увеличение контраста
+        
+        img = img.filter(ImageFilter.MedianFilter(3))  # Применяем медианный фильтр для уменьшения шума
+
+        img.save(image_path)
 
     objects = RecipeManager()
 
@@ -201,9 +216,12 @@ class Grade(models.Model):
     def __str__(self):
         return f"{self.display_name}"
 
-# class Likes(models.Model):
-#     pass
 
+class Comments(models.Model):
+    pass 
+
+class Likes_reviews(models.Model):
+    pass
 
 class Reviews(models.Model):
     author = models.CharField(
@@ -347,23 +365,14 @@ class UserProfile(models.Model):
 class TeamConnection(models.Model):
     pass
 
-# TODO: Заполнить категории всеми рецептами кухонь +15 + добавить "поиск кухни" поле
+
+# TODO: Заполнить forms.py и сделать кнопки рабочими
 # TODO: Сделать расположение по алфовитному порядку в "Все рецепты"
-# TODO: Сделать поле для время перекуса
-# TODO: изменить поле время готовки чтоб не было отрицательным
 # TODO: вместо def НА КЛАССЫ В ВЬЮШКАХ
-# TODO: Исправить лого в мой профиль
 # TODO: Проработать библиотку с избежанием мат слов
-# TODO: Нужно добавить валидаторы для конвертации картинки.
 # TODO: Класс своего аккаунта(Добавить папку избранное в профиле + Добавить возможность пользователям ставить друг другу "лайки" на рецепты или на отзывы)
-# TODO: Заполнить кнопку посмотреть отзывы
-# TODO: Добавить пагинацию если 2+ лучших рецептов
-# TODO: поле кбжу ккал
 # TODO: ОСТАВИТЬ КОММЕНТАРИИ НА ОТЗЫВ
 # TODO: разделять побуквенно на рецепты , то есть юзер по букве может найти блюдо
-# TODO: Заполнить forms.py и сделать кнопки рабочими
 # TODO: Модель связи с админами в contacts.html
 # TODO: Настроить админ панель
-# TODO: Заполнить categories_list
-# TODO: Заполнить tests.py
-# TODO: Пагинация: Разделить рецепты на страницы для ускорения загрузки.
+# TODO: Добавить рандомный рецепт + поиск рецептов
