@@ -74,3 +74,16 @@ reviews.next_page_number(): Возвращает номер следующей �
 reviews.number: Номер текущей страницы.
 reviews.paginator.num_pages: Общее количество страниц.
 reviews.object_list: Содержимое текущей страницы (например, отзывы для этой страницы).
+
+
+
+
+
+
+
+
+
+
+
+
+

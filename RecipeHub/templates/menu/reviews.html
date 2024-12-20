@@ -13,27 +13,30 @@
   <link href="{% static 'css/menu/reviews.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
+
 <body class="index-page">
   <div class="background-image">
-    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> 
-</div>
+    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
+  </div>
   <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
-
+  
   <main class="main">
     <h1 class="title">Отзывы</h1>
-    <a class="btn btn-add-recipe" href="{% static 'add_review' %}">Добавить отзыв</a>
+
+    <!-- Кнопка "Добавить отзыв", теперь она вызывает модальное окно -->
+    <a class="btn btn-add-recipe" data-toggle="modal" data-target="#addReviewModal">Добавить отзыв</a>
 
     <div class="reviews-container">
       {% for review in reviews %}
         <article class="reviews">
           <h1>{{ review.recipe.name }}</h1>
-          <div> 
-            <h2 class="text-left"> 
+          <div>
+            <h2 class="text-left">
               Автор: <span class="author"> {{ review.author }} </span>
             </h2>
           </div>
-          <div> 
-            <h3 class="text-left"> 
+          <div>
+            <h3 class="text-left">
               Оценка: <span class="author"> {{ review.grade }} </span>
             </h3>
           </div>
@@ -47,43 +50,62 @@
       {% endfor %}
     </div>
 
-
     {% block pagination %}
-          {% include "pagination/pagination.html" %}
+      {% include "pagination/pagination.html" %}
     {% endblock %}
+
+    <!-- Модальное окно для добавления нового отзыва -->
+    <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addReviewModalLabel">Добавить отзыв</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Форма для добавления отзыва -->
+            <form id="addReviewForm" method="post" action="{% url 'RecipeHub:add_review' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="recipe">Выберите рецепт:</label>
+                <select id="recipe" name="recipe" class="form-control">
+                  {% for recipe in recipes %}
+                    <option value="{{ recipe.id }}">{{ recipe.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="author">Автор:</label>
+                <input type="text" id="author" name="author" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="grade">Оценка:</label>
+                <input type="number" id="grade" name="grade" class="form-control" min="1" max="5" required>
+              </div>
+              <div class="form-group">
+                <label for="comments">Комментарии:</label>
+                <textarea id="comments" name="comments" class="form-control" rows="4" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
-  <script>
-    function goBack() {
-      if (window.history.length > 1) {
-        window.history.back();
-      } else {
-        window.location.href = '/';
-      }
-    }
-  </script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Проверяем, есть ли элементы с классом .reviews
-        const reviews = document.querySelectorAll('.reviews');
-        
-        // Если отзывов нет, добавляем класс no-reviews на body
-        if (reviews.length === 0) {
-            document.body.classList.add('no-reviews');
-        } else {
-            document.body.classList.remove('no-reviews');
-        }
-    });
-</script>
-
-  <!-- Секция для логотипа и социальных ссылок -->
+  <!-- Логотип и социальные ссылки -->
   <div class="logo-bar">
     <div class="left-section">
       <a href="{% url 'RecipeHub:main_template' %}">
         <img src="{% static 'img/logo.png' %}" alt="Логотип">
       </a>
-      <!-- Ссылка для открытия модального окна связи с командой -->
       <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
       <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
     </div>
@@ -99,13 +121,11 @@
       </a>
     </div>
   </div>
-</div>
 
-  
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

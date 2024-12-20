@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
 from django.core.paginator import Paginator, EmptyPage
-from .forms import UserRegistration, CustomAuthenticationForm
 from django.contrib.auth import login, logout
 from django.http import JsonResponse
 from RecipeHub.models import Cuisine
@@ -204,3 +203,18 @@ def add_recipe(request):
         form = PostRecipeForm()
 
     return render(request, 'your_template_name.html', {'form': form})
+
+
+def add_review(request):
+    if request.method == 'POST':
+        form = PostRecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True, 'message': 'Рецепт успешно добавлен!'})
+        else:
+            # Отправляем ошибки формы обратно
+            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+    else:
+        form = PostRecipeForm()
+
+    return render(request, 'add_review.html', {'form': form})

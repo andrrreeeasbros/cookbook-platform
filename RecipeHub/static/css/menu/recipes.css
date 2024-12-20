@@ -651,3 +651,75 @@ body.index-page {
 .modal.fade .modal-dialog {
   animation: slideIn 0.5s ease-in-out;
 }
+
+/* Сделаем кнопку синим цветом */
+.btn-add-recipe {
+  background-color: #007bff; /* Синий фон */
+  border-color: #007bff;
+  color: white;
+}
+
+.btn-add-recipe:hover {
+  background-color: #0056b3; /* Темно-синий при наведении */
+  border-color: #0056b3;
+}
+
+.btn-add-recipe:focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+/* Для кнопок в модальном окне */
+#addRecipeModal .modal-footer button {
+  background-color: #007bff; /* Синий цвет для кнопки */
+  border-color: #007bff;
+}
+
+#addRecipeModal .modal-footer button:hover {
+  background-color: #0056b3; /* Темно-синий при наведении */
+  border-color: #0056b3;
+}
+
+#addRecipeModal .modal-footer button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+/* Стили для кнопок в модальном окне */
+.modal-footer {
+  display: flex;
+  justify-content: space-between; /* Кнопки распределяются по краям */
+  align-items: center; /* Вертикальное выравнивание кнопок по центру */
+}
+
+/* Стили для кнопки "Добавить рецепт" */
+.modal-footer .btn-add-recipe {
+  background-color: #007bff; /* Синий фон */
+  border-color: #007bff; /* Синий цвет рамки */
+  color: white; /* Белый текст */
+  font-size: 16px; /* Размер шрифта */
+  padding: 10px 20px; /* Отступы (высота и ширина кнопки) */
+  border-radius: 5px; /* Радиус скругления кнопки */
+  margin-right: 10px; /* Отступ справа, чтобы не прижимать к кнопке "Закрыть" */
+}
+
+/* При наведении на кнопку */
+.modal-footer .btn-add-recipe:hover {
+  background-color: #0056b3; /* Темно-синий при наведении */
+  border-color: #0056b3; /* Темно-синий цвет рамки */
+}
+
+/* При фокусе на кнопку */
+.modal-footer .btn-add-recipe:focus {
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5); /* Синий цвет тени при фокусе */
+}
+
+/* Стиль для кнопки закрытия */
+.modal-footer .btn-secondary {
+  background-color: #6c757d; /* Серый фон для кнопки закрытия */
+  border-color: #6c757d; /* Серый цвет рамки */
+  color: white; /* Белый текст */
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #5a6268; /* Темно-серый при наведении */
+  border-color: #545b62; /* Темно-серый цвет рамки */
+}

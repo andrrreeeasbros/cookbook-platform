@@ -487,3 +487,140 @@ body {
         /* 1 колонка на маленьких экранах */
     }
 }
+
+/* Стили для модального окна */
+.modal-dialog {
+    max-width: 800px;
+    /* Увеличиваем максимальную ширину */
+    width: 90%;
+    /* Делаем ширину адаптивной и 90% от экрана */
+    margin: 30px auto;
+    /* Центрируем окно по горизонтали */
+  }
+  
+  .modal-content {
+    background-color: #f8f8f8;
+    /* Светло-серый фон, как у .recipe */
+    border: 2px solid #ddd;
+    /* Тот же светлый бордер */
+    padding: 20px;
+    /* Отступы как в .recipe */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Тень для эффекта */
+    border-radius: 10px;
+    /* Закругленные углы */
+  }
+  
+  .modal-header {
+    border-bottom: 2px solid #ddd;
+    /* Легкая линия между шапкой и контентом */
+  }
+  
+  .modal-title {
+    font-family: 'Lora', serif;
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-body {
+    font-family: 'Roboto', sans-serif;
+    color: #555;
+    font-size: 1.1em;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .modal-footer {
+    background-color: #f8f8f8;
+    /* Тот же светло-серый фон */
+    border-top: 2px solid #ddd;
+    /* Легкая линия сверху */
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: #ddd;
+    /* Цвет кнопки Закрыть */
+    border-color: #ccc;
+  }
+  
+  /* Изменение цвета заголовков в модальном окне */
+  .modal-body h1 {
+    font-size: 2.2em;
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-footer .btn-secondary {
+    background-color: red;
+    /* Красный фон */
+    border-color: #cc0000;
+    /* Красная рамка */
+    color: white;
+    /* Белый текст */
+  }
+  
+  .modal-footer .btn-secondary:hover {
+    background-color: #b30000;
+    /* Темный красный при наведении */
+    border-color: #990000;
+    /* Темно-красная рамка при наведении */
+  }
+  
+  .modal-body h2 .modal-body h3,
+  .modal-body h4,
+  .modal-body h5 {
+    font-size: 1.5em;
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-body time {
+    font-family: 'Lora', serif;
+    font-size: 1.3em;
+    /* Увеличиваем размер заголовка */
+    font-weight: 700;
+    /* Жирное начертание для выделения */
+    color: #333;
+    /* Темно-серый цвет для контраста */
+    margin-bottom: 10px;
+    /* Отступ снизу */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-body p {
+    font-family: 'Roboto', sans-serif;
+    /* Легкий шрифт для основного текста */
+    font-size: 1.1em;
+    color: #555;
+    /* Текст чуть светлее для читаемости */
+    line-height: 1.6;
+    /* Увеличиваем межстрочный интервал */
+    text-align: justify;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .modal-body ul,
+  .modal-body ol {
+    padding-left: 20px;
+    list-style-type: none;
+    margin-left: 0;
+  }
+  
+  .modal-body ul li,
+  .modal-body ol li {
+    font-size: 1em;
+    color: #444;
+    margin-bottom: 10px;
+  }

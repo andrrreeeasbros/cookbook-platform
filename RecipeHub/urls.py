@@ -19,6 +19,7 @@ urlpatterns = [
     path('Категории рецептов/Мировая кухня/<int:pk>/',
          cuisine_detail, name='cuisine_detail'),
     path('recipe-details/<str:name>/', recipe_details, name='recipe-details'),
+    path('Добавить отзыв/', add_review, name='add_review'),
     path('Добавить рецепт/', add_recipe, name='add_recipe'),
     path('Профиль/', profile, name='profile'),
     path('Категории рецептов/<str:category_name>/',
