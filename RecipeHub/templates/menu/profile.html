@@ -13,18 +13,76 @@
   <link href="{% static 'css/menu/profile.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
+
+<style>
+  /* Анимация выпрыгивания для элементов */
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0); /* Начинаем с маленького размера */
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.2); /* Увеличиваем до 120% */
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1); /* Возвращаем в нормальный размер */
+      opacity: 1; /* Убедимся, что элемент остаётся видимым */
+    }
+  }
+
+  .sitename-2 {
+    font-family: 'Lora', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(245, 203, 167) !important;
+    text-align: center;
+    margin: 20px auto 10px; 
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    box-shadow: none;
+    border-radius: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    max-width: 45%; /* Устанавливаем максимальную ширину */
+    animation: bounce-in 0.8s ease-out forwards; /* Анимация выпрыгивания */
+  }
+  
+</style>
+
 <body class="index-page">
     <div class="background-image">
         <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
     </div>
-     <header id="header" class="header d-flex align-items-center sticky-top">
+    <header id="header" class="header d-flex align-items-center sticky-top">
       <div class="container d-flex flex-column align-items-center">
-        <h1 class="sitename fade-in">Мой профиль</h1>
-        <div class="image-container fade-in"></div>
+        <h1 class="sitename-2 fade-in">Мой профиль</h1>
       </div>
-    <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
+      <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
     </header>
 
+    <div class="profile-container">
+      <h2>Информация о пользователе</h2>
+      <div class="profile-info">
+        <!-- Avatar container inside the profile info -->
+        <div class="avatar">
+          {% if profile.profile_photo %}
+            <img src="{{ profile.profile_photo.url }}" alt="Фото профиля" class="avatar-image">
+          {% else %}
+            <p>Фото не доступно</p>
+          {% endif %}
+        </div>
+
+        <!-- Profile details -->
+        <div class="details">
+          <p><strong>Имя:</strong> {{ profile.name }}</p>
+          <p><strong>Страна:</strong> {% if profile.country %}{{ profile.country.country }}{% else %}Не указана{% endif %}</p>
+          <p><strong>Возраст:</strong> {% if profile.age %}{{ profile.age.years }} лет{% else %}Не указан{% endif %}</p>
+          <p><strong>Описание:</strong> {% if profile.description %}{{ profile.description }}{% else %}Нет описания{% endif %}</p>
+        </div>
+      </div>
+    </div>
 
     <div class="logo-bar">
         <div class="left-section">
@@ -43,5 +101,6 @@
             <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
           </a>
         </div>
-    
+    </div>
 </body>
+</html>

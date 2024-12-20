@@ -1,33 +1,99 @@
-/* Панель с фоновым изображением */
 .background-image {
-  position: fixed; /* Сделаем фон фиксированным относительно экрана */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /* Высота 100% от видимой области экрана */
+  object-fit: cover;
+  /* Подгоняем изображение по размеру */
+  z-index: -1;
+  /* Фиксируем изображение в фоновом слое */
+
+}
+
+/* Обнуляем отступы и границы у html и body */
+html,
+body {
+  height: 100%;
+  /* Растягиваем на всю высоту экрана */
+  width: 100%;
+  /* Растягиваем на всю ширину экрана */
+  margin: 0;
+  /* Убираем отступы */
+  padding: 0;
+  /* Убираем отступы */
+  overflow-x: hidden;
+  /* Отключаем горизонтальную прокрутку */
+  overflow-y: auto;
+  /* Включаем вертикальную прокрутку */
+}
+
+/* Все элементы на странице */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* Применяем border-box ко всему, чтобы padding и border не выходили за пределы */
+}
+
+/* Отключаем горизонтальную прокрутку для всех контейнеров */
+.category-container,
+.category,
+.pagination,
+.main.main,
+.category-item,
+.category-card-container,
+.container {
+  overflow-x: hidden;
+  /* Убираем горизонтальную прокрутку */
+}
+
+body.index-page {
+  position: fixed;
+  /* Сделаем фон фиксированным относительно экрана */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('your-image.jpg'); /* Ваш фон */
-  background-size: cover; /* Фон будет покрывать весь экран */
-  background-attachment: fixed; /* Фон фиксирован при прокрутке */
-  background-position: center; /* Фон будет выровнен по центру */
-  z-index: -1; /* Обеспечиваем, чтобы фон был позади контента */
+  background-image: url('your-image.jpg');
+  /* Ваш фон */
+  background-size: cover;
+  /* Фон будет покрывать весь экран */
+  background-attachment: fixed;
+  /* Фон фиксирован при прокрутке */
+  background-position: center;
+  /* Фон будет выровнен по центру */
+  z-index: -1;
+  /* Обеспечиваем, чтобы фон был позади контента */
 }
 
 /* Обновляем html и body для прокрутки */
-html, body {
-  height: 100%; /* Растягиваем body на весь экран */
-  margin: 0;    /* Убираем отступы */
-  overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
-  overflow-y: auto; /* Включаем вертикальную прокрутку */
+html,
+body {
+  height: 100%;
+  /* Растягиваем body на весь экран */
+  margin: 0;
+  /* Убираем отступы */
+  overflow-x: hidden;
+  /* Отключаем горизонтальную прокрутку */
+  overflow-y: auto;
+  /* Включаем вертикальную прокрутку */
 }
 
 /* Растягиваем main блок */
 main.main {
-  padding-bottom: 120px; /* Убираем перекрытие с нижней панели */
-  margin-bottom: 0; /* Убираем отступ снизу */
+  padding-bottom: 120px;
+  /* Убираем перекрытие с нижней панели */
+  margin-bottom: 0;
+  /* Убираем отступ снизу */
   flex-grow: 1;
-  min-height: calc(100vh - 120px); /* Убираем высоту нижней панели */
-  overflow-y: auto; /* Включаем вертикальную прокрутку */
-  position: relative; /* Чтобы элементы внутри могли быть позади фона */
+  min-height: calc(100vh - 120px);
+  /* Убираем высоту нижней панели */
+  overflow-y: auto;
+  /* Включаем вертикальную прокрутку */
+  position: relative;
+  /* Чтобы элементы внутри могли быть позади фона */
 }
 
 
@@ -134,12 +200,14 @@ main.main {
   transform: translateY(-5px);
 }
 
-/* Стили для нижней панели с логотипами и контактами */
 .logo-bar {
-  background: rgba(255, 255, 255, 0.9); /* Полупрозрачный фон */
+  background: rgba(255, 255, 255, 0.9);
+  /* Полупрозрачный фон */
   padding: 20px 0;
-  position: relative; /* Это будет обычный блок внизу */
-  bottom: 0;      /* Привязываем к низу */
+  position: relative;
+  /* Это будет обычный блок внизу */
+  bottom: 0;
+  /* Привязываем к низу */
   left: 0;
   width: 100%;
   display: flex;
@@ -147,9 +215,12 @@ main.main {
   align-items: center;
   padding-left: 20px;
   padding-right: 50px;
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Тень */
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  /* Тень */
   z-index: 10;
+  margin-top: auto;
 }
+
 
 .logo-bar .left-section {
   display: flex;
@@ -178,6 +249,7 @@ main.main {
 .social-icons {
   display: flex;
   gap: 35px;
+  /* Устанавливаем расстояние между иконками */
   align-items: center;
 }
 
@@ -187,6 +259,7 @@ main.main {
 
 .social-icons img {
   width: 30px;
+  /* Размер иконок */
   height: auto;
   transition: transform 0.3s ease-in-out, filter 0.3s ease;
   cursor: pointer;
@@ -222,4 +295,45 @@ main.main {
 .category-card-container h3 {
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.pagination .step-links {
+  display: flex;
+  align-items: center;
+}
+
+.pagination a {
+  padding: 10px 20px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  margin-top: 10px !important; /* Уменьшили отступ сверху */
+}
+
+.pagination a:hover {
+  background-color: #0056b3;
+}
+
+.pagination .current {
+  text-align: center;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.pagination .step-links a:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }

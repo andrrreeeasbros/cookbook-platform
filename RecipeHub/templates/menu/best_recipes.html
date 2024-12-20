@@ -11,7 +11,6 @@
   <link href="{% static 'css/menu/best_recipes.css' %}" rel="stylesheet">
   <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
 </head>
-
 <body class="index-page">
   <div class="background-image">
     <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
@@ -80,22 +79,9 @@
   </div>
   
 
-  <!-- Пагинация (переносим сюда, в конец, после всего контента) -->
-  <div class="pagination">
-    <span class="step-links">
-      {% if best_recipes.has_previous %}
-        <a href="?best_recipes=1">&laquo; Первая страница</a>
-        <a href="?best_recipes={{ best_recipes.previous_page_number }}">Предыдущая страница</a>
-      {% endif %}
-
-      <span class="current"></span>
-
-      {% if best_recipes.has_next %}
-        <a href="?best_recipes={{ best_recipes.next_page_number }}">Следующая страница</a>
-        <a href="?best_recipes={{ best_recipes.paginator.num_pages }}">Последняя страница &raquo;</a>
-      {% endif %}
-    </span>
-  </div>
+  {% block pagination %}
+          {% include "pagination/best_pagination.html" %}
+    {% endblock %}
 
   <script>
     function goBack() {

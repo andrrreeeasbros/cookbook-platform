@@ -1,0 +1,13 @@
+<div class="pagination">
+    <span class="step-links">
+      {% if best_recipes.has_previous %}
+        <a href="?page={{ best_recipes.previous_page_number }}">&laquo; Первая страница</a>
+        <a href="?page={{ best_recipes.previous_page_number }}">Предыдущая страница</a>
+      {% endif %}
+      <span class="current"></span>
+      {% if best_recipes.has_next %}
+        <a href="?page={{ best_recipes.next_page_number }}">Следующая страница</a>
+        <a href="?page={{ best_recipes.paginator.num_pages }}">Последняя страница &raquo;</a>
+      {% endif %}
+    </span>
+  </div>

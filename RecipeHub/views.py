@@ -2,14 +2,16 @@ from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from RecipeHub.models import Post_recipe, Reviews
-from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage
 from .forms import UserRegistration, CustomAuthenticationForm
 from django.contrib.auth import login, logout
-from django.contrib import messages
 from django.http import JsonResponse
 from RecipeHub.models import Cuisine
 from RecipeHub.models import Category
+from .forms import PostRecipeForm
+from .models import UserProfile
+from django.urls import reverse_lazy
+from .models import UserProfile
 
 
 def main_template(request):
@@ -17,19 +19,31 @@ def main_template(request):
                   'index.html')
 
 
-def profile(request):
-    return render(request, 'menu/profile.html')
-
-
-def about_us(request):
-    return render(request,
-                  'menu/about_us.html')
-
-
 def categories(request):
     categories = Category.objects.all()
+    paginator = Paginator(categories, 9)
+    page_number = request.GET.get('page')
+    try:
+        categories_pages = paginator.get_page(page_number)
+    except:
+        categories_pages = paginator.get_page(1)
+        
     return render(request,
-                  'menu/categories.html', {'categories': categories})
+                  'menu/categories.html', {'categories': categories_pages})
+
+
+def contacts(request):
+    return render(request,
+                  'menu/contacts.html')
+
+
+def profile(request):
+    try:
+        profile = UserProfile.profiles.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        profile = None
+
+    return render(request, 'menu/profile.html', {'profile': profile})
 
 
 def best_recipes(request):
@@ -37,7 +51,7 @@ def best_recipes(request):
         avg_rating=Avg('reviews__grade__value')
     ).filter(avg_rating__gt=4)
 
-    paginator = Paginator(best_recipes, 10)
+    paginator = Paginator(best_recipes, 1)
     page_number = request.GET.get('page', 1)
     try:
         recipes_pages = paginator.get_page(page_number)
@@ -47,13 +61,8 @@ def best_recipes(request):
     return render(request, 'menu/best_recipes.html', {'best_recipes': recipes_pages})
 
 
-def contacts(request):  # представление для связи с разработчиком
-    return render(request,
-                  'menu/contacts.html')
-
-
-def recipes(request):
-    recipes = Post_recipe.objects.all()  # представление для всех рецептов
+def recipes_list(request):
+    recipes = Post_recipe.objects.all()  
     paginator = Paginator(recipes, 2)
     page_number = request.GET.get('page')
     try:
@@ -71,22 +80,41 @@ def recipe_details(request, name):
     except Post_recipe.DoesNotExist:
         return JsonResponse({'error': 'Рецепт не найден'}, status=404)
 
-    ingredients_list = recipe.ingredients_list.splitlines()
-    steps_list = recipe.steps.splitlines()
+    if not recipe.steps:
+        return JsonResponse({'error': 'Шаги приготовления не указаны'}, status=400)
 
-    # Serialize the related categories (assuming 'categories' is a Many-to-Many relationship)
+    ingredients_list = recipe.ingredients_list.splitlines(
+    ) if recipe.ingredients_list else []
+    steps_list = recipe.steps.splitlines() if recipe.steps else []
+
     categories_list = [category.name for category in recipe.categories.all()]
+
+    steps_data = []
+    for idx, step in enumerate(steps_list, start=1):
+        steps_data.append({
+            'step_number': idx,
+            'step_description': step
+        })
 
     data = {
         'name': recipe.name,
         'categories': categories_list,
-        'level': recipe.level.name if recipe.level else None,  # If no level, set as None
+        # Если нет уровня, возвращаем None
+        'level': recipe.level.name if recipe.level else None,
         'ingredients': ingredients_list,
-        'steps': steps_list,
+        'steps': steps_data,  # Отправляем обработанные шаги
         'cooking_time': recipe.minutes_to_hours_to_days(),
         'dish_photo': recipe.dish_photo.url if recipe.dish_photo else None,  
         'dish_photo': recipe.dish_photo.url if recipe.dish_photo else None,
+<<<<<<< HEAD
     
+=======
+    }
+
+    # Отладочная печать (для проверки данных)
+    print("Steps Data:", steps_data)
+
+>>>>>>> line
     return JsonResponse(data)
 
 
@@ -103,121 +131,81 @@ def reviews(request):
                   {'reviews': reviews_page})
 
 
-def registration(request):
-    if request.method == 'POST':
-        form = UserRegistration(request.POST)
+def category_recipes(request, category_name):
+    category_display_name = {
+        'vegetarian': 'Вегетарианское',
+        'quick-food': 'Еда быстрого приготовления',
+        'desserts': 'Десерты',
+        'vegan': 'Веганские блюда',
+        'drinks': 'Напитки',
+        'snacks': 'Закуски',
+        'side-dishes': 'Гарниры',
+        'baking': 'Печенье и выпечка',
+    }
 
-        if form.is_valid():
-            login(request, form.save())
-            messages.success(request, 'Вы успешно зарегистрированы!')
-            return redirect('RecipeHub:authorization')
-        else:
-            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
-            form = UserRegistration()
+    display_name = category_display_name.get(
+        category_name, category_name.capitalize())
 
-    return render(request, 'user/registration.html', {'form': form})
+    recipe_manager = Post_recipe.objects
+    recipes = recipe_manager.filter_by_category(category_name)
 
+    # Если категория "Мировая кухня"
+    if category_name == "Мировая кухня":
+        cuisines = Cuisine.objects.all()
+        paginator = Paginator(cuisines , 9)
+        page_number = request.GET.get("page", 1)
+        try:
+            cuisine_pages = paginator.get_page(page_number)
+        except EmptyPage:
+            cuisine_pages = paginator.get_page(1)
+        
+        return render(request, 'categories/world_kitchens_list.html', {'cuisines': cuisine_pages})
 
-def login(request):
-    if request.method == "POST":
-        form = CustomAuthenticationForm(data=request.POST)
-
-    if form.is_valid():
-        login(request, form.get_user())
-        messages.success(request, 'Вы успешно вошли!')
-        return redirect('RecipeHub:main_template')
-    else:
-        messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
-        form = CustomAuthenticationForm()
-
-    return render(request, 'user/authorization.html')
-
-
-def logout(request):
-    if request.method == 'POST':
-        logout(request)
-    return redirect('RecipeHub:main_template')
-
-
-def recipe_detail(request, recipe_name):
-    recipe = Post_recipe.objects.get(name=recipe_name)
-    return render(request, 'Recipehub/recipe_detail.html', {'recipe': recipe})
-
-
-def vegetarian_recipes(request):
-    recipes = Post_recipe.vegetarian_recipes.all()
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Вегетарианские блюда'})
-
-
-def quick_recipes(request):
-    recipes = Post_recipe.quick_recipes.all()  # Все рецепты быстрого приготовления
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Еда быстрого приготовления'})
-
-
-def dessert_recipes(request):
-    recipes = Post_recipe.dessert_recipes.all()  # Все десерты
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Десерты'})
-
-
-def vegan_recipes(request):
-    recipes = Post_recipe.vegan_recipes.all()  # Все веганские рецепты
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Веганские блюда'})
-
-
-def drink_recipes(request):
-    recipes = Post_recipe.drink_recipes.all()  # Все напитки
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Напитки'})
-
-
-def snack_recipes(request):
-    recipes = Post_recipe.snack_recipes.all()  # Все закуски
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Закуски'})
-
-
-def side_dish_recipes(request):
-    recipes = Post_recipe.side_dish_recipes.all()  # Все гарниры
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Гарниры'})
-
-
-def baking_recipes(request):
-    recipes = Post_recipe.baking_recipes.all()  # Все печенье и выпечка
-    return render(request, 'Recipehub/category_recipes.html', {'recipes': recipes, 'category': 'Печенье и выпечка'})
-
-
-def world_kitchens(request):
-    cuisines = Cuisine.objects.all()
-    return render(request, 'categories/world_kitchen_list.html', {'cuisines': cuisines})
+    return render(request, 'categories/categories_list.html', {
+        'recipes': recipes,
+        'category': display_name
+    })
 
 
 def cuisine_detail(request, pk, cuisine_name=None):
-
     cuisine = get_object_or_404(Cuisine, pk=pk)
-    if cuisine_name:
-        recipes = Post_recipe.objects.filter(cuisines=cuisine)
 
-        # Добавим дополнительную фильтрацию, если выбран менеджер кухни
-        if cuisine_name == "Итальянская":
-            recipes = recipes.filter(cuisines__name="Итальянская")
-        elif cuisine_name == "Французская":
-            recipes = recipes.filter(cuisines__name="Французская")
-        elif cuisine_name == "Японская":
-            recipes = recipes.filter(cuisines__name="Японская")
-        elif cuisine_name == "Китайская":
-            recipes = recipes.filter(cuisines__name="Китайская")
-        elif cuisine_name == "Мексиканская":
-            recipes = recipes.filter(cuisines__name="Мексиканская")
-        elif cuisine_name == "Тайская":
-            recipes = recipes.filter(cuisines__name="Тайская")
-        elif cuisine_name == "Индийская":
-            recipes = recipes.filter(cuisines__name="Индийская")
-        elif cuisine_name == "Греческая":
-            recipes = recipes.filter(cuisines__name="Греческая")
-        elif cuisine_name == "Испанская":
-            recipes = recipes.filter(cuisines__name="Испанская")
+    # Если cuisine_name передан, фильтруем рецепты
+    if cuisine_name:
+        cuisine_names = {
+            "Итальянская": "Итальянская",
+            "Французская": "Французская",
+            "Японская": "Японская",
+            "Китайская": "Китайская",
+            "Мексиканская": "Мексиканская",
+            "Тайская": "Тайская",
+            "Индийская": "Индийская",
+            "Греческая": "Греческая",
+            "Испанская": "Испанская"
+        }
+
+        if cuisine_name in cuisine_names:
+            recipes = Post_recipe.objects.filter(
+                cuisines__name=cuisine_names[cuisine_name])
         else:
-            recipes = recipes.all()
+            recipes = Post_recipe.objects.filter(cuisines=cuisine)
     else:
 
         recipes = Post_recipe.objects.filter(cuisines=cuisine)
 
-    return render(request, 'categories/cuisine_detail.html', {'cuisine': cuisine, 'recipes': recipes})
+    return render(request, 'categories/cuisine_details.html', {'cuisine': cuisine, 'recipes': recipes})
+
+
+def add_recipe(request):
+    if request.method == 'POST':
+        form = PostRecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True, 'message': 'Рецепт успешно добавлен!'})
+        else:
+            # Отправляем ошибки формы обратно
+            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+    else:
+        form = PostRecipeForm()
+
+    return render(request, 'your_template_name.html', {'form': form})

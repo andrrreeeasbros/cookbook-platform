@@ -15,7 +15,7 @@
 </head>
 <body class="index-page">
   <div class="background-image">
-    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> 
 </div>
   <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
 
@@ -23,7 +23,6 @@
     <h1 class="title">Отзывы</h1>
     <a class="btn btn-add-recipe" href="{% static 'add_review' %}">Добавить отзыв</a>
 
-    <!-- Контейнер для отзывов -->
     <div class="reviews-container">
       {% for review in reviews %}
         <article class="reviews">
@@ -48,23 +47,10 @@
       {% endfor %}
     </div>
 
-    <!-- Пагинация -->
-    <div class="pagination">
-      <span class="step-links">
-        {% if reviews.has_previous %}
-          <a href="?review=1">&laquo; Первая страница</a>
-          <a href="?review={{ reviews.previous_page_number }}">Предыдущая страница</a>
-        {% endif %}
 
-        <span class="current">
-        </span>
-
-        {% if reviews.has_next %}
-          <a href="?review={{ reviews.next_page_number }}">Следующая страница</a>
-          <a href="?review={{ reviews.paginator.num_pages }}">Последняя страница &raquo;</a>
-        {% endif %}
-      </span>
-    </div>
+    {% block pagination %}
+          {% include "pagination/pagination.html" %}
+    {% endblock %}
   </main>
 
   <script>
@@ -91,12 +77,14 @@
     });
 </script>
 
+  <!-- Секция для логотипа и социальных ссылок -->
   <div class="logo-bar">
     <div class="left-section">
       <a href="{% url 'RecipeHub:main_template' %}">
         <img src="{% static 'img/logo.png' %}" alt="Логотип">
-    </a>
-      <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+      </a>
+      <!-- Ссылка для открытия модального окна связи с командой -->
+      <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
       <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
     </div>
     <div class="social-icons">
@@ -111,6 +99,8 @@
       </a>
     </div>
   </div>
+</div>
+
   
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -1,4 +1,3 @@
-// Ждем полной загрузки страницы
 document.addEventListener('DOMContentLoaded', function () {
   // Ищем все элементы с классом fade-in
   const fadeInElements = document.querySelectorAll('.fade-in');
