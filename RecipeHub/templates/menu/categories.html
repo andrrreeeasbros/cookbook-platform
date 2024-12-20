@@ -13,7 +13,7 @@
 
   <body class="index-page background-image">
     <div class="background-image">
-      <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image" /> <!-- Фоновое изображение -->
+      <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image" /> 
     </div>
     <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
 
@@ -27,25 +27,7 @@
                 <div class="category-card-container">
                   <h3>{{ category.name }}</h3>
                   <p>{{ category.description }}</p>
-                  {% if category.name == 'Вегетарианское блюдо' %}
-                    <a href="{% url 'RecipeHub:vegetarian_recipes' %}" class="btn btn-red">Посмотреть</a>
-                  {% elif category.name == 'Еда быстрого приготовления' %}
-                    <a href="{% url 'RecipeHub:quick_recipes' %}" class="btn btn-red">Посмотреть</a>
-                  {% elif category.name == 'Десерт' %}
-                    <a href="{% url 'RecipeHub:dessert_recipes' %}" class="btn btn-red">Посмотреть</a>
-                  {% elif category.name == 'Веганское' %}
-                    <a href="{% url 'RecipeHub:vegan_recipes' %}" class="btn btn-red">Посмотреть</a>
-                  {% elif category.name == 'Напитки' %}
-                    <a href="{% url 'RecipeHub:drink_recipes' %}" class="btn btn-red">Посмотреть</a>
-                  {% elif category.name == 'Мировая кухня' %}
-                    <a href="{% url 'RecipeHub:world_kitchens' %}" class="btn btn-red">Посмотреть</a>
-                  {% elif category.name == 'Закуски' %}
-                    <a href="{% url 'RecipeHub:snack_recipes' %}" class="btn btn-red">Посмотреть</a>
-                  {% elif category.name == 'Гарниры' %}
-                    <a href="{% url 'RecipeHub:side_dish_recipes' %}" class="btn btn-red">Посмотреть</a>
-                  {% elif category.name == 'Печенье и выпечка' %}
-                    <a href="{% url 'RecipeHub:baking_recipes' %}" class="btn btn-red">Посмотреть</a>
-                  {% endif %}
+                  <a href="{% url 'RecipeHub:category_recipes' category_name=category.name %}" class="btn btn-red">Посмотреть</a>
                 </div>
               </div>
             {% endfor %}
@@ -53,7 +35,9 @@
         </div>
       </section>
     </main>
-
+    
+    
+    
     <div class="logo-bar">
       <div class="left-section">
         <img src="{% static 'img/logo.png' %}" alt="Логотип" />

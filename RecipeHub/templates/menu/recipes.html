@@ -180,7 +180,7 @@
           if (data) {
             const recipeContent = document.getElementById('recipeContent');
             
-            // Создаем HTML содержимое для модального окна
+
             recipeContent.innerHTML = `
               <h1 class="text-center">${data.name}</h1>
               <h5>Уровень сложности: ${data.level}</h5>
@@ -191,7 +191,9 @@
 
               <!-- Этапы приготовления -->
               <h5>Этапы приготовления:</h5>
-              <ul>${data.steps.map((step, index) => `<li>${index + 1}. ${step}</li>`).join('')}</ul>
+               <ul>
+               ${data.steps.map((step) => `<li>${step.step_number}. ${step.step_description}</li>`).join('')}
+               </ul>
             `;
           }
         })

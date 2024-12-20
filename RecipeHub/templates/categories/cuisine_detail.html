@@ -20,7 +20,7 @@
   <div class="background-image">
     <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
   </div>
-  <a href="{% url 'RecipeHub:world_kitchens' %}" class="back-button">Вернуться назад</a>
+  <a href="{% url 'RecipeHub:category_recipes' category_name='Мировая кухня' %}" class="back-button">Вернуться назад</a>
   <main class="main">
     <h1 class="title">{{ cuisine.name }} кухня</h1>
 

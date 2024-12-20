@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from profanity import profanity
 from django.db import IntegrityError
-from .models import Post_recipe, Category, Cuisine, DifficultyLevel
+from .models import Post_recipe
 
 class PostRecipeForm(forms.ModelForm):
     class Meta:
@@ -98,19 +98,6 @@ class UserRegistration(UserCreationForm):
         raise ValidationError('Этот email уже зарегистрирован.')
      return email
  
-    # Сохранение пользователя и отправка email
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.email = self.cleaned_data['email']
-        user.first_name = self.cleaned_data['name']  # Сохраняем имя пользователя
-        if commit:
-            user.save()  # Сохраняем пользователя в БД
-
-            self.send_confirmation_email(user)
-
-        return user
-
-    # Функция отправки письма
 
     def send_confirmation_email(self, user):
         subject = 'Добро пожаловать на наш сайт!'

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from RecipeHub.models import Post_recipe, Reviews, UserProfile, Category
 
-
+@admin.register(Post_recipe)
 class PostRecipeAdmin(admin.ModelAdmin):
     filter_horizontal = ('categories', 'cuisines')
     
@@ -20,10 +20,7 @@ class PostRecipeAdmin(admin.ModelAdmin):
             kwargs['queryset'] = Category.objects.exclude(name="Мировая кухня")
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
-admin.site.register(Post_recipe, PostRecipeAdmin)
 
-    
-     
 @admin.register(Reviews)
 class ReviewsAdmin(admin.ModelAdmin):
     pass
