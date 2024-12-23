@@ -10,11 +10,8 @@
 body.index-page {
     font-family: var(--default-font);
     overflow-x: hidden;
-    /* Отключаем горизонтальную прокрутку */
     overflow-y: auto;
-    /* Вертикальная прокрутка если контента слишком много */
     padding-bottom: 100px;
-    /* Отступ снизу, чтобы контент не перекрывался панелью */
 }
 
 body,
@@ -26,20 +23,20 @@ html {
     flex-direction: column;
 }
 
-/* Основной контейнер */
+
 .main {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     min-height: 100%;
-    /* Вместо height: 100%, используем min-height */
+
     color: white;
     padding-top: 20px;
     padding-bottom: 50px;
-    /* Добавляем отступ снизу, чтобы пагинация не сливалась */
+
     box-sizing: border-box;
-    /* Учитываем отступы и рамки внутри контейнера */
+
 }
 
 
@@ -62,18 +59,17 @@ html {
     width: 100%;
     height: 100vh;
     object-fit: cover;
-    /* Подгоняет изображение по размеру */
+
     z-index: -1;
-    /* Фиксируем изображение в фоновом слое */
+
 }
 
 .title {
     font-family: 'Lora', sans-serif;
     font-size: 2.5rem;
-    /* Используем rem для гибкости */
+
     font-weight: bold;
     color: rgb(245, 203, 167) !important;
-    /* Персиковый цвет текста */
     text-align: center;
     margin: 0 20px 20px;
     line-height: 1.4;
@@ -108,9 +104,9 @@ html {
     border-radius: 20px;
 }
 
-/* Контейнер для отзывов */
+
 .reviews {
-    font-family: 'Arial', sans-serif; /* Общий шрифт для всех заголовков */
+    font-family: 'Arial', sans-serif;
     margin: 30px auto;
     padding: 20px;
     max-width: 900px;
@@ -119,7 +115,7 @@ html {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Заголовок h1 */
+
 .reviews h1 {
     font-size: 2.2rem;
     font-weight: 700;
@@ -136,7 +132,7 @@ html {
 
 /* Заголовок h2 */
 .reviews h2 {
-    font-weight: bold !important; 
+    font-weight: bold !important;
     font-size: 1.7rem;
     font-weight: 500;
     color: #333;
@@ -144,10 +140,10 @@ html {
     text-align: left;
     margin: 15px 0;
     padding-left: 15px;
-    border-left: 5px solid #4CAF50;  /* Полоска шириной 5px */
+    border-left: 5px solid #4CAF50;
     transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
-    font-style: italic;  /* Добавлено, чтобы сделать шрифт наклонным */
-    letter-spacing: 0.5px;  /* Добавлено для одинакового межбуквенного расстояния */
+    font-style: italic;
+    letter-spacing: 0.5px;
 }
 
 .reviews h2:hover {
@@ -156,21 +152,21 @@ html {
     transform: translateX(10px);
 }
 
-.author{
+.author {
     font-size: 1.5rem;
     font-weight: 500;
 }
 
-/* Заголовок h3 */
+
 .reviews h3 {
-    font-weight: bold !important; 
+    font-weight: bold !important;
     font-size: 1.7rem;
     font-weight: 500;
     color: #333;
     text-transform: capitalize;
     margin: 15px 0;
-    padding-left: 15px;  /* Увеличим padding, чтобы полоса была такой же ширины */
-    border-left: 5px solid #FF6347;  /* Сделаем полоску такой же ширины, как у h2 */
+    padding-left: 15px;
+    border-left: 5px solid #FF6347;
     font-style: italic;
     letter-spacing: 0.5px;
 }
@@ -183,7 +179,7 @@ html {
 
 
 .reviews h4 {
-    font-size: 1.6rem !important; 
+    font-size: 1.6rem !important;
     font-weight: 400;
     color: #777;
     text-align: left;
@@ -202,49 +198,48 @@ html {
 
 .reviews ul {
     padding-left: 0;
-    /* Убираем отступы слева */
+
     list-style-type: none;
-    /* Убираем нумерацию */
+
     margin: 0;
-    /* Убираем отступы сверху и снизу */
 }
 
-/* Стиль для каждого комментария */
+
 .reviews ul li {
     font-size: 1.2rem;
-    /* Оставляем размер текста */
+
     color: #333;
     margin-bottom: 4px;
-    /* Уменьшаем отступы между комментариями */
+
     line-height: 1.4;
-    /* Меньше межстрочного интервала */
+
     text-align: left;
-    /* Выравниваем текст по левому краю */
+
 }
 
-/* Стиль для текста "Фото не доступно" */
+
 .reviews p {
     color: #888;
     font-size: 1.3rem;
-    /* Оставляем размер текста */
+
     margin: 5px 0;
-    /* Убираем большие отступы сверху и снизу */
+
 }
 
-/* Увеличиваем размер шрифта в отзывах */
+
 .reviews h3,
 .reviews h4,
 .reviews h5,
 .reviews h6 {
     font-size: 1.5rem;
-    /* Оставляем размер шрифта */
+
     color: #333;
     margin-top: 5px;
     margin-bottom: 5px;
-    /* Уменьшаем отступы между заголовками */
+
 }
 
-/* Стиль для кнопки возврата */
+
 .back-button {
     position: absolute;
     top: 20px;
@@ -257,27 +252,27 @@ html {
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-    /* Убираем подчеркивание */
+
     transition: transform 0.3s ease, color 0.3s ease;
-    /* Плавный переход для цвета текста */
+
 }
 
 .back-button {
     text-decoration: none;
-    /* Убираем подчеркивание */
+
 }
 
 .back-button:hover {
     text-decoration: none;
-    /* Убираем подчеркивание при наведении */
+
 }
 
-/* Эффект при наведении на кнопку возврата */
+
 .back-button:hover {
     color: black;
-    /* Текст становится черным при наведении */
+
     transform: translateY(-5px);
-    /* Подпрыгивание */
+
 }
 
 .back-button:hover {
@@ -285,60 +280,60 @@ html {
 }
 
 
-/* Кнопка "Добавить отзыв" с черной обводкой */
+
 .btn-add-recipe {
     background-color: #00BFFF !important;
-    /* Голубой фон */
+
     color: black;
-    /* Черный текст */
+
     font-size: 1.5rem;
-    /* Размер шрифта */
+
     padding: 10px 20px;
-    /* Отступы */
+
     border: 2px solid black;
-    /* Черная обводка */
+
     border-radius: 5px;
-    /* Скругленные углы */
+
     cursor: pointer;
-    /* Курсор-указатель */
+
     text-decoration: none;
-    /* Убираем подчеркивание */
+
     margin-bottom: 20px;
-    /* Отступ снизу */
+
     display: inline-block;
-    /* Чтобы кнопка была в одной строке */
+
     transition: background-color 0.3s ease, transform 0.3s ease;
-    /* Плавный переход для фона и анимация при наведении */
+
 }
 
-/* Эффект при наведении на кнопку "Добавить отзыв" */
+
 .btn-add-recipe:hover {
     background-color: #008CBA;
-    /* Темно-голубой цвет при наведении */
+
     transform: translateY(-5px);
-    /* Легкое подпрыгивание при наведении */
+
     border-color: #005f73;
-    /* Меняем цвет границы при наведении */
+
 }
 
-/* Убираем подчеркивание на активные состояния кнопки */
+
 .btn-add-recipe:focus,
 .btn-add-recipe:active {
     text-decoration: none;
 }
 
 
-/* Стиль для пагинации */
+
 .pagination {
     display: flex;
     justify-content: center;
     margin-top: 30px;
-    /* Отступ сверху для пагинации */
+
     margin-bottom: 50px;
-    /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
+
     width: 100%;
     padding-top: 30px;
-    /* Дополнительный отступ сверху для кнопок */
+
 }
 
 .pagination .step-links {
@@ -374,14 +369,13 @@ html {
 
 main.main {
     padding-bottom: 0;
-    /* Убираем отступ снизу */
+
     margin-bottom: 150px;
-    /* Отступ для места под лого */
+
     flex-grow: 1;
     height: calc(100vh - 150px);
-    /* Высота контента фиксированная, учитывая панель с лого */
+
     overflow: hidden;
-    /* Убираем прокрутку */
 }
 
 .logo-bar {
@@ -402,7 +396,6 @@ main.main {
 
 body {
     padding-bottom: 80px;
-    /* Добавляем отступ снизу, чтобы контент не перекрывался полоской */
 }
 
 .logo-bar .left-section {
@@ -481,51 +474,51 @@ body {
 
 @media (max-width: 768px) {
 
-    /* Для мобильных устройств уменьшаем колонки до 1 */
+
     .reviews-container {
         grid-template-columns: 1fr;
-        /* 1 колонка на маленьких экранах */
+
     }
 }
 
-/* Стили для модального окна */
+
 .modal-dialog {
     max-width: 800px;
-    /* Увеличиваем максимальную ширину */
+
     width: 90%;
-    /* Делаем ширину адаптивной и 90% от экрана */
+
     margin: 30px auto;
-    /* Центрируем окно по горизонтали */
-  }
-  
-  .modal-content {
+
+}
+
+.modal-content {
     background-color: #f8f8f8;
-    /* Светло-серый фон, как у .recipe */
+
     border: 2px solid #ddd;
-    /* Тот же светлый бордер */
+
     padding: 20px;
-    /* Отступы как в .recipe */
+
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    /* Тень для эффекта */
+
     border-radius: 10px;
-    /* Закругленные углы */
-  }
-  
-  .modal-header {
+
+}
+
+.modal-header {
     border-bottom: 2px solid #ddd;
-    /* Легкая линия между шапкой и контентом */
-  }
-  
-  .modal-title {
+
+}
+
+.modal-title {
     font-family: 'Lora', serif;
     font-size: 2.2em;
     font-weight: 700;
     color: #333;
     margin-bottom: 10px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-body {
+}
+
+.modal-body {
     font-family: 'Roboto', sans-serif;
     color: #555;
     font-size: 1.1em;
@@ -533,94 +526,85 @@ body {
     text-align: justify;
     margin-bottom: 20px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-  }
-  
-  .modal-footer {
+}
+
+.modal-footer {
     background-color: #f8f8f8;
-    /* Тот же светло-серый фон */
+
     border-top: 2px solid #ddd;
-    /* Легкая линия сверху */
-  }
-  
-  .modal-footer .btn-secondary {
+
+}
+
+.modal-footer .btn-secondary {
     background-color: #ddd;
-    /* Цвет кнопки Закрыть */
+
     border-color: #ccc;
-  }
-  
-  /* Изменение цвета заголовков в модальном окне */
-  .modal-body h1 {
+}
+
+.modal-body h1 {
     font-size: 2.2em;
     font-family: 'Lora', serif;
     font-weight: 700;
     color: #333;
     margin-bottom: 10px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-footer .btn-secondary {
+}
+
+.modal-footer .btn-secondary {
     background-color: red;
-    /* Красный фон */
+
     border-color: #cc0000;
-    /* Красная рамка */
+
     color: white;
-    /* Белый текст */
-  }
-  
-  .modal-footer .btn-secondary:hover {
+
+}
+
+.modal-footer .btn-secondary:hover {
     background-color: #b30000;
-    /* Темный красный при наведении */
     border-color: #990000;
-    /* Темно-красная рамка при наведении */
-  }
-  
-  .modal-body h2 .modal-body h3,
-  .modal-body h4,
-  .modal-body h5 {
+}
+
+.modal-body h2 .modal-body h3,
+.modal-body h4,
+.modal-body h5 {
     font-size: 1.5em;
     font-family: 'Lora', serif;
     font-weight: 700;
     color: #333;
     margin-bottom: 10px;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-body time {
+}
+
+.modal-body time {
     font-family: 'Lora', serif;
     font-size: 1.3em;
-    /* Увеличиваем размер заголовка */
     font-weight: 700;
-    /* Жирное начертание для выделения */
     color: #333;
-    /* Темно-серый цвет для контраста */
     margin-bottom: 10px;
-    /* Отступ снизу */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-body p {
+}
+
+.modal-body p {
     font-family: 'Roboto', sans-serif;
-    /* Легкий шрифт для основного текста */
     font-size: 1.1em;
     color: #555;
-    /* Текст чуть светлее для читаемости */
     line-height: 1.6;
-    /* Увеличиваем межстрочный интервал */
     text-align: justify;
     margin-bottom: 20px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-  }
-  
-  .modal-body ul,
-  .modal-body ol {
+}
+
+.modal-body ul,
+.modal-body ol {
     padding-left: 20px;
     list-style-type: none;
     margin-left: 0;
-  }
-  
-  .modal-body ul li,
-  .modal-body ol li {
+}
+
+.modal-body ul li,
+.modal-body ol li {
     font-size: 1em;
     color: #444;
     margin-bottom: 10px;
-  }
+}
+

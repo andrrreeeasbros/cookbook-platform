@@ -18,6 +18,7 @@ class RecipeManager(models.Manager):
     def filter_by_category_and_cuisine(self, category_name, cuisine_name):
         return self.get_queryset().filter(categories__name=category_name, cuisines__name=cuisine_name)
 
+
 class UserProfileManager(models.Manager):
     def all_profiles(self):
         return self.all()
@@ -32,7 +33,6 @@ class ReviewManager(models.Manager):
             if average_rating > 4:
                 return average_rating
         return 0
-    
 
 
 class Category(models.Model):
@@ -180,18 +180,19 @@ class Post_recipe(models.Model):
         img = img.resize((674, 446), Image.Resampling.LANCZOS)
 
         img.save(image_path)
-    
+
     def enhance_image_quality(self):
         image_path = self.dish_photo.path
         img = Image.open(image_path)
-        
+
         enhancer_sharp = ImageEnhance.Sharpness(img)
         img = enhancer_sharp.enhance(2.0)  # Увеличиваем резкость в 2 раза
-        
+
         enhancer_contrast = ImageEnhance.Contrast(img)
         img = enhancer_contrast.enhance(1.5)  # Увеличение контраста
-        
-        img = img.filter(ImageFilter.MedianFilter(3))  # Применяем медианный фильтр для уменьшения шума
+
+        # Применяем медианный фильтр для уменьшения шума
+        img = img.filter(ImageFilter.MedianFilter(3))
 
         img.save(image_path)
 
@@ -218,10 +219,12 @@ class Grade(models.Model):
 
 
 class Comments(models.Model):
-    pass 
+    pass
+
 
 class Likes_reviews(models.Model):
     pass
+
 
 class Reviews(models.Model):
     author = models.CharField(
@@ -364,7 +367,6 @@ class UserProfile(models.Model):
 
 class TeamConnection(models.Model):
     pass
-
 
 
 # TODO: Заполнить forms.py кнопками рабочими добавления отзыва + рецепта

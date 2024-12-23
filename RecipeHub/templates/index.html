@@ -51,10 +51,8 @@
   </section>
 
   <div>
-    <!-- Кнопка для открытия модального окна регистрации -->
     <button id="openModalBtn">Регистрация</button>
 
-    <!-- Модальное окно регистрации -->
     <div class="modal" id="modal">
       <div class="modal-content">
         <span class="close" id="closeModal">&times;</span>
@@ -63,13 +61,16 @@
       </div>
     </div>
 
-    <!-- Секция для логотипа и социальных ссылок -->
+    {% block contact %}
+    {% include "line/contact.html" %}
+    {% endblock %}
+
     <div class="logo-bar">
       <div class="left-section">
         <a href="{% url 'RecipeHub:main_template' %}">
           <img src="{% static 'img/logo.png' %}" alt="Логотип">
         </a>
-        <!-- Ссылка для открытия модального окна связи с командой -->
+
         <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
         <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
       </div>
@@ -87,36 +88,11 @@
     </div>
   </div>
 
-  <!-- Модальное окно для связи с командой -->
-  <div class="modal" id="contactModal">
-    <div class="modal-content">
-      <span class="close" id="closeContactModal">&times;</span>
-      <section class="contact-form-section">
-        <div class="container d-flex justify-content-center">
-          <div class="contact-form-container">
-            <h2>Связаться с разработчиком</h2>
-            <p>Оставьте ваше сообщение или контактные данные, и я свяжусь с вами.</p>
-            <form action="#" method="POST">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Ваше имя" required>
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control" placeholder="Ваш email" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" rows="4" placeholder="Ваше сообщение" required></textarea>
-              </div>
-              <button type="submit">Отправить сообщение</button>
-            </form>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
+
+
 
  
   <script src="{% static 'javascript/registarion-modal.js' %}"></script>
-  <script src="{% static 'javascript/contact-modal.js' %}"></script>
   <script src="{% static 'javascript/line.js' %}"></script>
   <script src="{% static 'javascript/script.js' %}"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

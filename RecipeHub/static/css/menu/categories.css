@@ -4,40 +4,26 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  /* Высота 100% от видимой области экрана */
   object-fit: cover;
-  /* Подгоняем изображение по размеру */
   z-index: -1;
-  /* Фиксируем изображение в фоновом слое */
-
 }
 
-/* Обнуляем отступы и границы у html и body */
 html,
 body {
   height: 100%;
-  /* Растягиваем на всю высоту экрана */
   width: 100%;
-  /* Растягиваем на всю ширину экрана */
   margin: 0;
-  /* Убираем отступы */
   padding: 0;
-  /* Убираем отступы */
   overflow-x: hidden;
-  /* Отключаем горизонтальную прокрутку */
   overflow-y: auto;
-  /* Включаем вертикальную прокрутку */
 }
 
-/* Все элементы на странице */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  /* Применяем border-box ко всему, чтобы padding и border не выходили за пределы */
 }
 
-/* Отключаем горизонтальную прокрутку для всех контейнеров */
 .category-container,
 .category,
 .pagination,
@@ -46,58 +32,30 @@ body {
 .category-card-container,
 .container {
   overflow-x: hidden;
-  /* Убираем горизонтальную прокрутку */
 }
 
 body.index-page {
   position: fixed;
-  /* Сделаем фон фиксированным относительно экрана */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-image: url('your-image.jpg');
-  /* Ваш фон */
   background-size: cover;
-  /* Фон будет покрывать весь экран */
   background-attachment: fixed;
-  /* Фон фиксирован при прокрутке */
   background-position: center;
-  /* Фон будет выровнен по центру */
   z-index: -1;
-  /* Обеспечиваем, чтобы фон был позади контента */
 }
 
-/* Обновляем html и body для прокрутки */
-html,
-body {
-  height: 100%;
-  /* Растягиваем body на весь экран */
-  margin: 0;
-  /* Убираем отступы */
-  overflow-x: hidden;
-  /* Отключаем горизонтальную прокрутку */
-  overflow-y: auto;
-  /* Включаем вертикальную прокрутку */
-}
-
-/* Растягиваем main блок */
 main.main {
   padding-bottom: 120px;
-  /* Убираем перекрытие с нижней панели */
   margin-bottom: 0;
-  /* Убираем отступ снизу */
   flex-grow: 1;
   min-height: calc(100vh - 120px);
-  /* Убираем высоту нижней панели */
   overflow-y: auto;
-  /* Включаем вертикальную прокрутку */
   position: relative;
-  /* Чтобы элементы внутри могли быть позади фона */
 }
 
-
-/* Заголовок сайта */
 .title {
   font-family: 'Lora', sans-serif;
   font-size: 40px;
@@ -116,7 +74,6 @@ main.main {
   margin: 20px auto;
 }
 
-/* Базовый стиль для контейнера */
 .category-container {
   display: flex;
   justify-content: space-between;
@@ -126,7 +83,6 @@ main.main {
   overflow: hidden;
 }
 
-/* Стиль для каждой категории */
 .category {
   width: 30%;
   margin: 10px;
@@ -137,7 +93,6 @@ main.main {
   transition: transform 0.5s ease-in-out;
 }
 
-/* Анимации для вылетающих категорий */
 .move-right {
   transform: translateX(100%);
 }
@@ -150,7 +105,6 @@ main.main {
   transform: translateX(0);
 }
 
-/* Кнопка возврата */
 .btn {
   background-color: #ffffff;
   color: #000000;
@@ -159,13 +113,11 @@ main.main {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-/* Эффект при наведении на кнопки */
 .btn:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Стиль для кнопки "Посмотреть" (красная) */
 .btn-red {
   background-color: red;
   color: #ffffff;
@@ -178,7 +130,6 @@ main.main {
   transform: translateY(-5px);
 }
 
-/* Стиль для кнопки возврата */
 .back-button {
   position: absolute;
   top: 20px;
@@ -194,7 +145,6 @@ main.main {
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* Эффект при наведении на кнопку возврата */
 .back-button:hover {
   color: black;
   transform: translateY(-5px);
@@ -202,12 +152,9 @@ main.main {
 
 .logo-bar {
   background: rgba(255, 255, 255, 0.9);
-  /* Полупрозрачный фон */
   padding: 20px 0;
   position: relative;
-  /* Это будет обычный блок внизу */
   bottom: 0;
-  /* Привязываем к низу */
   left: 0;
   width: 100%;
   display: flex;
@@ -216,11 +163,9 @@ main.main {
   padding-left: 20px;
   padding-right: 50px;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  /* Тень */
   z-index: 10;
   margin-top: auto;
 }
-
 
 .logo-bar .left-section {
   display: flex;
@@ -245,11 +190,11 @@ main.main {
   color: #333;
 }
 
+
 /* Иконки социальных сетей */
 .social-icons {
   display: flex;
   gap: 35px;
-  /* Устанавливаем расстояние между иконками */
   align-items: center;
 }
 
@@ -259,7 +204,6 @@ main.main {
 
 .social-icons img {
   width: 30px;
-  /* Размер иконок */
   height: auto;
   transition: transform 0.3s ease-in-out, filter 0.3s ease;
   cursor: pointer;
@@ -284,7 +228,7 @@ main.main {
   transform: translateY(-10px);
 }
 
-/* Убедимся, что категории имеют одинаковые размеры */
+
 .category-item {
   width: 30%;
   margin: 15px;

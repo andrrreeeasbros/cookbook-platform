@@ -3,7 +3,6 @@ body {
     height: 100%;
     margin: 0;
     overflow: hidden;
-    /* Отключаем прокрутку полностью */
 }
 
 body.index-page {
@@ -17,11 +16,8 @@ body.index-page {
     left: 0;
     width: 100%;
     height: 100vh;
-    /* Высота 100% от видимой области экрана */
     object-fit: cover;
-    /* Подгоняем изображение по размеру */
     z-index: -1;
-    /* Фиксируем изображение в фоновом слое */
 }
 
 .back-button {
@@ -52,7 +48,7 @@ body.index-page {
     bottom: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between; /* Расположение элементов с отступами */
+    justify-content: space-between;
     align-items: center;
     padding-left: 20px;
     padding-right: 50px;
@@ -85,7 +81,7 @@ body.index-page {
     display: flex;
     gap: 35px;
     align-items: center;
-    margin-left: auto; /* Это добавит отступ слева и сдвинет иконки вправо */
+    margin-left: auto;
 }
 
 .social-icons a {
@@ -99,33 +95,31 @@ body.index-page {
     cursor: pointer;
 }
 
-
-/* CSS для прямоугольного контейнера профиля */
 .profile-container {
-  width: 38% !important; /* Уменьшена ширина */
-  max-width: 800px; /* Максимальная ширина осталась прежней */
+  width: 38% !important;
+  max-width: 800px;
   margin: 20px auto;
-  padding: 20px; /* Уменьшены отступы */
+  padding: 20px;
   background-color: #f4f4f4;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-height: 600px; /* Ограничена максимальная высота */
+  max-height: 600px;
 }
 
 .profile-container h2 {
-  font-size: 2rem !important; /* Немного уменьшен размер заголовка */
+  font-size: 2rem !important;
   color: #333;
-  margin-bottom: 15px; /* Меньше отступ снизу */
+  margin-bottom: 15px;
 }
 
 .profile-container .profile-info {
   display: flex;
-  justify-content: flex-start; /* Выравнивание по левому краю */
-  gap: 20px; /* Добавлено пространство между элементами */
+  justify-content: flex-start;
+  gap: 20px;
 }
 
 .profile-container .profile-info .avatar {
-  width: 80px; /* Уменьшен размер аватара */
+  width: 80px;
   height: 80px;
   border-radius: 50%;
   background-color: #ccc;
@@ -136,21 +130,19 @@ body.index-page {
 }
 
 .profile-container .profile-info .details h3 {
-  font-size: 1.4rem; /* Немного уменьшен размер текста */
+  font-size: 1.4rem;
   color: #555;
 }
 
 .profile-container .profile-info .details p {
-  font-size: 0.9rem; /* Уменьшен размер текста */
+  font-size: 0.9rem;
   color: #777;
 }
 
-/* Применяем анимацию к контейнеру профиля */
 .profile-container {
   animation: bounce-in 0.8s ease-out forwards;
 }
 
-/* Дополнительные стили */
 .profile-container {
   width: 60%;
   max-width: 900px;
@@ -175,49 +167,28 @@ body.index-page {
 .avatar {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
+  border-radius: 5%;
   background-color: #ccc;
-}
-
-.details {
-  flex-grow: 1;
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-  .logo-bar {
-    position: relative !important;
-    margin-bottom: 80px !important;
-    padding-bottom: 60px !important;
-  }
-}
-.avatar {
-  width: 80px;                /* Размер контейнера */
-  height: 80px;
-  border-radius: 5%;         /* Закругление углов контейнера (настраиваемое) */
-  background-color: #ccc;     /* Цвет фона, если фото не доступно */
-  display: flex;              /* Используем Flexbox для центрирования */
-  justify-content: center;    /* Горизонтальное центрирование */
-  align-items: center;        /* Вертикальное центрирование */
-  font-size: 0.8rem;          /* Размер текста для случая, когда фото недоступно */
-  color: #555;                /* Цвет текста */
-  text-align: center;         /* Центрируем текст */
-  line-height: 1.2;           /* Устанавливаем межстрочный интервал для текста */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #555;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .avatar img {
-  width: 100%;                /* Растягиваем изображение по ширине контейнера */
-  height: 100%;               /* Растягиваем изображение по высоте контейнера */
-  object-fit: cover;          /* Обрезаем изображение по кругу */
-  border-radius: 15%;         /* Закругляем углы изображения, чтобы соответствовать контейнеру */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15%;
 }
 
-
-/* Когда фото недоступно, показываем текст "Фото не доступно" */
 .avatar p {
-  display: block;             /* Показываем текст */
+  display: block;
 }
 
-/* Для случая, когда фото доступно */
 .avatar img {
-  display: block;             /* Показываем изображение */
+  display: block;
 }

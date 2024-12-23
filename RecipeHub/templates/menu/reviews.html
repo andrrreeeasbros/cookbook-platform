@@ -23,7 +23,7 @@
   <main class="main">
     <h1 class="title">Отзывы</h1>
 
-    <!-- Кнопка "Добавить отзыв", теперь она вызывает модальное окно -->
+
     <a class="btn btn-add-recipe" data-toggle="modal" data-target="#addReviewModal">Добавить отзыв</a>
 
     <div class="reviews-container">
@@ -54,7 +54,11 @@
       {% include "pagination/pagination.html" %}
     {% endblock %}
 
-    <!-- Модальное окно для добавления нового отзыва -->
+    {% block contact %}
+    {% include "line/contact.html" %}
+    {% endblock %}
+
+    
     <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -64,9 +68,8 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <!-- Форма для добавления отзыва -->
-            <form id="addReviewForm" method="post" action="{% url 'RecipeHub:add_review' %}">
+          <div class="modal-body"
+            <form id="addReviewForm" method="post" action="">
               {% csrf_token %}
               <div class="form-group">
                 <label for="recipe">Выберите рецепт:</label>
@@ -100,7 +103,6 @@
 
   </main>
 
-  <!-- Логотип и социальные ссылки -->
   <div class="logo-bar">
     <div class="left-section">
       <a href="{% url 'RecipeHub:main_template' %}">

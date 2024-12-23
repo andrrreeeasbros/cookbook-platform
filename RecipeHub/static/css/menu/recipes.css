@@ -13,42 +13,28 @@ html {
   left: 0;
   width: 100%;
   height: 100vh;
-  /* Высота 100% от видимой области экрана */
   object-fit: cover;
-  /* Подгоняем изображение по размеру */
   z-index: -1;
-  /* Фиксируем изображение в фоновом слое */
-
 }
 
-/* Основной контейнер */
 body.index-page {
   font-family: var(--default-font);
   padding-bottom: 0;
-  /* Убираем отступ снизу */
   background-color: rgba(0, 0, 0, 0.5);
-  /* Прозрачный черный фон */
   background-size: cover;
-  /* Фон заполняет весь экран */
   background-position: center;
-  /* Центрируем изображение */
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
-  /* Гарантируем, что body занимает весь экран */
   display: flex;
   flex-direction: column;
-  /* Контент располагается сверху вниз */
   overflow-x: hidden;
-  /* Отключаем горизонтальную прокрутку */
 }
 
-/* Основной контейнер для контента */
 .main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  /* Растягивает основной контент, чтобы заполнять всё пространство */
   align-items: center;
   justify-content: flex-start;
   color: white;
@@ -57,12 +43,9 @@ body.index-page {
 
 .logo-bar {
   background: rgba(255, 255, 255, 0.9);
-  /* Полупрозрачный фон */
   padding: 20px 0;
   position: relative;
-  /* Это будет обычный блок внизу */
   bottom: 0;
-  /* Привязываем к низу */
   left: 0;
   width: 100%;
   display: flex;
@@ -71,11 +54,9 @@ body.index-page {
   padding-left: 20px;
   padding-right: 50px;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  /* Тень */
   z-index: 10;
   margin-top: auto;
 }
-
 
 .logo-bar .left-section {
   display: flex;
@@ -100,11 +81,9 @@ body.index-page {
   color: #333;
 }
 
-/* Иконки социальных сетей */
 .social-icons {
   display: flex;
   gap: 35px;
-  /* Устанавливаем расстояние между иконками */
   align-items: center;
 }
 
@@ -114,7 +93,6 @@ body.index-page {
 
 .social-icons img {
   width: 30px;
-  /* Размер иконок */
   height: auto;
   transition: transform 0.3s ease-in-out, filter 0.3s ease;
   cursor: pointer;
@@ -125,24 +103,15 @@ body.index-page {
   filter: brightness(1.2);
 }
 
-/* Фоновое изображение, которое будет фиксированно на весь экран */
 .background-image img {
   position: fixed;
-  /* Фиксируем изображение на фоне */
   top: 0;
   left: 0;
   width: 100%;
-  /* Изображение растягивается по ширине */
   height: 100%;
-  /* Изображение растягивается по высоте всего экрана */
   object-fit: cover;
-  /* Изображение будет растягиваться, сохраняя пропорции, чтобы покрыть весь экран */
   z-index: -1;
-  /* Отправляем изображение на задний план, чтобы оно не перекрывало контент */
 }
-
-
-
 
 .btn-add-recipe {
   background-color: #00BFFF !important;
@@ -156,20 +125,6 @@ body.index-page {
   margin-bottom: 20px;
 }
 
-.btn-add-recipe {
-  background-color: #00BFFF;
-  color: black;
-  font-size: 1.5rem;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  margin-bottom: 20px;
-}
-
-
-
 .background-image {
   position: absolute;
   top: 0;
@@ -177,21 +132,14 @@ body.index-page {
   width: 100%;
   height: 100vh;
   object-fit: cover;
-  /* Подгоняет изображение по размеру */
   z-index: -1;
-  /* Фиксируем изображение в фоновом слое */
 }
 
-
-
-/* Заголовок на главной */
 .title {
   font-family: 'Lora', sans-serif;
   font-size: 2.5rem;
-  /* Используем rem для гибкости */
   font-weight: bold;
   color: rgb(245, 203, 167) !important;
-  /* Персиковый цвет текста */
   text-align: center;
   margin: 0 20px 20px;
   line-height: 1.4;
@@ -207,10 +155,8 @@ body.index-page {
 
 .recipe {
   background-color: rgba(255, 255, 255, 0.9);
-  /* Сделаем фон менее прозрачным */
   animation: scale-in 0.6s ease-out;
   border-radius: 30px;
-  /* Увеличиваем радиус округления */
   overflow: hidden;
   padding: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -220,7 +166,6 @@ body.index-page {
   position: relative;
 }
 
-/* Заголовки рецепта */
 .recipe h1 {
   font-size: 2rem;
   font-weight: bold;
@@ -232,63 +177,41 @@ body.index-page {
   text-transform: uppercase;
   transition: color 0.3s ease, transform 0.3s ease;
   border-radius: 15px;
-  /* Добавляем округление для заголовка */
 }
 
-/* Контейнер для фото */
+
 .recipe-photo {
   display: block;
-  /* Используем block для правильного расчета высоты */
   width: 100%;
-  /* Контейнер занимает 100% ширины */
   overflow: hidden;
-  /* Скрываем лишние части изображения */
   margin: 0 auto;
-  /* Центрируем контейнер по горизонтали */
   padding: 0;
-  /* Убираем любые отступы */
   position: relative;
-  /* Для позиционирования элементов внутри */
   border-radius: 30px;
-  /* Округление для контейнера фото */
 }
 
-/* Изображение внутри контейнера */
 .recipe-photo img {
   width: 100%;
-  /* Растягиваем изображение на всю ширину контейнера */
   height: 100%;
-  /* Растягиваем изображение по высоте контейнера */
   object-fit: cover;
-  /* Изображение покрывает весь контейнер */
   object-position: center;
-  /* Центрируем изображение, чтобы оно не обрезалось с одной стороны */
   border-radius: 30px;
-  /* Округление изображения */
 }
 
-/* Контейнер для кнопки "Посмотреть рецепт" */
 .recipe-btn-wrapper {
   position: absolute;
   bottom: 20px;
   right: 20px;
   display: flex;
-  /* Flexbox для выравнивания */
   justify-content: flex-end;
-  /* Размещение содержимого справа */
   align-items: center;
-  /* Центрируем кнопку по вертикали */
   padding: 10px;
   border-radius: 30px;
-  /* Округление для контейнера кнопки */
   background-color: rgba(0, 191, 255, 0.8);
-  /* Можно убрать этот фон, если не нужен */
   width: auto;
   height: auto;
   z-index: 10;
-  /* Убедимся, что кнопка поверх других элементов */
   text-align: right;
-  /* Это можно оставить, но `justify-content` уже выполняет задачу */
 }
 
 .recipe .no-photo {
@@ -298,31 +221,23 @@ body.index-page {
   font-weight: 500;
 }
 
-/* Контейнер для кнопки "Посмотреть рецепт" */
+
 .recipe-btn-wrapper {
   position: absolute;
   bottom: 20px;
   right: 30px;
   display: flex;
-  /* Flexbox для выравнивания */
   justify-content: flex-end;
-  /* Размещение содержимого справа */
   align-items: center;
-  /* Центрируем кнопку по вертикали */
   padding: 10px;
   border-radius: 15px;
-  /* Закругляем углы */
   background-color: rgba(0, 191, 255, 0.8);
-  /* Можно убрать этот фон, если не нужен */
   width: auto;
   height: auto;
   z-index: 10;
-  /* Убедимся, что кнопка поверх других элементов */
   text-align: right;
-  /* Это можно оставить, но `justify-content` уже выполняет задачу */
 }
 
-/* Кнопка "Посмотреть рецепт" */
 .btn-view-recipe {
   display: inline-block;
   background-color: rgba(0, 191, 255, 0.8);
@@ -331,7 +246,6 @@ body.index-page {
   padding: 10px 20px;
   border: none;
   border-radius: 15px;
-  /* Закругленные углы для кнопки */
   cursor: pointer;
   text-decoration: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -339,16 +253,15 @@ body.index-page {
   margin-top: 15px;
 }
 
-/* Эффект при наведении на кнопку */
+
 .btn-view-recipe:hover {
   background-color: rgba(0, 191, 255, 1);
   transform: translateY(-5px);
   color: black;
-  /* Устанавливаем черный цвет текста при наведении */
   text-decoration: none;
 }
 
-/* Убираем подчеркивание при наведении, фокусе и активации */
+
 .btn-view-recipe:hover,
 .btn-view-recipe:focus,
 .btn-view-recipe:active {
@@ -359,48 +272,36 @@ body.index-page {
   background-color: rgba(0, 191, 255, 0.8);
 }
 
-/* Кнопка возврата */
+
 .btn {
   background-color: #ffffff;
-  /* Белый фон */
   color: #000000;
-  /* Черный текст */
   border: 2px solid #000000;
-  /* Черная граница */
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  /* Плавные переходы */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-  /* Черный отсвет */
+
 }
 
-/* Эффект при наведении на кнопки */
+
 .btn:hover {
   transform: translateY(-5px);
-  /* Двигаем кнопку вверх */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  /* Легкий отсвет при наведении */
 }
 
-/* Стиль для кнопки "Посмотреть" (красная) */
+
 .btn-red {
   background-color: red;
-  /* Красный фон */
   color: #ffffff;
-  /* Белый текст */
   border-color: #dc3545;
-  /* Красная граница */
 }
 
 .btn-red:hover {
   background-color: red;
-  /* Темно-красный при наведении */
   border-color: red;
-  /* Темно-красная граница при наведении */
   transform: translateY(-5px);
-  /* Двигаем кнопку вверх */
+
 }
 
-/* Стиль для кнопки возврата */
 .back-button {
   position: absolute;
   top: 20px;
@@ -413,30 +314,22 @@ body.index-page {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  /* Убираем подчеркивание */
   transition: transform 0.3s ease, color 0.3s ease;
-  /* Плавный переход для цвета текста */
 }
 
 .back-button {
   text-decoration: none;
-  /* Убираем подчеркивание */
 }
 
 .back-button:hover {
   text-decoration: none;
-  /* Убираем подчеркивание при наведении */
 }
 
-/* Эффект при наведении на кнопку возврата */
 .back-button:hover {
   color: black;
-  /* Текст становится черным при наведении */
   transform: translateY(-5px);
-  /* Подпрыгивание */
 }
 
-/* Пагинация */
 .pagination {
   display: flex;
   justify-content: center;
@@ -471,32 +364,22 @@ body.index-page {
   cursor: not-allowed;
 }
 
-/* Стили для модального окна */
 .modal-dialog {
   max-width: 800px;
-  /* Увеличиваем максимальную ширину */
   width: 90%;
-  /* Делаем ширину адаптивной и 90% от экрана */
   margin: 30px auto;
-  /* Центрируем окно по горизонтали */
 }
 
 .modal-content {
   background-color: #f8f8f8;
-  /* Светло-серый фон, как у .recipe */
   border: 2px solid #ddd;
-  /* Тот же светлый бордер */
   padding: 20px;
-  /* Отступы как в .recipe */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* Тень для эффекта */
   border-radius: 10px;
-  /* Закругленные углы */
 }
 
 .modal-header {
   border-bottom: 2px solid #ddd;
-  /* Легкая линия между шапкой и контентом */
 }
 
 .modal-title {
@@ -520,18 +403,14 @@ body.index-page {
 
 .modal-footer {
   background-color: #f8f8f8;
-  /* Тот же светло-серый фон */
   border-top: 2px solid #ddd;
-  /* Легкая линия сверху */
 }
 
 .modal-footer .btn-secondary {
   background-color: #ddd;
-  /* Цвет кнопки Закрыть */
   border-color: #ccc;
 }
 
-/* Изменение цвета заголовков в модальном окне */
 .modal-body h1 {
   font-size: 2.2em;
   font-family: 'Lora', serif;
@@ -543,18 +422,13 @@ body.index-page {
 
 .modal-footer .btn-secondary {
   background-color: red;
-  /* Красный фон */
   border-color: #cc0000;
-  /* Красная рамка */
   color: white;
-  /* Белый текст */
 }
 
 .modal-footer .btn-secondary:hover {
   background-color: #b30000;
-  /* Темный красный при наведении */
   border-color: #990000;
-  /* Темно-красная рамка при наведении */
 }
 
 .modal-body h2 .modal-body h3,
@@ -571,24 +445,17 @@ body.index-page {
 .modal-body time {
   font-family: 'Lora', serif;
   font-size: 1.3em;
-  /* Увеличиваем размер заголовка */
   font-weight: 700;
-  /* Жирное начертание для выделения */
   color: #333;
-  /* Темно-серый цвет для контраста */
   margin-bottom: 10px;
-  /* Отступ снизу */
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .modal-body p {
   font-family: 'Roboto', sans-serif;
-  /* Легкий шрифт для основного текста */
   font-size: 1.1em;
   color: #555;
-  /* Текст чуть светлее для читаемости */
   line-height: 1.6;
-  /* Увеличиваем межстрочный интервал */
   text-align: justify;
   margin-bottom: 20px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
@@ -611,7 +478,6 @@ body.index-page {
 .cooking-time {
   display: flex;
   justify-content: flex-start;
-  /* Выравнивание элементов по левому краю */
   align-items: center;
 }
 
@@ -647,20 +513,20 @@ body.index-page {
   }
 }
 
-/* Применяем анимацию к модальному окну */
+
 .modal.fade .modal-dialog {
   animation: slideIn 0.5s ease-in-out;
 }
 
-/* Сделаем кнопку синим цветом */
+
 .btn-add-recipe {
-  background-color: #007bff; /* Синий фон */
+  background-color: #007bff;
   border-color: #007bff;
   color: white;
 }
 
 .btn-add-recipe:hover {
-  background-color: #0056b3; /* Темно-синий при наведении */
+  background-color: #0056b3;
   border-color: #0056b3;
 }
 
@@ -668,14 +534,14 @@ body.index-page {
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
 
-/* Для кнопок в модальном окне */
+
 #addRecipeModal .modal-footer button {
-  background-color: #007bff; /* Синий цвет для кнопки */
+  background-color: #007bff;
   border-color: #007bff;
 }
 
 #addRecipeModal .modal-footer button:hover {
-  background-color: #0056b3; /* Темно-синий при наведении */
+  background-color: #0056b3;
   border-color: #0056b3;
 }
 
@@ -683,43 +549,43 @@ body.index-page {
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
 
-/* Стили для кнопок в модальном окне */
+
 .modal-footer {
   display: flex;
-  justify-content: space-between; /* Кнопки распределяются по краям */
-  align-items: center; /* Вертикальное выравнивание кнопок по центру */
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Стили для кнопки "Добавить рецепт" */
+
 .modal-footer .btn-add-recipe {
-  background-color: #007bff; /* Синий фон */
-  border-color: #007bff; /* Синий цвет рамки */
-  color: white; /* Белый текст */
-  font-size: 16px; /* Размер шрифта */
-  padding: 10px 20px; /* Отступы (высота и ширина кнопки) */
-  border-radius: 5px; /* Радиус скругления кнопки */
-  margin-right: 10px; /* Отступ справа, чтобы не прижимать к кнопке "Закрыть" */
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 /* При наведении на кнопку */
 .modal-footer .btn-add-recipe:hover {
-  background-color: #0056b3; /* Темно-синий при наведении */
-  border-color: #0056b3; /* Темно-синий цвет рамки */
+  background-color: #0056b3;
+  border-color: #0056b3;
 }
 
 /* При фокусе на кнопку */
 .modal-footer .btn-add-recipe:focus {
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5); /* Синий цвет тени при фокусе */
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
 
 /* Стиль для кнопки закрытия */
 .modal-footer .btn-secondary {
-  background-color: #6c757d; /* Серый фон для кнопки закрытия */
-  border-color: #6c757d; /* Серый цвет рамки */
-  color: white; /* Белый текст */
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: white;
 }
 
 .modal-footer .btn-secondary:hover {
-  background-color: #5a6268; /* Темно-серый при наведении */
-  border-color: #545b62; /* Темно-серый цвет рамки */
+  background-color: #5a6268;
+  border-color: #545b62;
 }

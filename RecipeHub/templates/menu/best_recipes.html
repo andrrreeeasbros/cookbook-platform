@@ -1,122 +1,113 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="description" content="Описание вашего сайта">
-  <meta name="keywords" content="ключевые, слова, вашего, сайта">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
-  <link href="{% static 'css/menu/best_recipes.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
-</head>
-<body class="index-page">
-  <div class="background-image">
-    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
-</div>
-  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
-  
-  <header id="header" class="header">
-    <div class="align-items-center">
-      <div class="container">
-           <h1 class="title">Лучшие рецепты</h1>
-        <nav id="navmenu" class="navmenu">
-          <ul class="d-flex flex-wrap justify-content-center">
-          </ul>
-        </nav>
-        <div class="image-container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Описание вашего сайта" />
+    <meta name="keywords" content="ключевые, слова, вашего, сайта" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
+    <link href="{% static 'css/menu/best_recipes.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/menu/style.css' %}" rel="stylesheet" />
+  </head>
+  <body class="index-page">
+    <div class="background-image">
+      <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image" />
+    </div>
+    <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
+
+    <header id="header" class="header">
+      <div class="align-items-center">
+        <div class="container">
+          <h1 class="title">Лучшие рецепты</h1>
+          <nav id="navmenu" class="navmenu">
+            <ul class="d-flex flex-wrap justify-content-center"></ul>
+          </nav>
+          <div class="image-container"></div>
         </div>
       </div>
+    </header>
+
+    <div class="recipe-container">
+      {% if best_recipes %}
+        <div>
+          {% for best_recipe in best_recipes %}
+            <article class="recipe">
+              <h1 class="text-center">{{ best_recipe.name }}</h1>
+
+              <div class="recipe-rating">
+                <span class="rating-label">Рейтинг:</span>
+                <span class="rating-value">
+                  {% if best_recipe.avg_rating %}
+                    {{ best_recipe.avg_rating|floatformat:1 }}
+                  {% else %}
+                    Нет рейтинга
+                  {% endif %}
+                </span>
+              </div>
+
+              <h3>Уровень сложности: {{ best_recipe.level }}</h3>
+
+              <h4>Ингредиенты:</h4>
+              <ul>
+                {% for ingredient in best_recipe.ingredients_list.splitlines %}
+                  <li>{{ forloop.counter }}. {{ ingredient }}</li>
+                {% endfor %}
+              </ul>
+
+              <h5>Шаги приготовления:</h5>
+              <ol>
+                {% for step in best_recipe.steps.splitlines %}
+                  <li>{{ forloop.counter }}. {{ step }}</li>
+                {% endfor %}
+              </ol>
+
+              <time datetime="PT{{ best_recipe.cooking_time }}M">Время приготовления:</time>
+              <span class="time-span">{{ best_recipe.cooking_time }} мин.</span>
+
+              <div class="recipe-btn-wrapper"></div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>Нет лучших рецептов.</p>
+      {% endif %}
     </div>
-  </header>
 
-  <div class="recipe-container">
-    {% if best_recipes %}
-      <div>
-        {% for best_recipe in best_recipes %}
-          <article class="recipe">
-            <h1 class="text-center">{{ best_recipe.name }}</h1>
-            
-            <div class="recipe-rating">
-              <span class="rating-label">Рейтинг:</span> <!-- Стилизация как заголовок -->
-              <span class="rating-value">
-                {% if best_recipe.avg_rating %}
-                  {{ best_recipe.avg_rating|floatformat:1 }}  <!-- Округляем до 1 знака после запятой -->
-                {% else %}
-                  Нет рейтинга
-                {% endif %}
-              </span>
-            </div>
-  
-            <h3>Уровень сложности: {{ best_recipe.level }}</h3>
-            
-            <h4>Ингредиенты:</h4>
-            <ul>
-              {% for ingredient in best_recipe.ingredients_list.splitlines %}
-                <li>{{ forloop.counter }}. {{ ingredient }}</li>
-              {% endfor %}
-            </ul>
-  
-            <h5>Шаги приготовления:</h5>
-            <ol>
-              {% for step in best_recipe.steps.splitlines %}
-                <li>{{ forloop.counter }}. {{ step }}</li>
-              {% endfor %}
-            </ol>
-  
-            <time datetime="PT{{ best_recipe.cooking_time }}M">Время приготовления:</time>
-            <span class="time-span">{{ best_recipe.cooking_time }} мин.</span>
-            
-            <div class="recipe-btn-wrapper">
-            </div>
-          </article>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>Нет лучших рецептов.</p>
-    {% endif %}
-  </div>
-  
-
-  {% block pagination %}
-          {% include "pagination/best_pagination.html" %}
+    {% block pagination %}
+      {% include 'pagination/best_pagination.html' %}
     {% endblock %}
 
-  <script>
-    function goBack() {
-      if (document.referrer) {
-        window.history.back();  // Возвращаем на предыдущую страницу
-      } else {
-        window.location.href = '/';  // Если нет истории, переходим на главную страницу
+    <script>
+      function goBack() {
+        if (document.referrer) {
+          window.history.back()
+        } else {
+          window.location.href = '/'
+        }
       }
-    }
-  </script>
+    </script>
 
-  <div class="logo-bar">
-    <div class="left-section">
-      <a href="{% url 'RecipeHub:main_template' %}">
-        <img src="{% static 'img/logo.png' %}" alt="Логотип">
-    </a>
-      <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
-      <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+    {% block contact %}
+      {% include 'line/contact.html' %}
+    {% endblock %}
+
+    <div class="logo-bar">
+      <div class="left-section">
+        <img src="{% static 'img/logo.png' %}" alt="Логотип" />
+        <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
+        <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+      </div>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank"><img src="{% static 'img/facebook.svg' %}" alt="Facebook" /></a>
+        <a href="https://instagram.com" target="_blank"><img src="{% static 'img/instagram.svg' %}" alt="Instagram" /></a>
+        <a href="https://vk.com" target="_blank"><img src="{% static 'img/VK.svg' %}" alt="ВКонтакте" /></a>
+      </div>
     </div>
-    <div class="social-icons">
-      <a href="https://facebook.com" target="_blank">
-        <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
-      </a>
-      <a href="https://instagram.com" target="_blank">
-        <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
-      </a>
-      <a href="https://vk.com" target="_blank">
-        <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
-      </a>
-    </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>

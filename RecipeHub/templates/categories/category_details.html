@@ -42,16 +42,26 @@
         </div>
       </div>
 
-      <div class="logo-bar">
+    {% block contact %}
+    {% include "line/contact.html" %}
+    {% endblock %}
+
+    <div class="logo-bar">
         <div class="left-section">
-          <img src="{% static 'img/logo.png' %}" alt="Логотип" />
-          <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+          <img src="{% static 'img/logo.png' %}" alt="Логотип">
+          <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
           <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
         </div>
         <div class="social-icons">
-          <a href="https://facebook.com" target="_blank"><img src="{% static 'img/facebook.svg' %}" alt="Facebook" /></a>
-          <a href="https://instagram.com" target="_blank"><img src="{% static 'img/instagram.svg' %}" alt="Instagram" /></a>
-          <a href="https://vk.com" target="_blank"><img src="{% static 'img/VK.svg' %}" alt="ВКонтакте" /></a>
+          <a href="https://facebook.com" target="_blank">
+            <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
+          </a>
+          <a href="https://instagram.com" target="_blank">
+            <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
+          </a>
+          <a href="https://vk.com" target="_blank">
+            <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
+          </a>
         </div>
       </div>
     </main>

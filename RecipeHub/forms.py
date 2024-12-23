@@ -1,48 +1,40 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
 from django import forms
-from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
 from django.conf import settings
 from profanity import profanity
-from django.db import IntegrityError
-from .models import Post_recipe
+from .models import Post_recipe, Grade
+from django import forms
+from profanity import profanity
+from .models import Post_recipe, Category, Cuisine, DifficultyLevel
+
 
 class PostRecipeForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    cuisines = forms.ModelMultipleChoiceField(
+        queryset=Cuisine.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    level = forms.ModelChoiceField(
+        queryset=DifficultyLevel.objects.all(),
+        widget=forms.RadioSelect,
+        required=True
+    )
+
     class Meta:
         model = Post_recipe
-        fields = [
-            'name', 
-            'categories', 
-            'cuisines', 
-            'level', 
-            'ingredients_list', 
-            'steps', 
-            'cooking_time', 
-            'dish_photo'
-        ]
+        fields = ['name', 'categories', 'cuisines', 'level', 'ingredients_list', 'steps', 'cooking_time', 'dish_photo']
         widgets = {
-            'categories': forms.CheckboxSelectMultiple,  
-            'cuisines': forms.CheckboxSelectMultiple,    
-            'steps': forms.Textarea(attrs={'rows': 4, 'cols': 40}),  
+            'categories': forms.CheckboxSelectMultiple(),
+            'cuisines': forms.CheckboxSelectMultiple(),
+            'level': forms.Select(),
+            'ingredients_list': forms.Textarea(attrs={'rows': 4}),
+            'steps': forms.Textarea(attrs={'rows': 4}),
+            'cooking_time': forms.NumberInput(attrs={'min': 1}),
         }
-
-    def clean_ingredients_list(self):
-        ingredients = self.cleaned_data.get('ingredients_list')
-        if profanity.contains_profanity(ingredients):
-            raise forms.ValidationError("Ingredients list contains inappropriate words.")
-        return ingredients
-
-    def clean_steps(self):
-        steps = self.cleaned_data.get('steps')
-        if profanity.contains_profanity(steps):
-            raise forms.ValidationError("Steps contains inappropriate words.")
-        return steps
-
-
-
-
-
 
 
 

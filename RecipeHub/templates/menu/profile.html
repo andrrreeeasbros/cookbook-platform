@@ -15,19 +15,18 @@
 </head>
 
 <style>
-  /* Анимация выпрыгивания для элементов */
   @keyframes bounce-in {
     0% {
-      transform: scale(0); /* Начинаем с маленького размера */
+      transform: scale(0);
       opacity: 0;
     }
     60% {
-      transform: scale(1.2); /* Увеличиваем до 120% */
+      transform: scale(1.2);
       opacity: 1;
     }
     100% {
-      transform: scale(1); /* Возвращаем в нормальный размер */
-      opacity: 1; /* Убедимся, что элемент остаётся видимым */
+      transform: scale(1);
+      opacity: 1;
     }
   }
 
@@ -37,7 +36,7 @@
     font-weight: bold;
     color: rgb(245, 203, 167) !important;
     text-align: center;
-    margin: 20px auto 10px; 
+    margin: 20px auto 10px;
     line-height: 1.4;
     letter-spacing: 0.5px;
     background: rgba(0, 0, 0, 0.8);
@@ -45,15 +44,14 @@
     box-shadow: none;
     border-radius: 15px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-    max-width: 45%; /* Устанавливаем максимальную ширину */
-    animation: bounce-in 0.8s ease-out forwards; /* Анимация выпрыгивания */
+    max-width: 45%;
+    animation: bounce-in 0.8s ease-out forwards;
   }
-  
 </style>
 
 <body class="index-page">
     <div class="background-image">
-        <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+        <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
     </div>
     <header id="header" class="header d-flex align-items-center sticky-top">
       <div class="container d-flex flex-column align-items-center">
@@ -65,7 +63,6 @@
     <div class="profile-container">
       <h2>Информация о пользователе</h2>
       <div class="profile-info">
-        <!-- Avatar container inside the profile info -->
         <div class="avatar">
           {% if profile.profile_photo %}
             <img src="{{ profile.profile_photo.url }}" alt="Фото профиля" class="avatar-image">
@@ -74,7 +71,6 @@
           {% endif %}
         </div>
 
-        <!-- Profile details -->
         <div class="details">
           <p><strong>Имя:</strong> {{ profile.name }}</p>
           <p><strong>Страна:</strong> {% if profile.country %}{{ profile.country.country }}{% else %}Не указана{% endif %}</p>
@@ -84,10 +80,14 @@
       </div>
     </div>
 
+    {% block contact %}
+    {% include "line/contact.html" %}
+    {% endblock %}
+
     <div class="logo-bar">
         <div class="left-section">
           <img src="{% static 'img/logo.png' %}" alt="Логотип">
-          <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+          <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
           <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
         </div>
         <div class="social-icons">
@@ -101,6 +101,6 @@
             <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
           </a>
         </div>
-    </div>
+      </div>
 </body>
 </html>

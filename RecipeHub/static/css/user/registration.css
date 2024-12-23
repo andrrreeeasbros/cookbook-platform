@@ -1,92 +1,91 @@
 body {
-    font-family: 'Nunito', sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow-x: hidden; /* Убираем горизонтальную прокрутку */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  font-family: 'Nunito', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  html {
-    scroll-behavior: smooth; /* Плавная прокрутка */
-    height: 100%;
-  }
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
 
+.container {
+  max-width: 600px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.form-container {
+  background-color: #ffffff;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #007bff;
+  font-size: 28px;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  font-size: 14px;
+  border-radius: 5px;
+  padding: px;
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.text-center {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
   .container {
-    max-width: 600px; /* Увеличиваем ширину контейнера */
-    width: 100%; /* Контейнер будет адаптироваться по ширине */
-    padding: 10px; /* Уменьшаем отступы вокруг контейнера */
-    box-sizing: border-box; /* Учитываем отступы в ширине контейнера */
-  }
-
-  .form-container {
-    background-color: #ffffff;
-    padding: 5px; /* Уменьшаем отступы внутри формы */
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
   }
 
   .form-header {
-    text-align: center;
-    margin-bottom: 10px; /* Уменьшаем отступ снизу */
-    color: #007bff;
-    font-size: 28px; /* Уменьшаем размер шрифта заголовка */
-  }
-
-  .form-group {
-    margin-bottom: 5px; /* Уменьшаем отступы между полями */
+    font-size: 16px;
   }
 
   .form-group input {
-    font-size: 14px; /* Увеличиваем размер шрифта в полях */
-    border-radius: 5px;
-    padding: px; /* Уменьшаем отступы в полях */
-    border: 1px solid #ddd;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .form-group input:focus {
-    border-color: #007bff;
-    outline: none;
+    font-size: 12px;
   }
 
   .btn-primary {
-    width: 100%;
-    padding: 10px; /* Уменьшаем отступы в кнопке */
-    font-size: 14px; /* Увеличиваем размер шрифта */
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
+    font-size: 12px;
   }
-
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-
-  .text-center {
-    margin-top: 10px; /* Уменьшаем отступ сверху для текста */
-    font-size: 14px; /* Уменьшаем размер шрифта для ссылки */
-  }
-
-  /* Адаптивность */
-  @media (max-width: 768px) {
-    .container {
-      max-width: 90%; /* Контейнер будет занимать 90% ширины экрана */
-    }
-
-    .form-header {
-      font-size: 16px; /* Уменьшаем размер заголовка на маленьких экранах */
-    }
-
-    .form-group input {
-      font-size: 12px; /* Уменьшаем размер шрифта в полях на маленьких экранах */
-    }
-
-    .btn-primary {
-      font-size: 12px; /* Уменьшаем размер шрифта на маленьких экранах */
-    }
-  }
+}

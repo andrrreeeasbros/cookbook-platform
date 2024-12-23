@@ -1,13 +1,13 @@
 from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
-from RecipeHub.models import Post_recipe, Reviews
+from RecipeHub.models import Post_recipe, Reviews, DifficultyLevel
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib.auth import login, logout
 from django.http import JsonResponse
 from RecipeHub.models import Cuisine
 from RecipeHub.models import Category
-from .forms import PostRecipeForm
+from .forms import PostRecipeForm 
 from .models import UserProfile
 from django.urls import reverse_lazy
 from .models import UserProfile
@@ -29,11 +29,6 @@ def categories(request):
         
     return render(request,
                   'menu/categories.html', {'categories': categories_pages})
-
-
-def contacts(request):
-    return render(request,
-                  'menu/contacts.html')
 
 
 def profile(request):
@@ -190,31 +185,28 @@ def cuisine_detail(request, pk, cuisine_name=None):
     return render(request, 'categories/cuisine_details.html', {'cuisine': cuisine, 'recipes': recipes})
 
 
+
+
 def add_recipe(request):
+    categories = Category.objects.all()
+    levels = DifficultyLevel.objects.all()
+    cuisines = Cuisine.objects.all()
+    
     if request.method == 'POST':
         form = PostRecipeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return JsonResponse({'success': True, 'message': 'Рецепт успешно добавлен!'})
-        else:
-            # Отправляем ошибки формы обратно
-            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+            # Вы можете сделать редирект или что-то еще
     else:
         form = PostRecipeForm()
 
-    return render(request, 'your_template_name.html', {'form': form})
+    return render(request, 'your_template.html', {
+        'form': form,
+        'categories': categories,
+        'levels': levels,
+        'cuisines': cuisines,
+    })
 
 
-def add_review(request):
-    if request.method == 'POST':
-        form = PostRecipeForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'success': True, 'message': 'Рецепт успешно добавлен!'})
-        else:
-            # Отправляем ошибки формы обратно
-            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
-    else:
-        form = PostRecipeForm()
 
-    return render(request, 'add_review.html', {'form': form})
+
