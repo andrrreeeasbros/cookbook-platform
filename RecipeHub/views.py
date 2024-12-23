@@ -200,7 +200,7 @@ def add_recipe(request):
     else:
         form = PostRecipeForm()
 
-    return render(request, 'your_template.html', {
+    return render(request, 'menu/recipes.html', {
         'form': form,
         'categories': categories,
         'levels': levels,

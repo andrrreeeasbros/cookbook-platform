@@ -1,21 +1,20 @@
 {% load static %}
 {% block contact %}
-<link href="{% static 'css/line/contacts.css' %}" rel="stylesheet">  
+  <link href="{% static 'css/line/contacts.css' %}" rel="stylesheet" />
 
-<div class="modal" id="contactModal">
-  <div class="modal-content">
-    <span class="close" id="closeContactModal">&times;</span>
-    <section class="contact-form-section">
-      <div class="container d-flex justify-content-center">
+  <div class="contact-modal" id="contactModal">
+    <div class="contact-modal-content">
+      <span class="contact-close" id="closeContactModal">&times;</span>
+      <h2>Связаться с разработчиком</h2>
+      <p>Оставьте ваше сообщение или контактные данные, и я свяжусь с вами.</p>
+      <section class="contact-form-section">
         <div class="contact-form-container">
-          <h2>Связаться с разработчиком</h2>
-          <p>Оставьте ваше сообщение или контактные данные, и я свяжусь с вами.</p>
           <form action="#" method="POST">
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Ваше имя" required>
+              <input type="text" class="form-control" placeholder="Ваше имя" required />
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" placeholder="Ваш email" required>
+              <input type="email" class="form-control" placeholder="Ваш email" required />
             </div>
             <div class="form-group">
               <textarea class="form-control" rows="4" placeholder="Ваше сообщение" required></textarea>
@@ -23,11 +22,9 @@
             <button type="submit">Отправить сообщение</button>
           </form>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
-</div>
 
-
-<script src="{% static 'javascript/contact-modal.js' %}"></script>
-{% endblock  %}
+  <script src="{% static 'javascript/contact-modal.js' %}"></script>
+{% endblock %}

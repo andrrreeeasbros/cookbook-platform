@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="description" content="Описание вашего сайта">
-  <meta name="keywords" content="ключевые, слова, вашего, сайта">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
-  <link href="{% static 'css/menu/profile.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Описание вашего сайта" />
+    <meta name="keywords" content="ключевые, слова, вашего, сайта" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link href="{% static 'css/menu/profile.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/menu/style.css' %}" rel="stylesheet" />
+  </head>
 
-<style>
-  @keyframes bounce-in {
-    0% {
-      transform: scale(0);
-      opacity: 0;
+  <style>
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      60% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
-    60% {
-      transform: scale(1.2);
-      opacity: 1;
+    
+    .sitename-2 {
+      font-family: 'Lora', sans-serif;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: rgb(245, 203, 167) !important;
+      text-align: center;
+      margin: 20px auto 10px;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      box-shadow: none;
+      border-radius: 15px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+      max-width: 45%;
+      animation: bounce-in 0.8s ease-out forwards;
     }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
+  </style>
 
-  .sitename-2 {
-    font-family: 'Lora', sans-serif;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: rgb(245, 203, 167) !important;
-    text-align: center;
-    margin: 20px auto 10px;
-    line-height: 1.4;
-    letter-spacing: 0.5px;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px 20px;
-    box-shadow: none;
-    border-radius: 15px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-    max-width: 45%;
-    animation: bounce-in 0.8s ease-out forwards;
-  }
-</style>
-
-<body class="index-page">
+  <body class="index-page">
     <div class="background-image">
-        <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
+      <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image" />
     </div>
     <header id="header" class="header d-flex align-items-center sticky-top">
       <div class="container d-flex flex-column align-items-center">
@@ -65,42 +65,56 @@
       <div class="profile-info">
         <div class="avatar">
           {% if profile.profile_photo %}
-            <img src="{{ profile.profile_photo.url }}" alt="Фото профиля" class="avatar-image">
+            <img src="{{ profile.profile_photo.url }}" alt="Фото профиля" class="avatar-image" />
           {% else %}
             <p>Фото не доступно</p>
           {% endif %}
         </div>
 
         <div class="details">
-          <p><strong>Имя:</strong> {{ profile.name }}</p>
-          <p><strong>Страна:</strong> {% if profile.country %}{{ profile.country.country }}{% else %}Не указана{% endif %}</p>
-          <p><strong>Возраст:</strong> {% if profile.age %}{{ profile.age.years }} лет{% else %}Не указан{% endif %}</p>
-          <p><strong>Описание:</strong> {% if profile.description %}{{ profile.description }}{% else %}Нет описания{% endif %}</p>
+          <p>
+            <strong>Имя:</strong> {{ profile.name }}
+          </p>
+          <p>
+            <strong>Страна:</strong> {% if profile.country %}
+              {{ profile.country.country }}
+            {% else %}
+              Не указана
+            {% endif %}
+          </p>
+          <p>
+            <strong>Возраст:</strong> {% if profile.age %}
+              {{ profile.age.years }} лет
+            {% else %}
+              Не указан
+            {% endif %}
+          </p>
+          <p>
+            <strong>Описание:</strong> {% if profile.description %}
+              {{ profile.description }}
+            {% else %}
+              Нет описания
+            {% endif %}
+          </p>
         </div>
       </div>
     </div>
 
     {% block contact %}
-    {% include "line/contact.html" %}
+      {% include 'line/contact.html' %}
     {% endblock %}
 
     <div class="logo-bar">
-        <div class="left-section">
-          <img src="{% static 'img/logo.png' %}" alt="Логотип">
-          <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
-          <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
-        </div>
-        <div class="social-icons">
-          <a href="https://facebook.com" target="_blank">
-            <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
-          </a>
-          <a href="https://instagram.com" target="_blank">
-            <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
-          </a>
-          <a href="https://vk.com" target="_blank">
-            <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
-          </a>
-        </div>
+      <div class="left-section">
+        <img src="{% static 'img/logo.png' %}" alt="Логотип" />
+        <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
+        <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
       </div>
-</body>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank"><img src="{% static 'img/facebook.svg' %}" alt="Facebook" /></a>
+        <a href="https://instagram.com" target="_blank"><img src="{% static 'img/instagram.svg' %}" alt="Instagram" /></a>
+        <a href="https://vk.com" target="_blank"><img src="{% static 'img/VK.svg' %}" alt="ВКонтакте" /></a>
+      </div>
+    </div>
+  </body>
 </html>
