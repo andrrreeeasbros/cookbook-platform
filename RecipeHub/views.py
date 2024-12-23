@@ -11,6 +11,7 @@ from .forms import PostRecipeForm
 from .models import UserProfile
 from django.urls import reverse_lazy
 from .models import UserProfile
+from django.contrib import messages
 
 
 def main_template(request):
@@ -53,19 +54,6 @@ def best_recipes(request):
         recipes_pages = paginator.get_page(1)
 
     return render(request, 'menu/best_recipes.html', {'best_recipes': recipes_pages})
-
-
-def recipes_list(request):
-    recipes = Post_recipe.objects.all()  
-    paginator = Paginator(recipes, 2)
-    page_number = request.GET.get('page')
-    try:
-        recipes_page = paginator.get_page(page_number)
-    except EmptyPage:
-        recipes_page = paginator.get_page(1)
-    return render(request,
-                  'menu/recipes.html',
-                  {'recipes': recipes_page})
 
 
 def recipe_details(request, name):
@@ -185,28 +173,30 @@ def cuisine_detail(request, pk, cuisine_name=None):
     return render(request, 'categories/cuisine_details.html', {'cuisine': cuisine, 'recipes': recipes})
 
 
+def create_post_recipe_and_list(request):
 
-
-def add_recipe(request):
-    categories = Category.objects.all()
-    levels = DifficultyLevel.objects.all()
-    cuisines = Cuisine.objects.all()
-    
     if request.method == 'POST':
         form = PostRecipeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            # Вы можете сделать редирект или что-то еще
+            messages.success(request, "Рецепт успешно добавлен!")
+            return redirect('RecipeHub:recipes') 
     else:
         form = PostRecipeForm()
 
-    return render(request, 'menu/recipes.html', {
-        'form': form,
-        'categories': categories,
-        'levels': levels,
-        'cuisines': cuisines,
-    })
+    recipes = Post_recipe.objects.all()  
+    paginator = Paginator(recipes, 2) 
+    page_number = request.GET.get('page')
+    try:
+        recipes_page = paginator.get_page(page_number)
+    except EmptyPage:
+        recipes_page = paginator.get_page(1)
 
+    return render(
+        request,
+        'menu/recipes.html',  
+        {'form': form, 'recipes': recipes_page}  
+    )
 
 
 
