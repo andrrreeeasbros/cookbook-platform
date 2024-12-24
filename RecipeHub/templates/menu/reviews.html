@@ -23,7 +23,6 @@
   <main class="main">
     <h1 class="title">Отзывы</h1>
 
-
     <a class="btn btn-add-recipe" data-toggle="modal" data-target="#addReviewModal">Добавить отзыв</a>
 
     <div class="reviews-container">
@@ -50,15 +49,17 @@
       {% endfor %}
     </div>
 
-    {% block pagination %}
-      {% include "pagination/pagination.html" %}
-    {% endblock %}
 
     {% block contact %}
     {% include "line/contact.html" %}
     {% endblock %}
 
+
+    {% block pagination %}
+    {% include "pagination/review_pagination.html" %}
+    {% endblock %}
     
+    <!-- Modal for Adding a Review -->
     <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -68,29 +69,30 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body"
-            <form id="addReviewForm" method="post" action="">
+          <div class="modal-body">
+            <form method="POST" action="{% url 'RecipeHub:reviews' %}" enctype="multipart/form-data">
               {% csrf_token %}
+              
               <div class="form-group">
-                <label for="recipe">Выберите рецепт:</label>
-                <select id="recipe" name="recipe" class="form-control">
-                  {% for recipe in recipes %}
-                    <option value="{{ recipe.id }}">{{ recipe.name }}</option>
-                  {% endfor %}
-                </select>
+                <label for="id_author">Автор:</label>
+                {{ form.author }}
               </div>
+
               <div class="form-group">
-                <label for="author">Автор:</label>
-                <input type="text" id="author" name="author" class="form-control" required>
+                <label for="id_grade">Оценка:</label>
+                {{ form.grade }}
               </div>
+
               <div class="form-group">
-                <label for="grade">Оценка:</label>
-                <input type="number" id="grade" name="grade" class="form-control" min="1" max="5" required>
+                <label for="id_recipe">Рецепт:</label>
+                {{ form.recipe }}
               </div>
+
               <div class="form-group">
-                <label for="comments">Комментарии:</label>
-                <textarea id="comments" name="comments" class="form-control" rows="4" required></textarea>
+                <label for="id_comments">Комментарии:</label>
+                {{ form.comments }}
               </div>
+
               <button type="submit" class="btn btn-primary">Отправить отзыв</button>
             </form>
           </div>

@@ -590,3 +590,29 @@ body.index-page {
   border-color: #545b62;
 }
 
+/* Применяем стили из Admin */
+.form-control {
+  border-radius: 5px;
+  box-shadow: none;
+  margin-bottom: 1rem;
+}
+
+.select2-container .select2-selection--single {
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 16px;
+}
+
+.form-control-file {
+  padding: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
