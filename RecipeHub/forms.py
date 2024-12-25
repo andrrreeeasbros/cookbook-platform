@@ -1,6 +1,5 @@
 from .models import Reviews
 from django import forms
-from django.conf import settings
 from .models import Post_recipe, Reviews
 
 

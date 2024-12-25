@@ -53,36 +53,102 @@
     </section>
 
     <div>
-      <button id="openModalBtn">Регистрация</button>
-
-      <div class="modal" id="modal">
-        <div class="modal-content">
-          <span class="close" id="closeModal">&times;</span>
-          <h2>Форма регистрации</h2>
-          <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-        </div>
-      </div>
-
       {% block contact %}
         {% include 'line/contact.html' %}
       {% endblock %}
 
-      <div class="logo-bar">
-        <div class="left-section">
-          <a href="{% url 'RecipeHub:main_template' %}"><img src="{% static 'img/logo.png' %}" alt="Логотип" /></a>
+      <div class="auth-buttons">
+        <button id="openLoginModal" class="btn btn-login">Войти</button>
+        <button id="openRegisterModal" class="btn btn-register">Зарегистрироваться</button>
+      </div>
 
-          <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
-          <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+
+
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Вход</h2>
+      <span class="close-btn" id="closeLoginModal">&times;</span>
+    </div>
+    <div class="modal-body">
+
+      <form id="loginForm" action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="username">Логин</label>
+          <input type="text" class="form-control" id="username" name="username" required />
         </div>
-        <div class="social-icons">
-          <a href="https://facebook.com" target="_blank"><img src="{% static 'img/facebook.svg' %}" alt="Facebook" /></a>
-          <a href="https://instagram.com" target="_blank"><img src="{% static 'img/instagram.svg' %}" alt="Instagram" /></a>
-          <a href="https://vk.com" target="_blank"><img src="{% static 'img/VK.svg' %}" alt="ВКонтакте" /></a>
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" class="form-control" id="password" name="password" required />
         </div>
+        <div class="auth-buttons">
+          <button type="submit" class="btn btn-login">Войти</button>
+        </div>
+      </form>
+
+
+      <div class="text-center">
+        <p>Нет аккаунта? <a href="#" id="showRegisterForm">Зарегистрироваться</a></p>
       </div>
     </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="closeLoginModalFooter">Закрыть</button>
+    </div>
+  </div>
+</div>
 
-    <script src="{% static 'javascript/registarion-modal.js' %}"></script>
+
+<div id="registerModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Регистрация</h2>
+      <span class="close-btn" id="closeRegisterModal">&times;</span>
+    </div>
+    <div class="modal-body">
+      <form id="registerForm" action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="newUsername">Логин</label>
+          <input type="text" class="form-control" id="newUsername" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="newPassword">Пароль</label>
+          <input type="password" class="form-control" id="newPassword" name="password" required />
+        </div>
+        <div class="auth-buttons">
+          <button type="submit" class="btn btn-register">Зарегистрироваться</button>
+        </div>
+      </form>
+
+
+      <div class="text-center">
+        <p>Уже есть аккаунт? <a href="#" id="showLoginForm">Войти</a></p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" id="closeRegisterModalFooter">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+    
+
+    <div class="logo-bar">
+      <div class="left-section">
+        <a href="{% url 'RecipeHub:main_template' %}"><img src="{% static 'img/logo.png' %}" alt="Логотип" /></a>
+
+        <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
+        <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+      </div>
+      <div class="social-icons">
+        <a href="https://facebook.com" target="_blank"><img src="{% static 'img/facebook.svg' %}" alt="Facebook" /></a>
+        <a href="https://instagram.com" target="_blank"><img src="{% static 'img/instagram.svg' %}" alt="Instagram" /></a>
+        <a href="https://vk.com" target="_blank"><img src="{% static 'img/VK.svg' %}" alt="ВКонтакте" /></a>
+      </div>
+    </div>
+    <script src="{% static 'javascript/login-modal.js' %}"></script>
+    <script src="{% static 'javascript/register-modal.js' %}"></script>
     <script src="{% static 'javascript/line.js' %}"></script>
     <script src="{% static 'javascript/script.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

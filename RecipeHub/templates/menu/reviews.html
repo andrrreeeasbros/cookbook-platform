@@ -59,7 +59,7 @@
     {% include "pagination/review_pagination.html" %}
     {% endblock %}
     
-    <!-- Modal for Adding a Review -->
+
     <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -79,13 +79,13 @@
               </div>
 
               <div class="form-group">
-                <label for="id_grade">Оценка:</label>
-                {{ form.grade }}
+                <label for="id_recipe">Рецепт:</label>
+                {{ form.recipe }}
               </div>
 
               <div class="form-group">
-                <label for="id_recipe">Рецепт:</label>
-                {{ form.recipe }}
+                <label for="id_grade">Оценка:</label>
+                {{ form.grade }}
               </div>
 
               <div class="form-group">
