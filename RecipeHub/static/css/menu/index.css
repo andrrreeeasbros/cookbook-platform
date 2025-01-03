@@ -273,14 +273,14 @@ body.index-page {
 }
 
 .auth-buttons .btn {
-  width: auto;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 400; /* Стандартный вес */
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   transition: opacity 0.3s ease;
 }
+
 
 .auth-buttons .btn-register {
   background-color: #28a745;
@@ -294,6 +294,7 @@ body.index-page {
 
 .auth-buttons .btn:hover {
   opacity: 0.8;
+  font-weight: 500;
 }
 
 @keyframes darken {

@@ -72,27 +72,7 @@
           <div class="modal-body">
             <form method="POST" action="{% url 'RecipeHub:reviews' %}" enctype="multipart/form-data">
               {% csrf_token %}
-              
-              <div class="form-group">
-                <label for="id_author">Автор:</label>
-                {{ form.author }}
-              </div>
-
-              <div class="form-group">
-                <label for="id_recipe">Рецепт:</label>
-                {{ form.recipe }}
-              </div>
-
-              <div class="form-group">
-                <label for="id_grade">Оценка:</label>
-                {{ form.grade }}
-              </div>
-
-              <div class="form-group">
-                <label for="id_comments">Комментарии:</label>
-                {{ form.comments }}
-              </div>
-
+               {{ form.as_p }}
               <button type="submit" class="btn btn-primary">Отправить отзыв</button>
             </form>
           </div>

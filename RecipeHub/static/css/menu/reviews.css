@@ -493,20 +493,14 @@ body {
 
 .modal-content {
     background-color: #f8f8f8;
-
     border: 2px solid #ddd;
-
     padding: 20px;
-
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
     border-radius: 10px;
-
 }
 
 .modal-header {
     border-bottom: 2px solid #ddd;
-
 }
 
 .modal-title {
@@ -530,33 +524,12 @@ body {
 
 .modal-footer {
     background-color: #f8f8f8;
-
     border-top: 2px solid #ddd;
-
 }
 
 .modal-footer .btn-secondary {
     background-color: #ddd;
-
     border-color: #ccc;
-}
-
-.modal-body h1 {
-    font-size: 2.2em;
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.modal-footer .btn-secondary {
-    background-color: red;
-
-    border-color: #cc0000;
-
-    color: white;
-
 }
 
 .modal-footer .btn-secondary:hover {
@@ -564,20 +537,42 @@ body {
     border-color: #990000;
 }
 
-.modal-body h2 .modal-body h3,
-.modal-body h4,
-.modal-body h5 {
-    font-size: 1.5em;
-    font-family: 'Lora', serif;
-    font-weight: 700;
+.modal-body label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 15px;
     color: #333;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.modal-body time {
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.modal-body .btn {
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.modal-body button[type="submit"] {
+    margin-top: 15px;
+}
+
+.modal-body h1,
+.modal-body h2,
+.modal-body h3,
+.modal-body h4,
+.modal-body h5 {
+    font-size: 2.2em;
     font-family: 'Lora', serif;
-    font-size: 1.3em;
     font-weight: 700;
     color: #333;
     margin-bottom: 10px;
@@ -591,7 +586,6 @@ body {
     line-height: 1.6;
     text-align: justify;
     margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .modal-body ul,
@@ -607,4 +601,3 @@ body {
     color: #444;
     margin-bottom: 10px;
 }
-

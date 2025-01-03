@@ -75,6 +75,34 @@ class Ingredient(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+class CookingTime(models.Model):
+    days = models.PositiveIntegerField(
+        verbose_name="Дни",
+        default=0,
+        help_text="Количество дней, если время превышает один день"
+    )
+    hours = models.PositiveIntegerField(
+        verbose_name="Часы",
+        default=0,
+        help_text="Количество часов"
+    )
+    minutes = models.PositiveIntegerField(
+        verbose_name="Минуты",
+        default=0,
+        help_text="Количество минут"
+    )
+    seconds = models.PositiveIntegerField(
+        verbose_name="Секунды",
+        default=0,
+        help_text="Количество секунд"
+    )
+
+    def __str__(self):
+        return f"{self.days} дн. {self.hours} ч. {self.minutes} мин. {self.seconds} сек."
+
+    def total_seconds(self):
+        """Возвращает общее количество секунд для удобства использования."""
+        return self.days * 86400 + self.hours * 3600 + self.minutes * 60 + self.seconds
 
 class Likes_recipes(models.Model):
     pass
@@ -91,7 +119,7 @@ class Post_recipe(models.Model):
         Category,
         verbose_name='Категории блюда',
         related_name='recipes',
-        blank=True,
+        blank=False,
         help_text="Выберите категории, которые подходят для этого рецепта"
     )
 
@@ -99,7 +127,7 @@ class Post_recipe(models.Model):
         Cuisine,
         verbose_name="Кухни мира",
         related_name="recipes",
-        blank=True,
+        blank=False,
         help_text="Выберите кухни мира для этого рецепта"
     )
 
@@ -107,15 +135,13 @@ class Post_recipe(models.Model):
         DifficultyLevel,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True,
+        blank=False,
         verbose_name='Уровень сложности',
     )
 
     ingredients_list = models.TextField(
         max_length=1500,
         verbose_name='Ингредиенты',
-        blank=True,
-        null=True
     )
 
     steps = models.TextField(
@@ -123,11 +149,10 @@ class Post_recipe(models.Model):
         blank=False,
     )
 
-    cooking_time = models.IntegerField(
+    cooking_time = models.DurationField(
         verbose_name='Время приготовления блюда',
-        default=timedelta(minutes=30),
-        help_text='Напишите примерное время приготовления данного блюда(в минутах)',
-        validators=[MinValueValidator(0)]
+        default=timedelta(minutes=30),  
+        help_text='Напишите примерное время приготовления данного блюда (в днях, часах, минутах, секундах)',
     )
 
     dish_photo = models.ImageField(
@@ -147,23 +172,7 @@ class Post_recipe(models.Model):
     def change_register(self):
         return f"{self.name.capitalize()}"
 
-    def minutes_to_hours_to_days(self):
-        if isinstance(self.cooking_time, int):
-            if self.cooking_time >= 1440:
-                days = self.cooking_time // 1440
-                remaining_minutes = self.cooking_time % 1440
-                hours = remaining_minutes // 60
-                minutes = remaining_minutes % 60
-                return f'{days} дн. {hours} ч. {minutes} мин.'
-            elif self.cooking_time >= 60:
-                hours = self.cooking_time // 60
-                minutes = self.cooking_time % 60
-                return f"{hours} ч. {minutes} мин."
-            else:
-                return f"{self.cooking_time} мин."
-        else:
-            return "Некорректное время"
-
+    
     def save(self, *args, **kwargs):
         self.name = self.change_register()
 
@@ -186,12 +195,11 @@ class Post_recipe(models.Model):
         img = Image.open(image_path)
 
         enhancer_sharp = ImageEnhance.Sharpness(img)
-        img = enhancer_sharp.enhance(2.0)  # Увеличиваем резкость в 2 раза
+        img = enhancer_sharp.enhance(2.0)
 
         enhancer_contrast = ImageEnhance.Contrast(img)
-        img = enhancer_contrast.enhance(1.5)  # Увеличение контраста
+        img = enhancer_contrast.enhance(1.5)
 
-        # Применяем медианный фильтр для уменьшения шума
         img = img.filter(ImageFilter.MedianFilter(3))
 
         img.save(image_path)
@@ -257,8 +265,8 @@ class Reviews(models.Model):
         help_text="Оставьте ваши комментарии"
     )
 
-    objects = models.Manager()  # Менеджер, применяемый по умолчанию
-    review_manager = ReviewManager()  # Конкретно-прикладной менеджер для моих отзыв
+    objects = models.Manager()
+    review_manager = ReviewManager()
 
     class Meta:
         ordering = ["-created_at"]
@@ -319,7 +327,7 @@ class UserProfile(models.Model):
         Timezone,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True,
+        blank=False,
         verbose_name="Страна",
         help_text="Введите вашу страну"
     )
@@ -330,7 +338,7 @@ class UserProfile(models.Model):
         help_text="Ваш возраст",
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=False
     )
 
     description = models.TextField(
@@ -370,24 +378,20 @@ class TeamConnection(models.Model):
 
 
 # TODO: Добавить адаптивности верстки + подправить верстку в отзывах + в профиле написать для ответов пользователю окно сообщений
-# TODO: курс по html css глянуть перед собесом
+# TODO: Исправить кнопки регистрации + добавить в модальных окнах кнопки войти и регистрация, в профиле выход из аккаунта добавить
+# TODO: курс по html/css
 
 
 # TODO: Форма регистрации и аутентификации пользователей(Регистрация нового пользователя + статус админа в профиль (admin or user ), Вход в систему, Сброс пароля и изменение пароля)
-# TODO: Форма создания нового рецепта
-# TODO: Форма редактирования рецепта
-# TODO: Форма добавления отзыва
+# TODO: Форма редактирования рецепта + отзыва
 # TODO: Форма поиска и фильтрации рецептов
 # TODO: Форма личного профиля пользователя
-# TODO: Форма загрузки и редактирования фото для рецепта
 # TODO: Форма контактной обратной связи
 
 
-# TODO: вместо def НА КЛАССЫ В ВЬЮШКАХ
-
 # TODO: Доделать модель профиля
 # TODO: Модель связи с админами в contacts.html + обратная связь им
-# TODO: Изменить чтоб в бд стали поля обязательны некоторых которые не обязательны
+# TODO: Изменить чтоб часовые пояса автоматически подстраивались под выбранную страну
 # TODO: Модель своего аккаунта(Добавить папку избранное в профиле + Добавить возможность пользователям ставить друг другу "лайки" на рецепты или на отзывы)
 # TODO: Сделать расположение по алфовитному порядку в "Все рецепты" +  то есть юзер по букве может найти блюдо
 # TODO: Проработать библиотку с избежанием мат слов

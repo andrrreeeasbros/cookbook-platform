@@ -191,7 +191,6 @@ main.main {
 }
 
 
-/* Иконки социальных сетей */
 .social-icons {
   display: flex;
   gap: 35px;
@@ -214,7 +213,7 @@ main.main {
   filter: brightness(1.2);
 }
 
-/* Стили для категории */
+
 .category-card-container {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
@@ -264,7 +263,7 @@ main.main {
   border-radius: 5px;
   text-decoration: none;
   transition: background-color 0.3s;
-  margin-top: 10px !important; /* Уменьшили отступ сверху */
+  margin-top: 10px !important; 
 }
 
 .pagination a:hover {

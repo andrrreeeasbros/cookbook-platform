@@ -9,6 +9,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
     <link href="{% static 'css/menu/index.css' %}" rel="stylesheet" />
     <link href="{% static 'css/menu/style.css' %}" rel="stylesheet" />
@@ -89,7 +90,7 @@
 
 
       <div class="text-center">
-        <p>Нет аккаунта? <a href="#" id="showRegisterForm">Зарегистрироваться</a></p>
+        <p>Нет аккаунта? <a href="javascript:void(0);" id="showRegisterForm">Зарегистрироваться</a></p>
       </div>
     </div>
     <div class="modal-footer">
@@ -123,7 +124,7 @@
 
 
       <div class="text-center">
-        <p>Уже есть аккаунт? <a href="#" id="showLoginForm">Войти</a></p>
+        <p id="switchToLogin">Уже есть аккаунт? <a href="javascript:void(0);" id="showLoginForm">Войти</a></p>
       </div>
     </div>
     <div class="modal-footer">
@@ -132,7 +133,7 @@
   </div>
 </div>
 
-    
+
 
     <div class="logo-bar">
       <div class="left-section">
