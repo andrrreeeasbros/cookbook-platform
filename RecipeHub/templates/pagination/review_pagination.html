@@ -1,12 +1,12 @@
-  <div class="pagination">
-      <div>
+<div class="pagination">
+    <div>
         {% if reviews.has_previous %}
-          <a href="?review=1">&laquo; Первая страница</a>
-          <a href="?review={{ reviews.previous_page_number }}">Предыдущая страница</a>
+        <a href="?review=1">&laquo; Первая страница</a>
+        <a href="?review={{ reviews.previous_page_number }}">Предыдущая страница</a>
         {% endif %}
         {% if reviews.has_next %}
-          <a href="?review={{ reviews.next_page_number }}">Следующая страница</a>
-          <a href="?review={{ reviews.paginator.num_pages }}">Последняя страница &raquo;</a>
+        <a href="?review={{ reviews.next_page_number }}">Следующая страница</a>
+        <a href="?review={{ reviews.paginator.num_pages }}">Последняя страница &raquo;</a>
         {% endif %}
-      </div>
     </div>
+</div>

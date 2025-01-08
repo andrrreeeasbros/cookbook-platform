@@ -1,7 +1,9 @@
-from .models import Reviews
 from django import forms
 from .models import Post_recipe, Reviews, Category, Cuisine
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
 
 
 class PostRecipeForm(forms.ModelForm):
@@ -39,3 +41,7 @@ class PostReviewForm(forms.ModelForm):
         'grade': forms.Select(attrs={'class': 'form-control'}),
         'recipe': forms.Select(attrs={'class': 'form-control'}),
     }
+
+class UserLoginForm(AuthenticationForm):
+    class Meta:
+        model = User
