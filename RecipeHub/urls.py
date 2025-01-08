@@ -3,20 +3,18 @@ from django.conf.urls.static import static
 from django.conf import settings
 from .views import *
 
-
 app_name = 'RecipeHub'
 
 urlpatterns = [
-      path('recipe-details/<str:name>/', recipe_details, name='recipe-details'),  # используем name как строку
-    path('', main_template, name='main_template'), 
-    path('profile/', profile, name='profile'),
-    path('categories/', categories, name='categories'),
-    path('about_us/', about_us, name='about_us'),
-    path('best_recipes/', best_recipes, name='best_recipes'),
-    path('recipes/', recipes, name='recipes'),
-    path('reviews/', reviews, name='reviews'),
-    path('contacts/', contacts, name='contacts'),
-    path('recipe/<str:name>/', recipe_details, name='recipe_detail'),
-    path('register/', registration, name='registration'), 
-    path('authorization/', authorization, name='authorization')
+    path('', MainTemplateView.as_view(), name='main_template'),
+    path('Categories/', CategoriesView.as_view(), name='categories'),
+    path('Best Recipes/', BestRecipesView.as_view(), name='best_recipes'),
+    path('Recipes/', CreatePostRecipeAndListView.as_view(), name='recipes'),
+    path('Reviews/', ReviewsView.as_view(), name='reviews'),
+    path('Recipes/<str:name>/', RecipeDetailView.as_view(), name='recipe_detail'),
+    path('Categories/Cuisine/<int:pk>/', CuisineDetailView.as_view(), name='cuisine_detail'),
+    path('recipe-details/<str:name>/', RecipeDetailView.as_view(), name='recipe-details'),
+    path('Profile/', ProfileView.as_view(), name='profile'),
+    path('Categories/<str:category_name>/', CategoryRecipesView.as_view(), name='category_recipes'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

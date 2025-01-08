@@ -22,6 +22,7 @@ import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('RecipeHub.urls', namespace='RecipeHub')),
+    path('', include('django.contrib.auth.urls')),
 ]
 
 

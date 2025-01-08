@@ -1,141 +1,123 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="ru">
+  <!DOCTYPE html>
+  {% load static %}
+  <html lang="ru">
 
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="description" content="Описание вашего сайта">
-  <meta name="keywords" content="ключевые, слова, вашего, сайта">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
-  <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
-</head>
-<body class="index-page ">
-  <div class="background-image">
-    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
-  </div>
-  <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
-  <main class="main">
-    <h1 class="title">Рецепты</h1>
-    <a class="btn btn-add-recipe" href="">Добавить рецепт</a>
+  <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="Описание вашего сайта">
+    <meta name="keywords" content="ключевые, слова, вашего, сайта">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <link href="{% static 'css/menu/recipes.css' %}" rel="stylesheet">
+    <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
+  </head>
 
-    <div>
-      {% for recipe in recipes %}
-        <article class="recipe">
-          <h1 class="text-center">{{ recipe.name }}</h1>
-          {% if recipe.dish_photo %}
-            <div class="recipe-photo">
-              <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}">
+  <body class="index-page">
+    <div class="background-image">
+      <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image"> <!-- Фоновое изображение -->
+    </div>
+    <a href="{% url 'RecipeHub:main_template' %}" class="back-button">Вернуться назад</a>
+    <main class="main">
+      <h1 class="title">Все рецепты</h1>
+
+      <button class="btn-add-recipe" data-toggle="modal" data-target="#addRecipeModal">Добавить рецепт</button>
+
+      <div>
+        {% for recipe in recipes %}
+          <article class="recipe">
+            <h1 class="text-center">{{ recipe.name }}</h1>
+            {% if recipe.dish_photo %}
+              <div class="recipe-photo">
+                <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}">
+              </div>
+            {% else %}
+              <p class="no-photo">Фото не доступно</p>
+            {% endif %}
+            
+            <button class="btn-view-recipe" data-toggle="modal" data-target="#recipeModal" data-recipe-name="{{ recipe.name }}">Посмотреть рецепт</button>
+          </article>
+        {% endfor %}
+      </div>
+
+      {% block pagination %}
+        {% include "pagination/pagination.html" %}
+      {% endblock %}
+
+      {% block contact %}
+      {% include "line/contact.html" %}
+      {% endblock %}
+
+
+      <div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="addRecipeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addRecipeModalLabel">Добавить новый рецепт</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-          {% else %}
-            <p class="no-photo">Фото не доступно</p>
-          {% endif %}
-          
-          <button class="btn-view-recipe" data-toggle="modal" data-target="#recipeModal" data-recipe-name="{{ recipe.name }}">Посмотреть рецепт</button>
-        </article>
-      {% endfor %}
-    </div>
+            <div class="modal-body">
 
-    <div class="pagination">
-      <span class="step-links">
-        {% if recipes.has_previous %}
-          <a href="?page={{ recipes.previous_page_number }}">&laquo; Первая страница</a>
-          <a href="?page={{ recipes.previous_page_number }}">Предыдущая страница</a>
-        {% endif %}
-        <span class="current"></span>
-        {% if recipes.has_next %}
-          <a href="?page={{ recipes.next_page_number }}">Следующая страница</a>
-          <a href="?page={{ recipes.paginator.num_pages }}">Последняя страница &raquo;</a>
-        {% endif %}
-      </span>
-    </div>
-
-    <!-- Модальное окно -->
-    <div class="modal" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="recipeModalLabel">Рецепт</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="recipeContent">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+              <form method="POST" action="{% url 'RecipeHub:recipes' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+               {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Сохранить рецепт</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="logo-bar">
-      <div class="left-section">
-        <img src="{% static 'img/logo.png' %}" alt="Логотип">
-        <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
-        <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
-      </div>
-      <div class="social-icons">
-        <a href="https://facebook.com" target="_blank">
-          <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
-        </a>
-        <a href="https://instagram.com" target="_blank">
-          <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
-        </a>
-        <a href="https://vk.com" target="_blank">
-          <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
-        </a>
-      </div>
-    </div>
-  </main>
 
-  <!-- Используйте полную версию jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <script>
-    // Обработчик для открытия модального окна и загрузки данных рецепта
-    $('#recipeModal').on('show.bs.modal', function (event) {
-      const button = $(event.relatedTarget);
-      const recipeName = button.data('recipe-name');  // Используем имя рецепта
-  
-      // Делаем запрос на сервер для получения данных рецепта
-      fetch(`/recipe-details/${recipeName}/`)  // Путь к API для получения данных рецепта
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Ошибка запроса');
-          }
-          return response.json();
-        })
-        .then(data => {
-          if (data) {
-            const recipeContent = document.getElementById('recipeContent');
-            
-            // Создаем HTML содержимое для модального окна
-            recipeContent.innerHTML = `
-            <h1 class="text-center">${data.name}</h1>
-            <h5>Уровень сложности: ${data.level}</h5>
-            <ul>${data.world_cuisine_categories.map(cuisine => `<li>${cuisine}</li>`).join('')}</ul>
-            <h5>Ингредиенты:</h5>
-            <ul>${data.ingredients.map((ingredient, index) => `<li>${index + 1}. ${ingredient}</li>`).join('')}</ul>
-            <h5>Шаги приготовления:</h5>
-            <ol>${data.steps.map((step, index) => `<li>${index + 1}. ${step}</li>`).join('')}</ol>
-            <div class="cooking-time">
-              <h5>Время приготовления:</h5>
-              <span>${data.cooking_time} минут</span>
+      <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="recipeModalLabel">Рецепт</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-          `;
-          }
-        })
-        .catch(error => {
-          console.error('Ошибка при получении данных рецепта:', error);
-        });
-    });
-  </script>
+            <div class="modal-body" id="recipeContent">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-</body>
-</html>
+      <div class="logo-bar">
+        <div class="left-section">
+          <a href="{% url 'RecipeHub:main_template' %}">
+            <img src="{% static 'img/logo.png' %}" alt="Логотип">
+          </a>
+          <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
+          <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+        </div>
+        <div class="social-icons">
+          <a href="https://facebook.com" target="_blank">
+            <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
+          </a>
+          <a href="https://instagram.com" target="_blank">
+            <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
+          </a>
+          <a href="https://vk.com" target="_blank">
+            <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
+          </a>
+        </div>
+      </div>
+    </main>      
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'javascript/recipe.js' %}"></script>
+  </body>
+
+  </html>

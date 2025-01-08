@@ -1,0 +1,25 @@
+{% extends 'categories/category_details.html' %}
+
+{% block content %}
+  <h1 class="title">{{ category }}</h1>
+
+  <div>
+    {% for recipe in recipes %}
+      <article class="recipe">
+        <h1 class="text-center">{{ recipe.name }}</h1>
+
+        {% if recipe.dish_photo %}
+          <div class="recipe-photo">
+            <img src="{{ recipe.dish_photo.url }}" alt="{{ recipe.name }}" />
+          </div>
+        {% else %}
+          <p class="no-photo">Фото не доступно</p>
+        {% endif %}
+
+        <button class="btn-view-recipe" data-toggle="modal" data-target="#recipeModal" data-recipe-name="{{ recipe.name }}">Посмотреть рецепт</button>
+      </article>
+    {% empty %}
+
+    {% endfor %}
+  </div>
+{% endblock %}

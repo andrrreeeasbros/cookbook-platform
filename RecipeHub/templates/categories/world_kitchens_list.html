@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="Описание вашего сайта">
+  <meta name="keywords" content="ключевые, слова, вашего, сайта">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <link href="{% static 'css/menu/categories.css' %}" rel="stylesheet">
+  <link href="{% static 'css/kitchens/world_kitchens_list.css' %}" rel="stylesheet">
+  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">
+</head>
+
+<body class="index-page background-image">
+  <div class="background-image">
+    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
+  </div>
+  <a href="{% url 'RecipeHub:categories' %}" class="back-button">Вернуться назад</a>
+
+  <main class="main">
+    <section id="categories" class="categories">
+      <div class="container">
+        <div class="title-container">
+          <h1 class="title">Кухни мира</h1>
+        </div>
+        <div class="row justify-content-center">
+          {% for cuisine in cuisines %}
+          <div class="category-item text-center">
+            <div class="category-card-container">
+              <h3>{{ cuisine.name }}</h3>
+              <p>{{ cuisine.description }}</p>
+              <a href="{% url 'RecipeHub:cuisine_detail' cuisine.pk %}" class="btn btn-red">Посмотреть</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {% block pagination %}
+        {% include "pagination/coisine_pagination.html" %}
+    {% endblock %}
+
+    {% block contact %}
+    {% include "line/contact.html" %}
+    {% endblock %}
+
+    <div class="logo-bar">
+        <div class="left-section">
+          <img src="{% static 'img/logo.png' %}" alt="Логотип">
+          <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
+          <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
+        </div>
+        <div class="social-icons">
+          <a href="https://facebook.com" target="_blank">
+            <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
+          </a>
+          <a href="https://instagram.com" target="_blank">
+            <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
+          </a>
+          <a href="https://vk.com" target="_blank">
+            <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
+          </a>
+        </div>
+      </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

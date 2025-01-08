@@ -1,120 +1,137 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="description" content="Описание вашего сайта">
-  <meta name="keywords" content="ключевые, слова, вашего, сайта">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
-  <link href="{% static 'css/menu/index.css' %}" rel="stylesheet">
-  <link href="{% static 'css/menu/style.css' %}" rel="stylesheet">  
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Описание вашего сайта" />
+    <meta name="keywords" content="ключевые, слова, вашего, сайта" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link href="{% static 'css/menu/index.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/menu/style.css' %}" rel="stylesheet" />
+  </head>
 
-<body class="index-page">
-  <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image">
+  <body class="index-page">
+    <img src="{% static 'img/1.jpg' %}" alt="Фон" class="background-image" />
 
-  <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container d-flex flex-column align-items-center">
-      <h1 class="sitename fade-in-up">Платформа обмена рецептами</h1>
-      <nav id="navmenu" class="navmenu fade-in">
-        <ul class="d-flex flex-wrap justify-content-center">
-          <li class="mx-3"><a href="{% url 'RecipeHub:profile' %}">Мой профиль</a></li>
-          <li class="mx-3"><a href="{% url 'RecipeHub:recipes' %}">Рецепты</a></li>
-          <li class="mx-3"><a href="{% url 'RecipeHub:categories' %}">Категории</a></li>
-          <li class="mx-3"><a href="{% url 'RecipeHub:best_recipes' %}">Лучшие рецепты</a></li>
-          <li class="mx-3"><a href="{% url 'RecipeHub:reviews' %}">Отзывы</a></li>
-        </ul>
-      </nav>
-      <div class="image-container fade-in"></div>
+    <header id="header" class="header d-flex align-items-center sticky-top">
+      <div class="container d-flex flex-column align-items-center">
+        <h1 class="sitename fade-in-up">Платформа обмена рецептами</h1>
+        <nav id="navmenu" class="navmenu fade-in">
+          <ul class="d-flex flex-wrap justify-content-center">
+            <li class="mx-3">
+              <a href="{% url 'RecipeHub:profile' %}">Мой профиль</a>
+            </li>
+            <li class="mx-3">
+              <a href="{% url 'RecipeHub:recipes' %}">Рецепты</a>
+            </li>
+            <li class="mx-3">
+              <a href="{% url 'RecipeHub:categories' %}">Категории</a>
+            </li>
+            <li class="mx-3">
+              <a href="{% url 'RecipeHub:best_recipes' %}">Лучшие рецепты</a>
+            </li>
+            <li class="mx-3">
+              <a href="{% url 'RecipeHub:reviews' %}">Отзывы</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="image-container fade-in"></div>
+      </div>
+    </header>
+
+    <section class="about-site fade-in">
+      <div class="container">
+        <h2>О сайте</h2>
+        <p class="author-text fade-in">Автор сайта: Новик Андрей Иванович</p>
+        <p class="fade-in">Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными кулинарными творениями, а также узнать много нового о различных кухнях мира.</p>
+        <p class="fade-in">Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с другими. Мы также регулярно обновляем коллекцию рецептов, чтобы каждый нашел что-то для себя. Благодарим вас за посещение и надеемся, что вы найдете здесь что-то вкусное и полезное!</p>
+      </div>
+    </section>
+
+    <div>
+      {% block contact %}
+        {% include 'line/contact.html' %}
+      {% endblock %}
     </div>
-  </header>
 
-  <section class="about-site fade-in">
-    <div class="container">
-      <h2>О сайте</h2>
-      <p class="author-text fade-in">Автор сайта: Новик Андрей Иванович</p>
-      <p class="fade-in">
-        Добро пожаловать на наш сайт, который предназначен для обмена рецептами и создания сообщества
-        любителей кулинарии! Здесь вы можете найти рецепты на любой вкус, делиться своими собственными
-        кулинарными творениями, а также узнать много нового о различных кухнях мира.
-      </p>
-      <p class="fade-in">
-        Все рецепты проходят модерацию, и вы можете добавить свои собственные, чтобы поделиться с
-        другими. Мы также регулярно обновляем коллекцию рецептов, чтобы каждый нашел что-то для себя.
-        Благодарим вас за посещение и надеемся, что вы найдете здесь что-то вкусное и полезное!
-      </p>
+    <div class="auth-buttons">
+      <button id="openLoginModal" class="btn btn-login">Войти</button>
+      <button id="openRegisterModal" class="btn btn-register">Зарегистрироваться</button>
     </div>
-  </section>
 
-  <div>
-    <button id="openModalBtn">Регистрация</button>
-
-    <!-- Модальное окно -->
-    <div class="modal" id="modal">
+    <div id="loginModal" class="modal">
       <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <h2>Форма регистрации</h2>
-        <form method="POST" action="{% url 'RecipeHub:registration' %}">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-        </form>
+        <div class="modal-header">
+          <h2>Вход</h2>
+          <span class="close-btn" id="closeLoginModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm" action="" method="post">
+            {% csrf_token %}
+            <div class="auth-buttons">
+              <button type="submit" class="btn btn-login">Войти</button>
+            </div>
+          </form>
+
+          <div class="text-center">
+            <p>Нет аккаунта? <a href="javascript:void(0);" id="showRegisterForm">Зарегистрироваться</a></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="closeLoginModalFooter">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="registerModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Регистрация</h2>
+          <span class="close-btn" id="closeRegisterModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form method="post" id="registerForm" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="auth-buttons">
+              <button type="submit" class="btn btn-register">Зарегистрироваться</button>
+            </div>
+          </form>
+
+          <div class="text-center">
+            <p id="switchToLogin">Уже есть аккаунт? <a href="javascript:void(0);" id="showLoginForm">Войти</a></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="closeRegisterModalFooter">Закрыть</button>
+        </div>
       </div>
     </div>
 
     <div class="logo-bar">
       <div class="left-section">
-        <a href="{% url 'RecipeHub:main_template' %}">
-          <img src="{% static 'img/logo.png' %}" alt="Логотип">
-        </a>
-        <a href="{% url 'RecipeHub:contacts' %}" class="team-contact">Связь с командой</a>
+        <a href="{% url 'RecipeHub:main_template' %}"><img src="{% static 'img/logo.png' %}" alt="Логотип" /></a>
+        <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
         <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
       </div>
+
       <div class="social-icons">
-        <a href="https://facebook.com" target="_blank">
-          <img src="{% static 'img/facebook.svg' %}" alt="Facebook">
-        </a>
-        <a href="https://instagram.com" target="_blank">
-          <img src="{% static 'img/instagram.svg' %}" alt="Instagram">
-        </a>
-        <a href="https://vk.com" target="_blank">
-          <img src="{% static 'img/VK.svg' %}" alt="ВКонтакте">
-        </a>
+        <a href="https://facebook.com" target="_blank"><img src="{% static 'img/facebook.svg' %}" alt="Facebook" /></a>
+        <a href="https://instagram.com" target="_blank"><img src="{% static 'img/instagram.svg' %}" alt="Instagram" /></a>
+        <a href="https://vk.com" target="_blank"><img src="{% static 'img/VK.svg' %}" alt="ВКонтакте" /></a>
       </div>
     </div>
-  </div>
 
-  <script>
-    // Получаем элементы
-    const modal = document.getElementById("modal"); // Модальное окно
-    const openModalBtn = document.getElementById("openModalBtn"); // Кнопка открытия окна
-    const closeModal = document.getElementById("closeModal"); // Кнопка закрытия окна
-
-    // Открытие модального окна
-    openModalBtn.onclick = function() {
-      modal.style.display = "flex"; // Показываем модальное окно
-    };
-
-    // Закрытие модального окна
-    closeModal.onclick = function() {
-      modal.style.display = "none"; // Скрываем модальное окно
-    };
-
-    // Закрытие модального окна при клике вне окна
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.display = "none"; // Скрываем модальное окно при клике вне
-      }
-    };
-  </script>
-
-  <script src="{% static 'javascript/line.js' %}"></script>
-  <script src="{% static 'javascript/script.js' %}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+    <script src="{% static 'javascript/login-modal.js' %}"></script>
+    <script src="{% static 'javascript/register-modal.js' %}"></script>
+    <script src="{% static 'javascript/line.js' %}"></script>
+    <script src="{% static 'javascript/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>

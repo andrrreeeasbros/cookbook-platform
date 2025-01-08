@@ -5,16 +5,42 @@
     --default-color: #ffffff;
     --heading-color: #000;
     --background-color: rgba(0, 0, 0, 0.8);
-  } 
+}
 
 body.index-page {
     font-family: var(--default-font);
-    overflow-x: hidden;                   /* Отключаем горизонтальную прокрутку */
-    overflow-y: auto;                     /* Вертикальная прокрутка если контента слишком много */
-    padding-bottom: 100px; /* Отступ снизу, чтобы контент не перекрывался панелью */
-  }
-  
-  .btn-add-recipe {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 100px;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100%;
+
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 50px;
+
+    box-sizing: border-box;
+
+}
+
+
+.btn-add-recipe {
     background-color: #00BFFF;
     color: black;
     font-size: 1.5rem;
@@ -24,47 +50,26 @@ body.index-page {
     cursor: pointer;
     text-decoration: none;
     margin-bottom: 20px;
-  }
-  
-  .background-image {
+}
+
+.background-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    object-fit: cover; /* Подгоняет изображение по размеру */
-    z-index: -1; /* Фиксируем изображение в фоновом слое */
-  }
- 
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    object-fit: cover;
+
+    z-index: -1;
+
 }
 
- /* Основной контейнер */
- .main {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: flex-start;
-     min-height: 100%;
-     /* Вместо height: 100%, используем min-height */
-     color: white;
-     padding-top: 20px;
-     padding-bottom: 50px;
-     /* Добавляем отступ снизу, чтобы пагинация не сливалась */
-     box-sizing: border-box;
-     /* Учитываем отступы и рамки внутри контейнера */
- }
-
- .title {
+.title {
     font-family: 'Lora', sans-serif;
-    font-size: 2.5rem; /* Используем rem для гибкости */
+    font-size: 2.5rem;
+
     font-weight: bold;
-    color: rgb(245, 203, 167) !important; /* Персиковый цвет текста */
+    color: rgb(245, 203, 167) !important;
     text-align: center;
     margin: 0 20px 20px;
     line-height: 1.4;
@@ -74,19 +79,17 @@ body, html {
     box-shadow: none;
     border-radius: 15px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
- }
-
- /* Контейнер для отзывов, чтобы создать сетку 3x2 */
- .reviews-container {
-     display: grid;
-     grid-template-columns: repeat(3, 1fr);
-     grid-gap: 15px;
-     margin-top: 20px;
-     margin-bottom: 50px;
-     padding: 0 15px;
- }
+}
 
 
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding: 0 15px;
+}
 
 .reviews {
     background-color: #fff;
@@ -98,76 +101,145 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border-radius: 20px; /* Добавляем закругление углов */
+    border-radius: 20px;
 }
 
 
- /* Заголовок отзыва */
- .reviews h1 {
-    font-size: 2rem;
+.reviews {
+    font-family: 'Arial', sans-serif;
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 900px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.reviews h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
     color: #000;
-    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
     text-align: center;
-    margin: 20px 0;
+    margin: 15px 0;
     letter-spacing: 1px;
     text-transform: uppercase;
     border-radius: 15px;
     transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
-
-    /* Начальный эффект отсвечивания */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
 }
 
+/* Заголовок h2 */
+.reviews h2 {
+    font-weight: bold !important;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: #333;
+    text-shadow: none;
+    text-align: left;
+    margin: 15px 0;
+    padding-left: 15px;
+    border-left: 5px solid #4CAF50;
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+.reviews h2:hover {
+    color: #4CAF50;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    transform: translateX(10px);
+}
+
+.author {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 
 
- /* Стиль для списка комментариев (убираем нумерацию и уменьшаем отступы) */
- .reviews ul {
-     padding-left: 0;
-     /* Убираем отступы слева */
-     list-style-type: none;
-     /* Убираем нумерацию */
-     margin: 0;
-     /* Убираем отступы сверху и снизу */
- }
+.reviews h3 {
+    font-weight: bold !important;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: #333;
+    text-transform: capitalize;
+    margin: 15px 0;
+    padding-left: 15px;
+    border-left: 5px solid #FF6347;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
 
- /* Стиль для каждого комментария */
- .reviews ul li {
-     font-size: 1.2rem;
-     /* Оставляем размер текста */
-     color: #333;
-     margin-bottom: 4px;
-     /* Уменьшаем отступы между комментариями */
-     line-height: 1.4;
-     /* Меньше межстрочного интервала */
-     text-align: left;
-     /* Выравниваем текст по левому краю */
- }
 
- /* Стиль для текста "Фото не доступно" */
- .reviews p {
-     color: #888;
-     font-size: 1.3rem;
-     /* Оставляем размер текста */
-     margin: 5px 0;
-     /* Убираем большие отступы сверху и снизу */
- }
+.reviews h3:hover {
+    color: #FF6347;
+    transform: scale(1.05);
+}
 
- /* Увеличиваем размер шрифта в отзывах */
- .reviews h3,
- .reviews h4,
- .reviews h5,
- .reviews h6 {
-     font-size: 1.5rem;
-     /* Оставляем размер шрифта */
-     color: #333;
-     margin-top: 5px;
-     margin-bottom: 5px;
-     /* Уменьшаем отступы между заголовками */
- }
 
-/* Стиль для кнопки возврата */
+.reviews h4 {
+    font-size: 1.6rem !important;
+    font-weight: 400;
+    color: #777;
+    text-align: left;
+    margin: 15px 0;
+    font-style: normal;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+}
+
+.reviews h4:hover {
+    color: #888;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+
+.reviews ul {
+    padding-left: 0;
+
+    list-style-type: none;
+
+    margin: 0;
+}
+
+
+.reviews ul li {
+    font-size: 1.2rem;
+
+    color: #333;
+    margin-bottom: 4px;
+
+    line-height: 1.4;
+
+    text-align: left;
+
+}
+
+
+.reviews p {
+    color: #888;
+    font-size: 1.3rem;
+
+    margin: 5px 0;
+
+}
+
+
+.reviews h3,
+.reviews h4,
+.reviews h5,
+.reviews h6 {
+    font-size: 1.5rem;
+
+    color: #333;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+
 .back-button {
     position: absolute;
     top: 20px;
@@ -180,116 +252,133 @@ body, html {
     border-radius: 5px;
     cursor: pointer;
     text-decoration: none;
-    /* Убираем подчеркивание */
+
     transition: transform 0.3s ease, color 0.3s ease;
-    /* Плавный переход для цвета текста */
+
 }
 
 .back-button {
     text-decoration: none;
-    /* Убираем подчеркивание */
+
 }
 
 .back-button:hover {
     text-decoration: none;
-    /* Убираем подчеркивание при наведении */
+
 }
 
-/* Эффект при наведении на кнопку возврата */
+
 .back-button:hover {
     color: black;
-    /* Текст становится черным при наведении */
+
     transform: translateY(-5px);
-    /* Подпрыгивание */
+
 }
 
- .back-button:hover {
-     background-color: darkred;
- }
+.back-button:hover {
+    background-color: darkred;
+}
 
 
-/* Кнопка "Добавить отзыв" с черной обводкой */
+
 .btn-add-recipe {
-    background-color: #00BFFF !important; /* Голубой фон */
-    color: black; /* Черный текст */
-    font-size: 1.5rem; /* Размер шрифта */
-    padding: 10px 20px; /* Отступы */
-    border: 2px solid black; /* Черная обводка */
-    border-radius: 5px; /* Скругленные углы */
-    cursor: pointer; /* Курсор-указатель */
-    text-decoration: none; /* Убираем подчеркивание */
-    margin-bottom: 20px; /* Отступ снизу */
-    display: inline-block; /* Чтобы кнопка была в одной строке */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавный переход для фона и анимация при наведении */
+    background-color: #00BFFF !important;
+
+    color: black;
+
+    font-size: 1.5rem;
+
+    padding: 10px 20px;
+
+    border: 2px solid black;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    margin-bottom: 20px;
+
+    display: inline-block;
+
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
 }
 
-/* Эффект при наведении на кнопку "Добавить отзыв" */
+
 .btn-add-recipe:hover {
-    background-color: #008CBA; /* Темно-голубой цвет при наведении */
-    transform: translateY(-5px); /* Легкое подпрыгивание при наведении */
-    border-color: #005f73; /* Меняем цвет границы при наведении */
+    background-color: #008CBA;
+
+    transform: translateY(-5px);
+
+    border-color: #005f73;
+
 }
 
-/* Убираем подчеркивание на активные состояния кнопки */
+
 .btn-add-recipe:focus,
 .btn-add-recipe:active {
     text-decoration: none;
 }
 
 
- /* Стиль для пагинации */
- .pagination {
-     display: flex;
-     justify-content: center;
-     margin-top: 30px;
-     /* Отступ сверху для пагинации */
-     margin-bottom: 50px;
-     /* Дополнительный отступ снизу, чтобы она не сливалась с футером */
-     width: 100%;
-     padding-top: 30px;
-     /* Дополнительный отступ сверху для кнопок */
- }
 
- .pagination .step-links {
-     display: flex;
-     align-items: center;
- }
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
 
- .pagination a {
-     padding: 10px 20px;
-     margin: 0 5px;
-     background-color: #007bff;
-     color: white;
-     font-size: 1.2rem;
-     border-radius: 5px;
-     text-decoration: none;
-     transition: background-color 0.3s;
- }
+    margin-bottom: 50px;
 
- .pagination a:hover {
-     background-color: #0056b3;
- }
+    width: 100%;
+    padding-top: 30px;
 
- .pagination .current {
-     text-align: center;
-     font-size: 1.2rem;
-     color: black;
- }
+}
 
- .pagination .step-links a:disabled {
-     background-color: #ccc;
-     cursor: not-allowed;
- }
+.pagination .step-links {
+    display: flex;
+    align-items: center;
+}
 
- main.main {
-    padding-bottom: 0; /* Убираем отступ снизу */
-    margin-bottom: 150px; /* Отступ для места под лого */
+.pagination a {
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #0056b3;
+}
+
+.pagination .current {
+    text-align: center;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.pagination .step-links a:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+main.main {
+    padding-bottom: 0;
+
+    margin-bottom: 150px;
+
     flex-grow: 1;
-    height: calc(100vh - 150px); /* Высота контента фиксированная, учитывая панель с лого */
-    overflow: hidden; /* Убираем прокрутку */
-  }
-  
-  .logo-bar {
+    height: calc(100vh - 150px);
+
+    overflow: hidden;
+}
+
+.logo-bar {
     background: rgba(255, 255, 255, 0.9);
     padding: 20px 0;
     position: fixed;
@@ -303,10 +392,10 @@ body, html {
     padding-right: 50px;
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
     z-index: 10;
-  }
+}
 
 body {
-    padding-bottom: 80px; /* Добавляем отступ снизу, чтобы контент не перекрывался полоской */
+    padding-bottom: 80px;
 }
 
 .logo-bar .left-section {
@@ -372,9 +461,11 @@ body {
     0% {
         transform: scale(1.1);
     }
+
     50% {
         transform: scale(1.3);
     }
+
     100% {
         transform: scale(1.1);
     }
@@ -383,10 +474,130 @@ body {
 
 @media (max-width: 768px) {
 
-    /* Для мобильных устройств уменьшаем колонки до 1 */
+
     .reviews-container {
         grid-template-columns: 1fr;
-        /* 1 колонка на маленьких экранах */
+
     }
 }
 
+
+.modal-dialog {
+    max-width: 800px;
+
+    width: 90%;
+
+    margin: 30px auto;
+
+}
+
+.modal-content {
+    background-color: #f8f8f8;
+    border: 2px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: 2px solid #ddd;
+}
+
+.modal-title {
+    font-family: 'Lora', serif;
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body {
+    font-family: 'Roboto', sans-serif;
+    color: #555;
+    font-size: 1.1em;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.modal-footer {
+    background-color: #f8f8f8;
+    border-top: 2px solid #ddd;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #ddd;
+    border-color: #ccc;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #b30000;
+    border-color: #990000;
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    color: #333;
+}
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: 'Roboto', sans-serif;
+}
+
+.modal-body .btn {
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.modal-body button[type="submit"] {
+    margin-top: 15px;
+}
+
+.modal-body h1,
+.modal-body h2,
+.modal-body h3,
+.modal-body h4,
+.modal-body h5 {
+    font-size: 2.2em;
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.modal-body p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+.modal-body ul,
+.modal-body ol {
+    padding-left: 20px;
+    list-style-type: none;
+    margin-left: 0;
+}
+
+.modal-body ul li,
+.modal-body ol li {
+    font-size: 1em;
+    color: #444;
+    margin-bottom: 10px;
+}

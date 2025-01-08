@@ -1,0 +1,73 @@
+[
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 1,
+      "fields": {
+        "name": "Очень лёгкий"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 2,
+      "fields": {
+        "name": "Лёгкий"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 3,
+      "fields": {
+        "name": "Средний"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 4,
+      "fields": {
+        "name": "Немного сложный"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 5,
+      "fields": {
+        "name": "Сложный"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 6,
+      "fields": {
+        "name": "Очень сложный"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 7,
+      "fields": {
+        "name": "Эксперт"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 8,
+      "fields": {
+        "name": "Мастер"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 9,
+      "fields": {
+        "name": "Виртуоз"
+      }
+    },
+    {
+      "model": "RecipeHub.difficultylevel",
+      "pk": 10,
+      "fields": {
+        "name": "Гениальный"
+      }
+    }
+  ]
+  

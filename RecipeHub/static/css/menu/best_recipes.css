@@ -1,3 +1,22 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -11,32 +30,21 @@
 body.index-page {
   font-family: var(--default-font);
   overflow-x: hidden;
-  /* Отключаем горизонтальную прокрутку */
   overflow-y: auto;
-  /* Вертикальная прокрутка если контента слишком много */
   padding-bottom: 100px;
-  /* Отступ снизу, чтобы контент не перекрывался панелью */
 }
 
 .background-image {
   position: fixed;
-  /* Фиксируем изображение */
   top: 0;
   left: 0;
   width: 100%;
-  /* Ширина на весь экран */
   height: 100%;
-  /* Высота на весь экран */
   background-image: url("{% static 'img/1.jpg' %}");
-  /* Указываем путь к изображению */
   background-position: center;
-  /* Центрируем изображение */
   background-size: cover;
-  /* Растягиваем изображение, сохраняя пропорции */
   background-repeat: no-repeat;
-  /* Запрещаем повторение изображения */
   z-index: -1;
-  /* Ставим фон позади содержимого */
 }
 
 .title {
@@ -45,9 +53,7 @@ body.index-page {
   font-weight: bold;
   color: rgb(245, 203, 167) !important;
   text-align: center;
-  /* выравнивание текста по центру */
   margin: 20px auto;
-  /* автоматические отступы для центрирования контейнера */
   line-height: 1.4;
   letter-spacing: 0.5px;
   background: rgba(0, 0, 0, 0.8);
@@ -59,49 +65,31 @@ body.index-page {
   width: fit-content;
 }
 
-
-/* Кнопка возврата */
 .btn {
   background-color: #ffffff;
-  /* Белый фон */
   color: #000000;
-  /* Черный текст */
   border: 2px solid #000000;
-  /* Черная граница */
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  /* Плавные переходы */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-  /* Черный отсвет */
 }
 
-/* Эффект при наведении на кнопки */
 .btn:hover {
   transform: translateY(-5px);
-  /* Двигаем кнопку вверх */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  /* Легкий отсвет при наведении */
 }
 
-/* Стиль для кнопки "Посмотреть" (красная) */
 .btn-red {
   background-color: red;
-  /* Красный фон */
   color: #ffffff;
-  /* Белый текст */
   border-color: #dc3545;
-  /* Красная граница */
 }
 
 .btn-red:hover {
   background-color: red;
-  /* Темно-красный при наведении */
   border-color: red;
-  /* Темно-красная граница при наведении */
   transform: translateY(-5px);
-  /* Двигаем кнопку вверх */
 }
 
-/* Стиль для кнопки возврата */
 .back-button {
   position: absolute;
   top: 20px;
@@ -114,39 +102,21 @@ body.index-page {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  /* Убираем подчеркивание */
   transition: transform 0.3s ease, color 0.3s ease;
-  /* Плавный переход для цвета текста */
-}
-
-.back-button {
-  text-decoration: none;
-  /* Убираем подчеркивание */
 }
 
 .back-button:hover {
   text-decoration: none;
-  /* Убираем подчеркивание при наведении */
-}
-
-/* Эффект при наведении на кнопку возврата */
-.back-button:hover {
   color: black;
-  /* Текст становится черным при наведении */
   transform: translateY(-5px);
-  /* Подпрыгивание */
 }
 
 .recipe-btn-wrapper {
   position: absolute;
   bottom: 10px;
-  /* Отступ снизу, кнопка будет располагаться 20px от нижней границы */
   right: 20px;
-  /* Отступ справа */
   border-radius: 10px;
-  /* Закругление контейнера */
   overflow: hidden;
-  /* Скрывает лишние части, если кнопка выходит за пределы контейнера */
 }
 
 .btn-view-recipe {
@@ -162,27 +132,21 @@ body.index-page {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
   margin-top: 100px;
-  /* Увеличьте значение, чтобы кнопка была еще ниже */
 }
 
-/* Эффект при наведении на кнопку */
 .btn-view-recipe:hover {
   background-color: rgba(0, 191, 255, 1);
   transform: translateY(-5px);
   color: black;
-  /* Устанавливаем черный цвет текста при наведении */
   text-decoration: none;
 }
 
-/* Убираем подчеркивание при наведении, фокусе и активации */
 .btn-view-recipe:hover,
 .btn-view-recipe:focus,
 .btn-view-recipe:active {
   text-decoration: none;
 }
 
-
-/* Кнопка "Добавить рецепт" */
 .btn-add-recipe {
   background-color: #00BFFF;
   color: black;
@@ -208,32 +172,25 @@ body.index-page {
 
 .recipe {
   background-color: #f8f8f8;
-  /* Светло-серый фон */
   border: 2px solid #ddd;
   padding: 20px;
   margin-bottom: 20px;
   width: 100%;
   max-width: 800px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* Более выраженная тень */
   position: relative;
   border-radius: 10px;
-  /* Закругленные углы для мягкости */
 }
 
 .recipe h1 {
   font-family: 'Lora', serif;
-  font-size: 2.2em;
-  /* Увеличиваем размер заголовка */
+  font-size: 2.5em;
   font-weight: 700;
-  /* Жирное начертание для выделения */
   color: #333;
-  /* Темно-серый цвет для контраста */
   margin-bottom: 10px;
-  /* Отступ снизу */
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  /* Легкая тень для улучшения читаемости */
 }
+
 
 
 .recipe h3,
@@ -241,45 +198,30 @@ h4,
 h5 {
   font-family: 'Lora', serif;
   font-size: 1.5em;
-  /* Увеличиваем размер заголовка */
   font-weight: 700;
-  /* Жирное начертание для выделения */
   color: #333;
-  /* Темно-серый цвет для контраста */
   margin-bottom: 10px;
-  /* Отступ снизу */
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  /* Легкая тень для улучшения читаемости */
 }
 
 .recipe time {
   font-family: 'Lora', serif;
   font-size: 1.3em;
-  /* Увеличиваем размер заголовка */
   font-weight: 700;
-  /* Жирное начертание для выделения */
   color: #333;
-  /* Темно-серый цвет для контраста */
   margin-bottom: 10px;
-  /* Отступ снизу */
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  /* Легкая тень для улучшения читаемости */
 }
 
 .recipe p {
   font-family: 'Roboto', sans-serif;
-  /* Легкий шрифт для основного текста */
   font-size: 1.1em;
   color: #555;
-  /* Текст чуть светлее для читаемости */
   line-height: 1.6;
-  /* Увеличиваем межстрочный интервал */
   text-align: justify;
   margin-bottom: 20px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-  /* Легкая тень */
 }
-
 
 .recipe ul,
 .recipe ol {
@@ -295,7 +237,6 @@ h5 {
   margin-left: -15px;
 }
 
-
 .recipe ul li,
 .recipe ol li {
   font-size: 1em;
@@ -303,16 +244,13 @@ h5 {
   margin-bottom: 10px;
 }
 
-/* Изображения рецептов */
 .recipe-photo img {
   width: 100%;
   height: auto;
   border-radius: 5px;
   object-fit: cover;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* Легкая тень на фото */
 }
-
 
 .pagination {
   display: flex;
@@ -372,12 +310,9 @@ h5 {
 
 .logo-bar {
   background: rgba(255, 255, 255, 0.9);
-  /* Полупрозрачный фон */
   padding: 20px 0;
   position: relative;
-  /* Оставляем relative */
   bottom: 0;
-  /* Это свойство не нужно, если меняем только отступы */
   left: 0;
   width: 100%;
   display: flex;
@@ -386,15 +321,8 @@ h5 {
   padding-left: 20px;
   padding-right: 50px;
   box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  /* Тень */
   z-index: 10;
-  margin-top: 50px;
-  /* Отступ сверху, чтобы полоска была ниже */
-}
-
-body {
-  padding-bottom: 80px;
-  /* Добавляем отступ снизу, чтобы контент не перекрывался полоской */
+  margin-top: auto;
 }
 
 .logo-bar .left-section {
@@ -409,17 +337,17 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
-.team-contact {
+.logo-bar .team-contact {
   font-size: 1.3rem;
   color: #808080;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.team-contact:hover {
-  color: black;
-  text-decoration: none;
+.logo-bar .team-contact:hover {
+  color: #333;
 }
+
 
 .social-icons {
   display: flex;
@@ -431,11 +359,6 @@ body {
   display: inline-block;
 }
 
-.social-icons img:hover {
-  transform: scale(1.2);
-  filter: brightness(1.2);
-}
-
 .social-icons img {
   width: 30px;
   height: auto;
@@ -443,18 +366,10 @@ body {
   cursor: pointer;
 }
 
-.social-icons img[src*="facebook"] {
-  width: 30px;
+.social-icons img:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
 }
-
-.social-icons img[src*="instagram"] {
-  width: 30px;
-}
-
-.social-icons img[src*="VK"] {
-  width: 30px;
-}
-
 
 @keyframes pulse {
   0% {
@@ -470,118 +385,96 @@ body {
   }
 }
 
-
 @media (max-width: 768px) {
-
-  /* Для мобильных устройств уменьшаем колонки до 1 */
   .reviews-container {
     grid-template-columns: 1fr;
-    /* 1 колонка на маленьких экранах */
   }
 }
 
-/* Контейнер страницы */
 body.index-page {
   font-family: var(--default-font);
   overflow-x: hidden;
-  /* Отключаем горизонтальную прокрутку */
   overflow-y: auto;
-  /* Вертикальная прокрутка, если контента слишком много */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* Растягиваем body на всю высоту экрана */
   padding-bottom: 0px;
-  /* Отступ снизу, чтобы контент не перекрывался панелью */
 }
 
-/* Основной контейнер с контентом */
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   flex-grow: 1;
-  /* Этот блок растягивается на все доступное пространство */
   color: white;
   padding-top: 20px;
 }
 
-/* Контейнер с рецептами */
 .recipe-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
   flex-grow: 1;
-  /* Контейнер рецептов растягивает блок */
 }
 
-/* Если на странице нет рецептов, добавляем пространство */
 body.index-page.empty-recipes .main {
   flex-grow: 0;
-  /* Не растягиваем контейнер */
 }
 
-/* Полоска внизу */
-.logo-bar {
-  background: rgba(255, 255, 255, 0.9);
-  /* Полупрозрачный фон */
-  padding: 20px 0;
-  position: relative;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 20px;
-  padding-right: 50px;
-  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  /* Тень */
-  z-index: 10;
-  margin-top: 50px;
-  /* Отступ сверху, чтобы полоска была ниже */
-}
-
-/* Если на странице нет рецептов, фиксируем полоску внизу */
 body.index-page.empty-recipes .logo-bar {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   background: transparent;
-  /* Прозрачный фон */
   box-shadow: none;
-  /* Убираем тень */
 }
 
-/* Стиль для рецептов */
 .recipe {
   background-color: #f8f8f8;
-  /* Светло-серый фон */
   border: 2px solid #ddd;
   padding: 20px;
   margin-bottom: 20px;
   width: 100%;
   max-width: 800px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* Более выраженная тень */
   position: relative;
   border-radius: 10px;
-  /* Закругленные углы для мягкости */
 }
 
-/* Убедитесь, что контейнер с рецептами растягивается */
 .recipe-container {
   flex-grow: 1;
 }
 
-/* Вставьте медиа-запросы, если нужно для мобильных устройств */
 @media (max-width: 768px) {
-
-  /* Мобильный режим, адаптация */
   .reviews-container {
     grid-template-columns: 1fr;
-    /* 1 колонка на маленьких экранах */
   }
+}
+
+.recipe-rating {
+  text-align: right;
+  margin-bottom: 8px;
+}
+
+.recipe-rating .rating-label {
+  font-family: 'Lora', serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-rating .rating-value {
+  font-family: 'Lora', serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #FFBF00;
+  background-color: rgba(255, 191, 0, 0.1);
+  padding: 2px 5px;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(255, 191, 0, 0.4);
 }
