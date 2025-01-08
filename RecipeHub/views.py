@@ -4,10 +4,9 @@ from django.views import View
 from django.views.generic import TemplateView, ListView
 from django.core.paginator import Paginator, EmptyPage
 from django.http import JsonResponse
-from django.contrib import messages
 from .models import Post_recipe, Reviews, Cuisine, Category, UserProfile
 from .forms import PostRecipeForm, PostReviewForm
-
+from django.contrib import messages
 
 
 class MainTemplateView(TemplateView):
@@ -36,8 +35,8 @@ class CategoriesView(ListView):
 
 
 class CreatePostRecipeAndListView(View):
-    def get(self, request):
-        form = PostRecipeForm()
+    @staticmethod
+    def get_paginated_recipes(request):
         recipes = Post_recipe.objects.all()
         paginator = Paginator(recipes, 2)
         page_number = request.GET.get('page')
@@ -45,6 +44,11 @@ class CreatePostRecipeAndListView(View):
             recipes_page = paginator.get_page(page_number)
         except EmptyPage:
             recipes_page = paginator.get_page(1)
+        return recipes_page
+
+    def get(self, request):
+        form = PostRecipeForm()
+        recipes_page = self.get_paginated_recipes(request)
         return render(request, 'menu/recipes.html', {'form': form, 'recipes': recipes_page})
 
     def post(self, request):
@@ -53,18 +57,13 @@ class CreatePostRecipeAndListView(View):
             form.save()
             messages.success(request, "Рецепт успешно добавлен!")
             return redirect('RecipeHub:recipes')
-        recipes = Post_recipe.objects.all()
-        paginator = Paginator(recipes, 2)
-        page_number = request.GET.get('page')
-        try:
-            recipes_page = paginator.get_page(page_number)
-        except EmptyPage:
-            recipes_page = paginator.get_page(1)
+        recipes_page = self.get_paginated_recipes(request)
         return render(request, 'menu/recipes.html', {'form': form, 'recipes': recipes_page})
 
 
 class ProfileView(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         profile = None
         if request.user.is_authenticated:
             try:
@@ -123,7 +122,8 @@ def format_duration(duration):
 
 
 class RecipeDetailView(View):
-    def get(self, request, name):
+    @staticmethod
+    def get(request, name):
         try:
             recipe = Post_recipe.objects.get(name=name)
         except Post_recipe.DoesNotExist:
@@ -160,7 +160,8 @@ class RecipeDetailView(View):
 
 
 class ReviewsView(View):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         reviews = Reviews.objects.all()
         paginator = Paginator(reviews, 3)
         page_number = request.GET.get('review', 1)
@@ -172,7 +173,8 @@ class ReviewsView(View):
         form = PostReviewForm()
         return render(request, 'menu/reviews.html', {'reviews': reviews_page, 'form': form})
 
-    def post(self, request):
+    @staticmethod
+    def post(request):
         form = PostReviewForm(request.POST)
         if form.is_valid():
             form.save()
@@ -209,7 +211,8 @@ class CategoryRecipesView(View):
 
 
 class CuisineDetailView(View):
-    def get(self, request, pk, cuisine_name=None):
+    @staticmethod
+    def get(request, pk, cuisine_name=None):
         cuisine = get_object_or_404(Cuisine, pk=pk)
 
         if cuisine_name:

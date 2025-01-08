@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 from django.urls import reverse
-from PIL import Image, ImageEnhance, ImageFilter
+from PIL import ImageEnhance, ImageFilter
 from django.core.validators import MinValueValidator, MaxValueValidator
 from PIL import Image
 from django.contrib.auth.models import User
@@ -75,36 +75,7 @@ class Ingredient(models.Model):
     def __str__(self):
         return f"{self.name}"
 
-class CookingTime(models.Model):
-    days = models.PositiveIntegerField(
-        verbose_name="Дни",
-        default=0,
-        help_text="Количество дней, если время превышает один день"
-    )
-    hours = models.PositiveIntegerField(
-        verbose_name="Часы",
-        default=0,
-        help_text="Количество часов"
-    )
-    minutes = models.PositiveIntegerField(
-        verbose_name="Минуты",
-        default=0,
-        help_text="Количество минут"
-    )
-    seconds = models.PositiveIntegerField(
-        verbose_name="Секунды",
-        default=0,
-        help_text="Количество секунд"
-    )
-
-    def __str__(self):
-        return f"{self.days} дн. {self.hours} ч. {self.minutes} мин. {self.seconds} сек."
-
-    def total_seconds(self):
-        """Возвращает общее количество секунд для удобства использования."""
-        return self.days * 86400 + self.hours * 3600 + self.minutes * 60 + self.seconds
-
-class Likes_recipes(models.Model):
+class RecipeLikes(models.Model):
     pass
 
 
@@ -230,7 +201,7 @@ class Comments(models.Model):
     pass
 
 
-class Likes_reviews(models.Model):
+class ReviewLikes(models.Model):
     pass
 
 
@@ -382,7 +353,7 @@ class TeamConnection(models.Model):
 # TODO: курс по html/css
 
 
-# TODO: Форма регистрации и аутентификации пользователей(Регистрация нового пользователя + статус админа в профиль (admin or user ), Вход в систему, Сброс пароля и изменение пароля)
+# TODO: Форма регистрации,аутентификации и выхода из аккаунта пользователей(Регистрация нового пользователя + статус админа в профиль (admin or user ), Вход в систему, Сброс пароля и изменение пароля)
 # TODO: Форма редактирования рецепта + отзыва
 # TODO: Форма поиска и фильтрации рецептов
 # TODO: Форма личного профиля пользователя
@@ -393,7 +364,7 @@ class TeamConnection(models.Model):
 # TODO: Модель связи с админами в contacts.html + обратная связь им
 # TODO: Изменить чтоб часовые пояса автоматически подстраивались под выбранную страну
 # TODO: Модель своего аккаунта(Добавить папку избранное в профиле + Добавить возможность пользователям ставить друг другу "лайки" на рецепты или на отзывы)
-# TODO: Сделать расположение по алфовитному порядку в "Все рецепты" +  то есть юзер по букве может найти блюдо
-# TODO: Проработать библиотку с избежанием мат слов
+# TODO: Сделать расположение по алфавитному порядку в "Все рецепты" +  то есть юзер по букве может найти блюдо
+# TODO: Проработать библиотеку с избежанием мат слов
 # TODO: ОСТАВИТЬ КОММЕНТАРИИ НА ОТЗЫВ
 # TODO: Добавить рандомный рецепт + поиск рецептов

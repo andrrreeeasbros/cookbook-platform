@@ -57,97 +57,76 @@
       {% block contact %}
         {% include 'line/contact.html' %}
       {% endblock %}
-
-      <div class="auth-buttons">
-        <button id="openLoginModal" class="btn btn-login">Войти</button>
-        <button id="openRegisterModal" class="btn btn-register">Зарегистрироваться</button>
-      </div>
-
-
-
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>Вход</h2>
-      <span class="close-btn" id="closeLoginModal">&times;</span>
     </div>
-    <div class="modal-body">
 
-      <form id="loginForm" action="" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="username">Логин</label>
-          <input type="text" class="form-control" id="username" name="username" required />
-        </div>
-        <div class="form-group">
-          <label for="password">Пароль</label>
-          <input type="password" class="form-control" id="password" name="password" required />
-        </div>
-        <div class="auth-buttons">
-          <button type="submit" class="btn btn-login">Войти</button>
-        </div>
-      </form>
+    <div class="auth-buttons">
+      <button id="openLoginModal" class="btn btn-login">Войти</button>
+      <button id="openRegisterModal" class="btn btn-register">Зарегистрироваться</button>
+    </div>
 
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Вход</h2>
+          <span class="close-btn" id="closeLoginModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm" action="" method="post">
+            {% csrf_token %}
+            <div class="auth-buttons">
+              <button type="submit" class="btn btn-login">Войти</button>
+            </div>
+          </form>
 
-      <div class="text-center">
-        <p>Нет аккаунта? <a href="javascript:void(0);" id="showRegisterForm">Зарегистрироваться</a></p>
+          <div class="text-center">
+            <p>Нет аккаунта? <a href="javascript:void(0);" id="showRegisterForm">Зарегистрироваться</a></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="closeLoginModalFooter">Закрыть</button>
+        </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" id="closeLoginModalFooter">Закрыть</button>
-    </div>
-  </div>
-</div>
 
-
-<div id="registerModal" class="modal" style="display: none;">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2>Регистрация</h2>
-      <span class="close-btn" id="closeRegisterModal">&times;</span>
-    </div>
-    <div class="modal-body">
-      <form id="registerForm" action="" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="newUsername">Логин</label>
-          <input type="text" class="form-control" id="newUsername" name="username" required />
+    <div id="registerModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Регистрация</h2>
+          <span class="close-btn" id="closeRegisterModal">&times;</span>
         </div>
-        <div class="form-group">
-          <label for="newPassword">Пароль</label>
-          <input type="password" class="form-control" id="newPassword" name="password" required />
-        </div>
-        <div class="auth-buttons">
-          <button type="submit" class="btn btn-register">Зарегистрироваться</button>
-        </div>
-      </form>
+        <div class="modal-body">
+          <form method="post" id="registerForm" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="auth-buttons">
+              <button type="submit" class="btn btn-register">Зарегистрироваться</button>
+            </div>
+          </form>
 
-
-      <div class="text-center">
-        <p id="switchToLogin">Уже есть аккаунт? <a href="javascript:void(0);" id="showLoginForm">Войти</a></p>
+          <div class="text-center">
+            <p id="switchToLogin">Уже есть аккаунт? <a href="javascript:void(0);" id="showLoginForm">Войти</a></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="closeRegisterModalFooter">Закрыть</button>
+        </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" id="closeRegisterModalFooter">Закрыть</button>
-    </div>
-  </div>
-</div>
-
-
 
     <div class="logo-bar">
       <div class="left-section">
         <a href="{% url 'RecipeHub:main_template' %}"><img src="{% static 'img/logo.png' %}" alt="Логотип" /></a>
-
         <a href="#" id="openContactModal" class="team-contact">Связаться с командой</a>
         <a href="https://t.me/yourbot" target="_blank" class="team-contact">Напишите нам в Telegram</a>
       </div>
+
       <div class="social-icons">
         <a href="https://facebook.com" target="_blank"><img src="{% static 'img/facebook.svg' %}" alt="Facebook" /></a>
         <a href="https://instagram.com" target="_blank"><img src="{% static 'img/instagram.svg' %}" alt="Instagram" /></a>
         <a href="https://vk.com" target="_blank"><img src="{% static 'img/VK.svg' %}" alt="ВКонтакте" /></a>
       </div>
     </div>
+
     <script src="{% static 'javascript/login-modal.js' %}"></script>
     <script src="{% static 'javascript/register-modal.js' %}"></script>
     <script src="{% static 'javascript/line.js' %}"></script>
