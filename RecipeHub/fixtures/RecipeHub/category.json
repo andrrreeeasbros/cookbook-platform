@@ -1,4 +1,72 @@
 [
+<<<<<<< HEAD
+    {
+      "model": "RecipeHub.category",
+      "pk": 1,
+      "fields": {
+        "name": "Вегетарианское блюдо",
+        "description": "Блюда, не содержащие мяса."
+      }
+    },
+    {
+      "model": "RecipeHub.category",
+      "pk": 2,
+      "fields": {
+        "name": "Еда быстрого приготовления",
+        "description": "Рецепты, которые можно приготовить за короткое время."
+      }
+    },
+    {
+      "model": "RecipeHub.category",
+      "pk": 3,
+      "fields": {
+        "name": "Десерт",
+        "description": "Сладкие блюда, которые подаются после основного блюда."
+      }
+    },
+    {
+      "model": "RecipeHub.category",
+      "pk": 4,
+      "fields": {
+        "name": "Веганское",
+        "description": "Блюда, не содержащие продуктов животного происхождения."
+      }
+    },
+    {
+      "model": "RecipeHub.category",
+      "pk": 5,
+      "fields": {
+        "name": "Напитки",
+        "description": "Рецепты для приготовления напитков."
+      }
+    },
+    {
+      "model": "RecipeHub.category",
+      "pk": 6,
+      "fields": {
+        "name": "Завтрак",
+        "description": "Блюда, предназначенные для утреннего приема пищи."
+      }
+    },
+    {
+      "model": "RecipeHub.category",
+      "pk": 7,
+      "fields": {
+        "name": "Обед",
+        "description": "Основной прием пищи, обычно в середине дня."
+      }
+    },
+    {
+      "model": "RecipeHub.category",
+      "pk": 8,
+      "fields": {
+        "name": "Ужин",
+        "description": "Последний прием пищи в течение дня."
+      }
+    }
+  ]
+  
+=======
   {
     "model": "RecipeHub.category",
     "pk": 1,
@@ -144,3 +212,4 @@
     }
   }
 ]
+>>>>>>> line
