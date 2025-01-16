@@ -20,11 +20,13 @@ from django.conf import settings
 import debug_toolbar
 
 urlpatterns = [
+    # Django admin
     path('admin/', admin.site.urls),
-    path('', include('RecipeHub.urls', namespace='RecipeHub')),
-    path('', include('django.contrib.auth.urls')),
+    # User management
+    path('accounts/', include('django.contrib.auth.urls')),
+    # Local app
+    path('', include('RecipeHub.urls', namespace='RecipeHub'))
 ]
-
 
 if settings.DEBUG:
     urlpatterns += [
