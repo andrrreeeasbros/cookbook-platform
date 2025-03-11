@@ -144,7 +144,24 @@ class RecipeDetailView(View):
                 'step_description': step
             })
 
+<<<<<<< HEAD
         formatted_cooking_time = format_duration(recipe.cooking_time)
+=======
+    data = {
+        'name': recipe.name,
+        'categories': categories_list,
+        # Если нет уровня, возвращаем None
+        'level': recipe.level.name if recipe.level else None,
+        'ingredients': ingredients_list,
+        'steps': steps_data,  # Отправляем обработанные шаги
+        'cooking_time': recipe.minutes_to_hours_to_days(),
+        'dish_photo': recipe.dish_photo.url if recipe.dish_photo else None,  
+        'dish_photo': recipe.dish_photo.url if recipe.dish_photo else None,
+<<<<<<< HEAD
+    
+=======
+    }
+>>>>>>> c6cce7d5e1361f52a983e823b927c5b9c05d7998
 
         data = {
             'name': recipe.name,
@@ -156,7 +173,12 @@ class RecipeDetailView(View):
             'dish_photo': recipe.dish_photo.url if recipe.dish_photo else None,
         }
 
+<<<<<<< HEAD
         return JsonResponse(data)
+=======
+>>>>>>> line
+    return JsonResponse(data)
+>>>>>>> c6cce7d5e1361f52a983e823b927c5b9c05d7998
 
 
 class ReviewsView(View):
